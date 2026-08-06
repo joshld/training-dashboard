@@ -1,0 +1,264 @@
+# Training Log Roadmap
+
+_Last updated: 6 August 2026_
+
+This document is the living source of truth for product direction, priorities and implementation status. Every meaningful feature decision should be reflected here as it is proposed, started, completed, deferred or changed.
+
+## Product vision
+
+Build a privacy-conscious hybrid training platform that combines running, strength, soccer and other activities with planning, activity analysis, nutrition guidance and coaching.
+
+The user remains in control. The system may recommend changes, explain trade-offs and offer one-click actions, but it must not silently overwrite the training plan or force automatic rescheduling.
+
+## Design principles
+
+- **User control:** recommendations are optional and explainable.
+- **Hybrid training:** running, strength, soccer and other activities share one calendar and activity history.
+- **Privacy first:** sensitive health, bodyweight and athlete-profile information must not be published by default.
+- **Markdown source of truth:** human-maintained plans, activities, coaching notes and roadmap documents live in Markdown.
+- **Generated dashboard data:** JSON under `docs/` is a build artefact for the public web UI, not the authoritative record.
+- **Progressive enhancement:** the dashboard remains useful when external integrations are unavailable.
+- **Realistic coaching:** training pace, volume and workout selection must be grounded in current ability, goal, timeframe and available training days.
+
+## Current release state
+
+### Completed
+
+- [x] GitHub Pages dashboard
+- [x] Plan, Activities, Performance, Recovery, Nutrition and Coach sections
+- [x] Public/private content separation started
+- [x] FIT, TCX and GPX import preview foundation
+- [x] Browser-local activity import
+- [x] Duplicate detection for browser-local imports
+- [x] Imported activity detail view
+- [x] Initial mobile responsive pass
+- [x] Strength, running, recovery and coaching Markdown logs
+
+### In progress
+
+#### Markdown-first data architecture — High priority
+
+- [x] Establish Markdown as the intended source of truth
+- [x] Document architecture and migration rules
+- [ ] Move current plan content out of `docs/data.json`
+- [ ] Store individual activities as dated Markdown files
+- [ ] Add a build script that generates sanitised dashboard JSON
+- [ ] Validate generated public data against an explicit allowlist
+- [ ] Stop manually editing generated JSON once the build pipeline is active
+
+#### Garmin import — High priority
+
+- [x] Import page
+- [x] TCX and GPX parsing
+- [x] FIT parsing foundation
+- [x] Activity preview
+- [x] Browser-local save
+- [x] Activity details
+- [ ] Improve FIT compatibility and error reporting
+- [ ] Add pace, heart-rate and cadence charts
+- [ ] Add richer interval detection
+- [ ] Export an activity Markdown record
+- [ ] Persist imports to the repository or a private backend
+- [ ] Automatic Garmin synchronisation
+
+#### Mobile experience — High priority
+
+- [x] Basic responsive layout
+- [x] Mobile bottom navigation foundation
+- [ ] Complete mobile-first dashboard redesign
+- [ ] Improve calendar and plan views on narrow screens
+- [ ] Improve activity details and tables on phones
+- [ ] Test common Android and iPhone viewport sizes
+- [ ] Add installable PWA support
+
+## Near-term roadmap
+
+### Activity records
+
+- Create one dated Markdown record per completed session.
+- Support running, strength, soccer, mobility, cycling and other activities.
+- Keep raw Garmin files private where practical.
+- Generate public summaries without route coordinates or sensitive notes.
+- Add edit, delete and duplicate-management workflows.
+
+### Strength and gym module
+
+- Dedicated Gym page
+- Push, pull, legs and custom session categories
+- Sets, reps, load, RPE and duration
+- Exercise history and volume trends
+- Muscle-group coverage
+- Planned sessions that move to Activities when completed
+
+### Running analysis
+
+- Weekly and monthly distance
+- Long-run progression
+- Tempo and threshold trends
+- Interval execution
+- Easy pace versus heart rate
+- Lap and workout comparison
+- Shoe-distance tracking
+
+### Weekly review
+
+- Running, strength, soccer and recovery summary
+- Consistency and workload review
+- Coach observations
+- Lessons learned
+- Recommendations for the following week
+
+## Training engine
+
+### Workout library
+
+Create a broad library of sessions organised by purpose and phase.
+
+#### Easy and aerobic
+
+- Recovery run
+- Easy run
+- Easy run with strides
+- Steady aerobic run
+- Aerobic progression
+
+#### Long runs
+
+- Easy long run
+- Progressive long run
+- Fast-finish long run
+- Marathon-pace finish
+- Marathon-pace blocks
+- Alternating steady and marathon pace
+- Long run with tempo blocks
+- Long run with controlled surges
+
+#### Threshold and tempo
+
+- Continuous tempo
+- Cruise intervals
+- Broken tempo
+- Tempo ladder
+- Progressive tempo
+- Threshold kilometres or miles
+
+#### VO2 max and intervals
+
+- 200 m, 400 m, 600 m and 800 m repetitions
+- 1 km and 1200 m repetitions
+- Mile repeats
+- Mixed-distance intervals
+- Controlled sharpening sessions
+
+#### Hills and fartlek
+
+- Short hill sprints
+- Long hill repeats
+- Uphill threshold
+- Hill fartlek
+- One-minute on/off
+- Pyramids
+- Mixed fartlek
+
+#### Race-specific and taper
+
+- 5 km, 10 km, half-marathon and marathon-specific workouts
+- Race simulations
+- Tune-up sessions
+- Taper sessions that retain intensity while reducing volume
+
+Each workout template should define purpose, suitable training phase, target intensity, duration or distance range, recovery rules, progression constraints and contraindications.
+
+### Pace engine
+
+Inputs:
+
+- Current fitness from recent races and completed workouts
+- Goal event and target time
+- Training history
+- Heat, terrain and fatigue context
+- Available training days and weekly load
+
+Outputs:
+
+- Recovery pace
+- Easy pace
+- Steady pace
+- Marathon pace
+- Threshold pace
+- VO2-max interval pace
+- Repetition pace
+
+Paces must be ranges rather than false-precision single numbers. The engine should distinguish a pace ceiling from a target and should avoid prescribing goal pace that is unsupported by current fitness.
+
+### Plan generator
+
+Inputs:
+
+- Goal event and date
+- Goal time or completion goal
+- Current fitness
+- Available days and maximum weekly time
+- Preferred long-run day
+- Strength schedule
+- Soccer and other sport commitments
+- Travel, holidays and unavailable dates
+- Injury and recovery constraints kept private
+
+Outputs:
+
+- Periodised plan with aerobic, development, race-specific and taper phases
+- Appropriate workout variety
+- Realistic volume progression
+- Recovery placement around gym and soccer
+- Clear purpose and pacing for every session
+
+### Adaptive coach
+
+- Review completed activities and subjective feedback
+- Detect missed or altered sessions
+- Suggest changes without applying them automatically
+- Explain the reason and expected trade-off
+- Provide **Apply** and **Keep original** actions
+- Learn how the athlete responds to different workouts and weekly structures
+
+## Longer-term roadmap
+
+- Official Garmin Connect Developer Program integration if approved
+- Private local Garmin sync service as a fallback
+- Two-way workout delivery to compatible devices
+- Fitness, fatigue and readiness modelling
+- Race prediction with uncertainty ranges
+- Weather- and heat-aware pacing
+- Nutrition and race-fuelling planner
+- Season planning across multiple goals
+- Goal and personal-record history
+- Searchable activity library
+- Private authentication and multi-device synchronisation
+- Optional private coach sharing
+
+## Ideas backlog
+
+- Training-load heatmap
+- Route recommendations
+- Heat acclimation tracking
+- Shoe lifecycle tracking
+- Strength-running interference analysis
+- Soccer load estimates
+- Mobility and rehabilitation tracking
+- Grocery and meal-planning support
+- Achievement timeline
+- Import from other platforms
+
+## Maintenance rule
+
+Update this document whenever:
+
+- a feature is agreed upon;
+- implementation starts or finishes;
+- priority changes;
+- a design or privacy decision changes;
+- a feature is deliberately deferred or rejected;
+- architecture changes affect future work.
+
+`CHANGELOG.md` records what changed. `ARCHITECTURE.md` records how it works. This roadmap records where the project is going.
