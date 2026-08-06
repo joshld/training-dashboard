@@ -9,6 +9,10 @@ on:
       - 'scripts/build-dashboard-data.mjs'
       - 'scripts/build-workout-library.mjs'
       - 'scripts/build-nutrition-guidance.mjs'
+      - 'scripts/pipeline-validation.mjs'
+      - 'test/**/*.mjs'
+      - 'test/fixtures/**/*.md'
+      - 'package.json'
       - '.github/workflows/build-dashboard-data.yml'
   push:
     branches: [main]
@@ -19,6 +23,10 @@ on:
       - 'scripts/build-dashboard-data.mjs'
       - 'scripts/build-workout-library.mjs'
       - 'scripts/build-nutrition-guidance.mjs'
+      - 'scripts/pipeline-validation.mjs'
+      - 'test/**/*.mjs'
+      - 'test/fixtures/**/*.md'
+      - 'package.json'
       - '.github/workflows/build-dashboard-data.yml'
   workflow_dispatch:
 
@@ -38,6 +46,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+
+      - name: Test Markdown pipeline schemas and privacy
+        run: node --test test/pipeline.test.mjs
 
       - name: Generate sanitised dashboard data
         run: node scripts/build-dashboard-data.mjs
