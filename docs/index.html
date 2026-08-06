@@ -9,12 +9,14 @@
   <link rel="stylesheet" href="styles.css?v=2.4.0">
   <link rel="stylesheet" href="report.css?v=1.0.0">
   <link rel="stylesheet" href="activity-details.css?v=1.0.0">
-  <link rel="stylesheet" href="plan-suggestions.css?v=1.0.0">
+  <link rel="stylesheet" href="plan-suggestions.css?v=1.1.0">
+  <link rel="stylesheet" href="what-if.css?v=1.0.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   <script src="app.js?v=2.5.0" defer></script>
   <script src="generated-overlay.js?v=1.0.0" defer></script>
   <script src="activity-details.js?v=1.0.0" defer></script>
   <script src="plan-suggestions.js?v=1.0.0" defer></script>
+  <script src="what-if.js?v=1.0.0" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -57,6 +59,12 @@
 
         <section class="tab-panel" id="tab-plan">
           <div class="section-heading"><div><p class="eyebrow">Schedule</p><h2>Training Plan</h2><p>Completed sessions, upcoming workouts and optional coach recommendations in one place.</p></div></div>
+          <article class="panel what-if-panel" id="whatIfPanel">
+            <div class="what-if-heading"><div><p class="eyebrow">Training simulator</p><h2>What If?</h2><p>Explore a change without altering the active plan.</p></div><span class="suggestion-count">Simulation only</span></div>
+            <form id="whatIfForm" class="what-if-form"><input id="whatIfInput" type="text" autocomplete="off" placeholder="What if I skip Friday, move the long run, or add soccer?"><button type="submit">Simulate</button></form>
+            <div class="what-if-prompts"><button type="button" data-what-if-prompt="What if I skip Friday?">Skip Friday</button><button type="button" data-what-if-prompt="What if I move the long run to Sunday?">Move long run</button><button type="button" data-what-if-prompt="What if I shorten the long run to 22 km?">Shorten long run</button><button type="button" data-what-if-prompt="What if I add soccer on Sunday?">Add soccer</button><button type="button" data-what-if-prompt="What if I add a strength session on Friday?">Add strength</button></div>
+            <div id="whatIfResult" class="wi-result" hidden></div>
+          </article>
           <article class="panel plan-suggestions" id="planSuggestions">
             <div class="suggestions-heading"><div><p class="eyebrow">Coach review</p><h2>Suggested plan changes</h2><p>Review the trade-offs before deciding. Suggestions never change the Markdown plan automatically.</p></div><span class="suggestion-count" id="planSuggestionCount">Loading</span></div>
             <div class="suggestions-list" id="planSuggestionsList"><p class="suggestions-empty">Loading plan suggestions…</p></div>
