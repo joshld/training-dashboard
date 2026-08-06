@@ -11,6 +11,9 @@ const ACTIVITY_DIR = path.join(ROOT, 'activities', 'records');
 const OUTPUT_PATH = path.join(ROOT, 'docs', 'generated-data.json');
 
 function parseFrontMatter(markdown, filePath) {
+  // Repository Markdown may be checked out with either LF or CRLF endings.
+  // Normalise before parsing so valid front matter is not rejected on Windows.
+  markdown = markdown.replace(/\r\n?/g, '\n');
   if (!markdown.startsWith('---\n')) throw new Error(`${filePath}: missing YAML-style front matter`);
   const end = markdown.indexOf('\n---\n', 4);
   if (end < 0) throw new Error(`${filePath}: unterminated front matter`);
