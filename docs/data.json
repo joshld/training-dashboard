@@ -1,0 +1,45 @@
+{
+  "updated": "2026-08-06",
+  "status": "Training normally; lower back improving",
+  "metrics": [
+    {"label":"Weekly running","value":"—","note":"Add completed sessions"},
+    {"label":"Strength sessions","value":"1","note":"Current week"},
+    {"label":"Bodyweight","value":"92 kg","note":"Approximate current"},
+    {"label":"Back discomfort","value":"0–1/10","note":"Monitor after loading"}
+  ],
+  "weeklyDistance": {
+    "labels": ["W-5","W-4","W-3","W-2","W-1","Current"],
+    "values": [null,null,null,null,null,11.18]
+  },
+  "latestSession": {
+    "title": "Over/under tempo + lower body strength",
+    "type": "Combined hard day",
+    "details": [
+      {"label":"Run distance","value":"11.18 km"},
+      {"label":"Quality block","value":"4 km"},
+      {"label":"Tempo splits","value":"4:35 / 4:18 / 4:33 / 4:18"},
+      {"label":"Average HR","value":"142 bpm"},
+      {"label":"Run RPE","value":"Comfortably hard"},
+      {"label":"Back response","value":"No pain reported"}
+    ]
+  },
+  "strength": [
+    {"exercise":"Bodyweight squat","load":"Bodyweight","work":"3 × 24"},
+    {"exercise":"Single-leg leg extension","load":"25 kg","work":"Up to 3 sets; stopped for pad pressure"},
+    {"exercise":"Single-leg hamstring curl","load":"10 kg","work":"3 sets"},
+    {"exercise":"Glute bridge","load":"70–90 kg","work":"Final set 90 kg × 12"},
+    {"exercise":"Standing calf raise","load":"Bodyweight","work":"3 × 20–25"},
+    {"exercise":"Step-up","load":"Bodyweight","work":"3 × 10 each leg, slow eccentric"}
+  ],
+  "coachFocus": [
+    "Build marathon-specific endurance while preserving strength.",
+    "Keep hard running and lower-body lifting on the same day when recovery allows.",
+    "Reintroduce loaded squats gradually after the recent lower-back tweak.",
+    "Track bilateral fatigue and technique on slow step-ups without assuming weakness from one session.",
+    "Prioritise carbohydrates and sleep after combined quality-run and gym days."
+  ],
+  "sessions": [
+    {"date":"2026-08-05","activity":"Running","summary":"11.18 km over/under tempo; target execution within roughly 3 seconds per km.","rpe":"7/10"},
+    {"date":"2026-08-05","activity":"Strength","summary":"Back-friendly lower body session; glute bridges to 90 kg and slow bodyweight step-ups.","rpe":"7–8/10"}
+  ]
+}
