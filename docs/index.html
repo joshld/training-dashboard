@@ -6,7 +6,7 @@
   <meta name="description" content="Personal dashboard for training, recovery and performance">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Training Log</title>
-  <link rel="stylesheet" href="styles.css?v=2.1.0">
+  <link rel="stylesheet" href="styles.css?v=2.2.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   <script src="app.js?v=2.1.0" defer></script>
 </head>
@@ -22,6 +22,7 @@
         <button class="nav-item" data-tab="recovery"><span>♡</span>Recovery</button>
         <button class="nav-item" data-tab="coach"><span>✦</span>Coach</button>
       </nav>
+      <a class="sidebar-coach-link" href="https://chatgpt.com/" target="_blank" rel="noreferrer"><span>✦</span><span><strong>Open Coach</strong><small>Continue in ChatGPT</small></span></a>
       <div class="sidebar-status"><span class="status-dot"></span><div><small>Current status</small><strong id="status">Loading</strong></div></div>
     </aside>
 
@@ -78,7 +79,17 @@
         </section>
 
         <section class="tab-panel" id="tab-recovery"><article class="panel document" id="recoveryContent"></article></section>
-        <section class="tab-panel" id="tab-coach"><article class="panel document" id="coachContent"></article></section>
+        <section class="tab-panel" id="tab-coach">
+          <article class="panel coach-launch">
+            <div>
+              <p class="eyebrow">Private coaching conversation</p>
+              <h2>Continue with your coach</h2>
+              <p>Open ChatGPT to ask about today’s workout, recovery, pacing, nutrition, or changes to the training plan. The conversation remains in your ChatGPT account rather than on this public dashboard.</p>
+            </div>
+            <a class="primary-link" href="https://chatgpt.com/" target="_blank" rel="noreferrer">Open Coach ↗</a>
+          </article>
+          <article class="panel document" id="coachContent"></article>
+        </section>
       </main>
       <footer>Training data and coaching notes are maintained in the private repository.</footer>
     </div>
