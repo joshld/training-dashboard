@@ -51,7 +51,6 @@ async function loadDashboard(){
     renderDocument('runningContent',data.tabs.running);
     renderDocument('strengthContent',data.tabs.strength);
     renderDocument('recoveryContent',data.tabs.recovery);
-    renderDocument('athleteContent',data.tabs.athlete);
     renderDocument('coachContent',data.tabs.coach);
 
     const ctx=document.getElementById('distanceChart');
