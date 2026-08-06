@@ -6,9 +6,9 @@
   <meta name="description" content="Personal dashboard for training, recovery and performance">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Training Log</title>
-  <link rel="stylesheet" href="styles.css?v=2.2.0">
+  <link rel="stylesheet" href="styles.css?v=2.3.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
-  <script src="app.js?v=2.1.0" defer></script>
+  <script src="app.js?v=2.3.0" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -22,7 +22,6 @@
         <button class="nav-item" data-tab="recovery"><span>♡</span>Recovery</button>
         <button class="nav-item" data-tab="coach"><span>✦</span>Coach</button>
       </nav>
-      <a class="sidebar-coach-link" href="https://chatgpt.com/" target="_blank" rel="noreferrer"><span>✦</span><span><strong>Open Coach</strong><small>Continue in ChatGPT</small></span></a>
       <div class="sidebar-status"><span class="status-dot"></span><div><small>Current status</small><strong id="status">Loading</strong></div></div>
     </aside>
 
@@ -51,6 +50,13 @@
           <section class="grid two">
             <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">Performance</p><h2>Weekly distance</h2></div></div><div id="distanceChartFallback" class="chart-fallback" hidden>Chart unavailable</div><canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas></article>
             <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Coach</p><h2>Current focus</h2></div></div><ul id="coachFocus" class="focus-list"></ul></article>
+          </section>
+          <section class="panel workout-report">
+            <div class="panel-heading"><div><p class="eyebrow">Workout report</p><h2 id="reportTitle">Latest quality session</h2></div><span class="score-badge" id="reportScore">—</span></div>
+            <div class="report-layout">
+              <div class="report-summary" id="reportSummary"></div>
+              <div class="rep-grid" id="reportReps"></div>
+            </div>
           </section>
           <section class="panel"><div class="panel-heading"><div><p class="eyebrow">Recent activity</p><h2>Latest sessions</h2></div></div><div class="activity-cards" id="dashboardActivities"></div></section>
         </section>
@@ -81,12 +87,15 @@
         <section class="tab-panel" id="tab-recovery"><article class="panel document" id="recoveryContent"></article></section>
         <section class="tab-panel" id="tab-coach">
           <article class="panel coach-launch">
-            <div>
-              <p class="eyebrow">Private coaching conversation</p>
-              <h2>Continue with your coach</h2>
-              <p>Open ChatGPT to ask about today’s workout, recovery, pacing, nutrition, or changes to the training plan. The conversation remains in your ChatGPT account rather than on this public dashboard.</p>
+            <div class="coach-launch-copy">
+              <span class="coach-icon">✦</span>
+              <div>
+                <p class="eyebrow">Private coaching conversation</p>
+                <h2>Continue with your coach</h2>
+                <p>Ask about today’s workout, recovery, pacing, nutrition, or changes to the training plan. Your conversation stays in your ChatGPT account.</p>
+              </div>
             </div>
-            <a class="primary-link" href="https://chatgpt.com/" target="_blank" rel="noreferrer">Open Coach ↗</a>
+            <a class="primary-link" href="https://chatgpt.com/" target="_blank" rel="noreferrer">Open Coach <span>↗</span></a>
           </article>
           <article class="panel document" id="coachContent"></article>
         </section>
