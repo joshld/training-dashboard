@@ -1,10 +1,10 @@
 # Training Log Roadmap
 
-_Last updated: 6 August 2026_
+_Last updated: 7 August 2026_
 
 This document is the living source of truth for product direction, priorities and implementation status. Every meaningful feature decision should be reflected here as it is proposed, started, completed, deferred or changed.
 
-See the [documentation hub](docs/README.md) for the architecture, design-system, AI-coach, workout-library, nutrition and implementation contracts that support this roadmap.
+See the [documentation hub](docs/README.md) for the architecture, design-system, AI-coach, activity-analysis, workout-library, nutrition and implementation contracts that support this roadmap.
 
 ## Product vision
 
@@ -26,7 +26,7 @@ The user remains in control. The system may recommend changes, explain trade-off
 
 ### Highest-priority unfinished work
 
-The highest-priority unfinished feature is completing the Markdown-first migration: move the remaining dashboard sections out of legacy `docs/data.json` and `docs/nutrition.json`, add schema/privacy tests, and retire manual editing of those payloads. This remains the foundation for reliable coaching, workout-library and nutrition features.
+The highest-priority unfinished feature is completing the Markdown-first migration: move the remaining dashboard sections out of legacy `docs/data.json` and `docs/nutrition.json`, add schema/privacy tests, and retire manual editing of those payloads. This remains the foundation for reliable coaching, workout-library, nutrition and activity-analysis features.
 
 ### Completed
 
@@ -55,7 +55,7 @@ The highest-priority unfinished feature is completing the Markdown-first migrati
 - [x] Add schema tests for malformed Markdown and private-field leakage
 - [ ] Stop manually editing legacy JSON once all dashboard sections are generated
 
-#### Garmin import — High priority
+#### Garmin import and activity analysis — High priority
 
 - [x] Import page
 - [x] TCX and GPX parsing
@@ -63,8 +63,12 @@ The highest-priority unfinished feature is completing the Markdown-first migrati
 - [x] Activity preview
 - [x] Browser-local save
 - [x] Activity details
+- [ ] Confirm all useful FIT metrics decoded by current parser
+- [ ] Preserve richer imported FIT activity data for analysis
 - [ ] Improve FIT compatibility and error reporting
 - [ ] Add pace, heart-rate and cadence charts
+- [ ] Add lap-level running dynamics
+- [ ] Add running-dynamics summary and trends
 - [ ] Add richer interval detection
 - [ ] Export an activity Markdown record
 - [ ] Persist imports to the repository or a private backend
@@ -76,7 +80,7 @@ The highest-priority unfinished feature is completing the Markdown-first migrati
 - [x] Mobile bottom navigation foundation
 - [ ] Complete mobile-first dashboard redesign
 - [ ] Improve calendar and plan views on narrow screens
-- [ ] Improve activity details and tables on phones
+- [ ] Improve activity details, lap cards and charts on phones
 - [ ] Test common Android and iPhone viewport sizes
 - [ ] Add installable PWA support
 
@@ -130,7 +134,7 @@ Safety and control rules:
 - Prefer conservative recommendations when activity or recovery data is incomplete.
 - Allow the user to modify the proposed scenario before applying it.
 
-Longer-term, personalise simulations using completed Garmin activities, subjective RPE, recovery patterns, heat response, workout history and previous suggestion decisions.
+Longer-term, personalise simulations using completed Garmin activities, subjective RPE, recovery patterns, heat response, workout history, running dynamics and previous suggestion decisions.
 
 ### Activity records
 
@@ -139,6 +143,28 @@ Longer-term, personalise simulations using completed Garmin activities, subjecti
 - Keep raw Garmin files private where practical.
 - Generate public summaries without route coordinates or sensitive notes.
 - Add edit, delete and duplicate-management workflows.
+
+### Activity analysis
+
+See [`docs/ACTIVITY-ANALYSIS.md`](docs/ACTIVITY-ANALYSIS.md) for the detailed contract.
+
+Activity detail pages should eventually expose:
+
+- Overview — summary, training effect, HR, pace, calories, temperature and coach observations.
+- Laps — responsive lap cards or tables with pace, HR, cadence and running dynamics.
+- Charts — pace, heart rate, cadence, elevation, temperature and running-dynamics overlays.
+- Running Dynamics — cadence, stride length, ground contact time, GCT balance, vertical oscillation and vertical ratio.
+- Coach Analysis — explainable observations using the evidence from the activity.
+
+Historical activity analysis should support:
+
+- pace at similar heart rate;
+- heart rate at similar pace;
+- cadence, stride-length and ground-contact-time trends;
+- vertical oscillation and vertical-ratio trends;
+- heat-adjusted performance;
+- long-run and marathon-pace efficiency;
+- comparison against similar-distance runs and rolling baselines.
 
 ### Strength and gym module
 
@@ -236,6 +262,7 @@ Inputs:
 - Goal event and target time
 - Training history
 - Heat, terrain and fatigue context
+- Activity-analysis trends such as pace/heart-rate relationship and running dynamics
 - Available training days and weekly load
 
 Outputs:
@@ -279,7 +306,7 @@ Outputs:
 - Suggest changes without applying them automatically
 - Explain the reason and expected trade-off
 - Provide **Apply** and **Keep original** actions
-- Learn how the athlete responds to different workouts and weekly structures
+- Learn how the athlete responds to different workouts, activity-analysis trends and weekly structures
 
 ## Longer-term roadmap
 
