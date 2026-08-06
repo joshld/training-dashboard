@@ -19,7 +19,6 @@ The user remains in control. The system may recommend changes, explain trade-off
 - **Generated dashboard data:** JSON under `docs/` is a build artefact for the public web UI, not the authoritative record.
 - **Progressive enhancement:** the dashboard remains useful when external integrations are unavailable.
 - **Realistic coaching:** training pace, volume and workout selection must be grounded in current ability, goal, timeframe and available training days.
-- **Transparent simulation:** proposed plan changes should be previewed and compared before anything is applied.
 
 ## Current release state
 
@@ -41,11 +40,14 @@ The user remains in control. The system may recommend changes, explain trade-off
 
 - [x] Establish Markdown as the intended source of truth
 - [x] Document architecture and migration rules
-- [ ] Move current plan content out of `docs/data.json`
-- [ ] Store individual activities as dated Markdown files
-- [ ] Add a build script that generates sanitised dashboard JSON
-- [ ] Validate generated public data against an explicit allowlist
-- [ ] Stop manually editing generated JSON once the build pipeline is active
+- [x] Add a zero-dependency Markdown-to-JSON generator
+- [x] Add an allowlisted public plan source in `plans/current-plan.md`
+- [x] Add dated Markdown activity records
+- [x] Add GitHub Actions validation and generation workflow
+- [x] Load generated plan and activity data into the dashboard with a legacy fallback
+- [ ] Migrate remaining dashboard sections out of `docs/data.json`
+- [ ] Add schema tests for malformed Markdown and private-field leakage
+- [ ] Stop manually editing legacy JSON once all dashboard sections are generated
 
 #### Garmin import — High priority
 
@@ -72,20 +74,57 @@ The user remains in control. The system may recommend changes, explain trade-off
 - [ ] Test common Android and iPhone viewport sizes
 - [ ] Add installable PWA support
 
-#### Plan suggestions and What If mode — High priority
-
-- [ ] Add a Coach Suggestions section directly inside the Plan page
-- [ ] Attach suggestions to the affected workout or week
-- [ ] Show current plan, proposed change, reason, expected benefit and confidence
-- [ ] Add **Apply**, **Modify** and **Keep original** actions
-- [ ] Keep a history of accepted, modified and rejected suggestions
-- [ ] Add a **What If...?** launcher to the Plan page
-- [ ] Simulate changes without modifying the real plan
-- [ ] Compare current and proposed weekly distance, quality sessions, long-run load and recovery demand
-- [ ] Support natural-language scenarios such as moving, skipping, shortening or adding sessions
-- [ ] Make simulation assumptions and uncertainty explicit
-
 ## Near-term roadmap
+
+### Plan intelligence and suggestions — High priority
+
+Keep coaching suggestions directly within the Plan page rather than creating a separate page.
+
+- Add contextual **Coach Review** indicators to upcoming workouts.
+- Show the current prescription beside the suggested change.
+- Explain why the change is being suggested and the expected benefit or trade-off.
+- Include confidence, assumptions and any important uncertainty.
+- Provide **Apply**, **Modify** and **Keep original** actions.
+- Never apply a suggestion silently.
+- Record whether suggestions were accepted, rejected or modified.
+- Support manually authored suggestions first, then generate them from completed activities, recovery feedback and schedule constraints.
+- Show a clear “No changes recommended” state when the plan remains appropriate.
+
+### What If mode / Training Simulator — High priority
+
+Add a **What If?** action to the Plan page that simulates a change without modifying the active plan.
+
+Initial scenarios:
+
+- Skip a workout.
+- Move a workout to another day.
+- Shorten or extend a run.
+- Reduce or increase a quality block.
+- Add a strength, soccer, hiking or recovery session.
+- Limit the next week to fewer available training days.
+- Add a tune-up race.
+- Change the goal event or target time.
+
+Comparison output:
+
+- Current plan versus proposed plan.
+- Weekly distance and training time.
+- Number and spacing of quality sessions.
+- Long-run and race-specific volume.
+- Estimated recovery demand.
+- Interference with strength or soccer.
+- Expected impact on the goal, with uncertainty rather than false precision.
+- A clear recommendation and explanation.
+
+Safety and control rules:
+
+- Simulations must not change the active plan until explicitly applied.
+- Clearly separate known facts, assumptions and estimates.
+- Do not present injury risk or race outcomes as certainties.
+- Prefer conservative recommendations when activity or recovery data is incomplete.
+- Allow the user to modify the proposed scenario before applying it.
+
+Longer-term, personalise simulations using completed Garmin activities, subjective RPE, recovery patterns, heat response, workout history and previous suggestion decisions.
 
 ### Activity records
 
@@ -121,91 +160,6 @@ The user remains in control. The system may recommend changes, explain trade-off
 - Coach observations
 - Lessons learned
 - Recommendations for the following week
-
-### Plan page evolution
-
-The Plan page should become the place where the athlete reviews, compares and decides on training changes.
-
-#### Coach Suggestions
-
-Each suggestion should include:
-
-- Affected workout or week
-- Current prescription
-- Proposed prescription
-- Reason for the recommendation
-- Expected impact on fatigue, weekly distance, quality-session preservation and goal progression
-- Confidence level and the evidence supporting it
-- **Apply**, **Modify** and **Keep original** controls
-
-When no change is recommended, the Plan page should clearly state that the current plan remains appropriate.
-
-#### Contextual workout indicators
-
-Upcoming workouts may display:
-
-- **Coach happy** when no change is needed
-- **Suggestion available** when a review is recommended
-- **Conditional change** when the recommendation depends on sleep, fatigue, soreness, weather or another future condition
-
-#### Suggestion history
-
-Track whether recommendations were:
-
-- Accepted
-- Modified
-- Rejected
-- Superseded by a later plan change
-
-This history may later help the coach understand which kinds of recommendations are useful and acceptable to the athlete.
-
-### What If mode
-
-What If mode is a training simulator. It previews the consequences of a hypothetical change without altering the live plan.
-
-#### Initial supported scenarios
-
-- Skip a workout
-- Move a workout to another day
-- Shorten or lengthen a run
-- Reduce or increase a quality block
-- Add a strength session, soccer match, hike or other activity
-- Reduce available training days
-- Change the long-run day
-- Add a tune-up race
-- Change race goal or goal time
-- Change the available timeframe
-
-#### Comparison output
-
-The simulator should compare the current and proposed plans using:
-
-- Weekly distance
-- Number and spacing of quality sessions
-- Long-run distance and race-specific work
-- Strength and soccer interference
-- Recovery demand
-- Goal-specific stimulus retained or lost
-- Estimated fatigue and freshness direction
-- Risk flags and scheduling conflicts
-- Overall recommendation
-
-#### Example questions
-
-- What if I skip Friday's easy run?
-- What if I move the long run to Sunday?
-- What if I do heavy squats before the long run?
-- What if I can only train three days next week?
-- What if I add a half marathon six weeks before the marathon?
-- What if I change my marathon goal time?
-
-#### Safety and transparency rules
-
-- A simulation never changes the real plan until explicitly applied.
-- Results must distinguish known data, assumptions and estimates.
-- Confidence should decrease when recovery, fitness or schedule data is missing.
-- The simulator should avoid false precision and present ranges where appropriate.
-- Medical or injury-risk claims must remain cautious and should not be presented as diagnosis.
 
 ## Training engine
 
@@ -318,10 +272,8 @@ Outputs:
 - Detect missed or altered sessions
 - Suggest changes without applying them automatically
 - Explain the reason and expected trade-off
-- Provide **Apply**, **Modify** and **Keep original** actions
+- Provide **Apply** and **Keep original** actions
 - Learn how the athlete responds to different workouts and weekly structures
-- Feed proposed changes into What If mode before application
-- Re-evaluate future suggestions after an accepted, modified or rejected change
 
 ## Longer-term roadmap
 
@@ -329,7 +281,6 @@ Outputs:
 - Private local Garmin sync service as a fallback
 - Two-way workout delivery to compatible devices
 - Fitness, fatigue and readiness modelling
-- Personalised What If simulations using historical response data
 - Race prediction with uncertainty ranges
 - Weather- and heat-aware pacing
 - Nutrition and race-fuelling planner
@@ -351,8 +302,6 @@ Outputs:
 - Grocery and meal-planning support
 - Achievement timeline
 - Import from other platforms
-- Save and compare multiple hypothetical plan scenarios
-- Share a proposed scenario with the coach for review
 
 ## Maintenance rule
 
