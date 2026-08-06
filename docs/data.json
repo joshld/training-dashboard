@@ -73,17 +73,6 @@
       ],
       "source":"health/recovery.md"
     },
-    "athlete": {
-      "title":"Athlete Profile",
-      "intro":"Background and coaching context used to interpret training.",
-      "sections":[
-        {"heading":"Overview","items":["Joshua, age 37","Brisbane, Queensland","Approximately 92 kg with a muscular strength-trained build","Primary goal: Melbourne Marathon while maintaining strength and muscle"]},
-        {"heading":"Activities","items":["Running and marathon training","Upper- and lower-body strength training","Indoor soccer / futsal","Cycling and other future activities"]},
-        {"heading":"Training profile","items":["Runs around three times per week","Gym around four times per week","Sunday futsal when available","Reported squat best around 160 kg"]},
-        {"heading":"Coaching preferences","items":["Evidence-based and direct","Explain the reasoning behind changes","Preserve user control","Track long-term trends","Avoid overconfident predictions"]}
-      ],
-      "source":"coach/athlete-profile.md"
-    },
     "coach": {
       "title":"Coach Notes",
       "intro":"Current observations and priorities based on recent training.",
