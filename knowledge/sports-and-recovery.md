@@ -22,11 +22,15 @@
 
 **ID:** `sport-soccer-match`
 
+**Purpose:** Competitive match play that develops soccer-specific fitness through repeated high-intensity efforts, sprinting, change of direction and sustained aerobic work.
+
 **Load profile:** High variability with sprinting, collisions and large total movement volume.
+
+**Typical duration:** 60–120 minutes including warm-up and stoppages.
 
 **Recovery demand:** High.
 
-**Planning guidance:** Usually replace, rather than add to, another hard running session that week.
+**Planning guidance:** Usually replace, rather than add to, another hard running session that week. Avoid placing immediately before a key long run, race or heavy lower-body strength session where possible.
 
 **Tags:** `sport`, `soccer`, `quality`, `high-impact`
 
