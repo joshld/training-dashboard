@@ -12,9 +12,9 @@
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">Training log</p>
-      <h1>Training Log</h1>
-      <p>Personal dashboard for training, recovery and performance.</p>
+      <p class="eyebrow">Training Log</p>
+      <h1>Training Dashboard</h1>
+      <p class="subtitle">Personal dashboard for training, recovery and performance.</p>
       <p id="updated">Loading latest data…</p>
     </div>
     <div class="status-card">
@@ -23,37 +23,51 @@
     </div>
   </header>
 
+  <nav class="tabs" aria-label="Dashboard sections">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="running">Running</button>
+    <button class="tab" data-tab="strength">Strength</button>
+    <button class="tab" data-tab="recovery">Recovery</button>
+    <button class="tab" data-tab="athlete">Athlete Profile</button>
+    <button class="tab" data-tab="coach">Coach Notes</button>
+  </nav>
+
   <main>
-    <section class="metrics" id="metrics"></section>
-
-    <section class="grid two">
-      <article class="panel">
-        <div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Weekly distance</h2></div></div>
-        <canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas>
-      </article>
-      <article class="panel">
-        <div class="panel-heading"><div><p class="eyebrow">Strength</p><h2>Recent working sets</h2></div></div>
-        <div class="table-wrap"><table><thead><tr><th>Exercise</th><th>Load</th><th>Work</th></tr></thead><tbody id="strengthRows"></tbody></table></div>
-      </article>
+    <section class="tab-panel active" id="tab-dashboard">
+      <section class="metrics" id="metrics"></section>
+      <section class="grid two">
+        <article class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Weekly distance</h2></div></div>
+          <canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">Strength</p><h2>Recent working sets</h2></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Exercise</th><th>Load</th><th>Work</th></tr></thead><tbody id="strengthRows"></tbody></table></div>
+        </article>
+      </section>
+      <section class="grid two">
+        <article class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">Latest session</p><h2 id="latestTitle">—</h2></div><span class="pill" id="latestType">—</span></div>
+          <div id="latestDetails" class="session-details"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">Coach</p><h2>Current focus</h2></div></div>
+          <ul id="coachFocus" class="focus-list"></ul>
+        </article>
+      </section>
+      <section class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">Activity history</p><h2>Recent sessions</h2></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Summary</th><th>RPE</th></tr></thead><tbody id="sessionRows"></tbody></table></div>
+      </section>
     </section>
 
-    <section class="grid two">
-      <article class="panel">
-        <div class="panel-heading"><div><p class="eyebrow">Latest session</p><h2 id="latestTitle">—</h2></div><span class="pill" id="latestType">—</span></div>
-        <div id="latestDetails" class="session-details"></div>
-      </article>
-      <article class="panel">
-        <div class="panel-heading"><div><p class="eyebrow">Coach</p><h2>Current focus</h2></div></div>
-        <ul id="coachFocus" class="focus-list"></ul>
-      </article>
-    </section>
-
-    <section class="panel">
-      <div class="panel-heading"><div><p class="eyebrow">Activity history</p><h2>Recent sessions</h2></div></div>
-      <div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Summary</th><th>RPE</th></tr></thead><tbody id="sessionRows"></tbody></table></div>
-    </section>
+    <section class="tab-panel" id="tab-running"><article class="panel document" id="runningContent"></article></section>
+    <section class="tab-panel" id="tab-strength"><article class="panel document" id="strengthContent"></article></section>
+    <section class="tab-panel" id="tab-recovery"><article class="panel document" id="recoveryContent"></article></section>
+    <section class="tab-panel" id="tab-athlete"><article class="panel document" id="athleteContent"></article></section>
+    <section class="tab-panel" id="tab-coach"><article class="panel document" id="coachContent"></article></section>
   </main>
 
-  <footer>Data is maintained in this repository and rendered as a static GitHub Pages site.</footer>
+  <footer>Training data and coaching notes are maintained in the private GitHub repository.</footer>
 </body>
 </html>
