@@ -45,6 +45,14 @@ function renderActivities(sessions,filter='all'){
   setHtml('activityCards',html||'<p class="empty-state">No matching activities.</p>');setHtml('dashboardActivities',html||'<p class="empty-state">No activities logged yet.</p>');
 }
 
+function renderWorkoutReport(){
+  setText('reportTitle','Over/under tempo');
+  setText('reportScore','9.5 / 10');
+  setHtml('reportSummary',`<p class="report-lead">All four quality kilometres were completed within three seconds of their prescribed pace.</p><div class="report-callout"><strong>Coach takeaway</strong><p>Excellent pacing discipline. The faster reps stayed controlled, and the session felt comfortably hard rather than maximal.</p></div>`);
+  const reps=[['4:35','Target 4:35','On target'],['4:18','Target 4:15','+3 sec'],['4:33','Target 4:35','−2 sec'],['4:18','Target 4:15','+3 sec']];
+  setHtml('reportReps',reps.map((rep,index)=>`<div class="rep-card"><span>Rep ${index+1}</span><strong>${rep[0]}</strong><small>${rep[1]}</small><em>${rep[2]}</em></div>`).join(''));
+}
+
 function setupFilters(){document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(item=>item.classList.toggle('active',item===button));if(dashboardData)renderActivities(dashboardData.sessions,button.dataset.filter);}));}
 
 function createDistanceChart(id,data){
@@ -67,7 +75,7 @@ function renderCore(data){
   setText('latestTitle',data.latestSession.title);setText('latestType',data.latestSession.type);setHtml('latestDetails',data.latestSession.details.map(item=>`<div class="detail"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong></div>`).join(''));
   const next=data.plan.nextWorkout;setText('nextWorkoutTitle',next.title);setText('nextWorkoutDate',next.date);setHtml('nextWorkoutDetails',next.details.map(item=>`<div class="detail"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong></div>`).join(''));
   const current=data.plan.weeks.find(week=>week.current)||data.plan.weeks[0];const completed=current.workouts.filter(workout=>workout.completed).length;const percent=Math.round((completed/current.workouts.length)*100);setText('currentWeekTitle',`${current.name} · ${current.dateRange}`);setText('currentWeekProgressText',`${completed}/${current.workouts.length}`);const progress=byId('currentWeekProgress');if(progress)progress.style.width=`${percent}%`;setHtml('currentWeekSummary',`<span>${escapeHtml(current.progressDistance)}</span><span>${escapeHtml(current.plannedDistance)} planned</span>`);
-  renderCalendar(data.plan);renderPlan(data.plan);renderActivities(data.sessions);renderDocument('runningContent',data.tabs.running);renderDocument('strengthContent',data.tabs.strength);renderDocument('recoveryContent',data.tabs.recovery);renderDocument('coachContent',data.tabs.coach);
+  renderCalendar(data.plan);renderPlan(data.plan);renderActivities(data.sessions);renderWorkoutReport();renderDocument('runningContent',data.tabs.running);renderDocument('strengthContent',data.tabs.strength);renderDocument('recoveryContent',data.tabs.recovery);renderDocument('coachContent',data.tabs.coach);
 }
 
 async function loadDashboard(){
