@@ -25,6 +25,7 @@
 
   <nav class="tabs" aria-label="Dashboard sections">
     <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="plan">Plan</button>
     <button class="tab" data-tab="running">Running</button>
     <button class="tab" data-tab="strength">Strength</button>
     <button class="tab" data-tab="recovery">Recovery</button>
@@ -34,6 +35,20 @@
   <main>
     <section class="tab-panel active" id="tab-dashboard">
       <section class="metrics" id="metrics"></section>
+
+      <section class="grid two">
+        <article class="panel next-workout">
+          <div class="panel-heading"><div><p class="eyebrow">Up next</p><h2 id="nextWorkoutTitle">—</h2></div><span class="pill" id="nextWorkoutDate">—</span></div>
+          <div id="nextWorkoutDetails" class="session-details"></div>
+          <button class="text-button" data-open-tab="plan">View full plan →</button>
+        </article>
+        <article class="panel week-progress-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Current week</p><h2 id="currentWeekTitle">—</h2></div><strong id="currentWeekProgressText">—</strong></div>
+          <div class="progress-track"><div class="progress-fill" id="currentWeekProgress"></div></div>
+          <div id="currentWeekSummary" class="week-summary"></div>
+        </article>
+      </section>
+
       <section class="grid two">
         <article class="panel">
           <div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Weekly distance</h2></div></div>
@@ -58,6 +73,14 @@
         <div class="panel-heading"><div><p class="eyebrow">Activity history</p><h2>Recent sessions</h2></div></div>
         <div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Summary</th><th>RPE</th></tr></thead><tbody id="sessionRows"></tbody></table></div>
       </section>
+    </section>
+
+    <section class="tab-panel" id="tab-plan">
+      <div class="plan-header panel">
+        <div><p class="eyebrow">Runna schedule</p><h2>Upcoming Plan</h2><p>Completed and upcoming running sessions transcribed from the supplied Runna screenshots.</p></div>
+        <a class="source-link" href="https://github.com/joshld/training-dashboard/blob/main/plans/runna-schedule.md" target="_blank" rel="noreferrer">View Markdown</a>
+      </div>
+      <div id="planWeeks" class="plan-weeks"></div>
     </section>
 
     <section class="tab-panel" id="tab-running"><article class="panel document" id="runningContent"></article></section>
