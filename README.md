@@ -25,7 +25,7 @@ The GitHub Pages dashboard is published from the `docs/` folder:
 - `health/` — private recovery and nutrition records
 - `coach/` — private coaching context
 - `plans/` — training plans
-- `docs/` — public GitHub Pages dashboard
+- `docs/` — public GitHub Pages dashboard and documentation contracts
 
 The repository also contains `knowledge/` for reusable training guidance and `scripts/` for generating public JSON artefacts.
 
@@ -36,6 +36,7 @@ The repository also contains `knowledge/` for reusable training guidance and `sc
 - [Roadmap](ROADMAP.md)
 - [Design system](docs/DESIGN-SYSTEM.md)
 - [AI coach](docs/AI-COACH.md)
+- [Training engine](docs/TRAINING-ENGINE.md)
 - [Workout library](docs/WORKOUT-LIBRARY.md)
 - [Nutrition guidance](docs/NUTRITION-GUIDANCE.md)
 - [Implementation notes](docs/IMPLEMENTATION-NOTES.md)

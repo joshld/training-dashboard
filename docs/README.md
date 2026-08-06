@@ -8,13 +8,25 @@ This directory is the documentation hub for Training Log. The repository is the 
 |---|---|---|
 | Product direction | [`ROADMAP.md`](../ROADMAP.md) | Priorities, completed work and future capabilities |
 | System architecture | [`ARCHITECTURE.md`](../ARCHITECTURE.md) | Source-of-truth boundaries, data flow, privacy and deployment |
-| Design system | [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) | Tokens, reusable CSS primitives and UI rules |
-| AI coach | [`AI-COACH.md`](AI-COACH.md) | Coaching behaviour, decision rules and persistence boundaries |
-| Workout library | [`WORKOUT-LIBRARY.md`](WORKOUT-LIBRARY.md) | Workout knowledge format, generation and safety rules |
-| Nutrition guidance | [`NUTRITION-GUIDANCE.md`](NUTRITION-GUIDANCE.md) | Nutrition knowledge format, use and limitations |
+| Design system | [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) | Tokens, reusable UI patterns, dashboard hierarchy and responsive rules |
+| AI coach | [`AI-COACH.md`](AI-COACH.md) | Coaching behaviour, context, recommendation and persistence boundaries |
+| Training engine | [`TRAINING-ENGINE.md`](TRAINING-ENGINE.md) | Pace, planning, progression, hybrid load and What If contracts |
+| Workout library | [`WORKOUT-LIBRARY.md`](WORKOUT-LIBRARY.md) | Workout knowledge format, structured sessions, progression and substitutions |
+| Nutrition guidance | [`NUTRITION-GUIDANCE.md`](NUTRITION-GUIDANCE.md) | Macro emphasis, scenario selection, practical examples and limitations |
 | Implementation notes | [`IMPLEMENTATION-NOTES.md`](IMPLEMENTATION-NOTES.md) | Current runtime, generated artefacts, known gaps and verification |
-| Codex workflow | [`CODEX.md`](CODEX.md) | Documentation-first contribution protocol for AI-assisted work |
+| Codex workflow | [`CODEX.md`](CODEX.md) | Documentation-first contribution and definition-of-done rules |
 | Change history | [`CHANGELOG.md`](../CHANGELOG.md) | What changed and why |
+
+## Which document wins?
+
+Use these boundaries when information appears in more than one place:
+
+- [`ROADMAP.md`](../ROADMAP.md) owns priority and delivery status.
+- [`ARCHITECTURE.md`](../ARCHITECTURE.md) owns durable system and privacy decisions.
+- Domain documents in `docs/` own behaviour and data contracts.
+- [`IMPLEMENTATION-NOTES.md`](IMPLEMENTATION-NOTES.md) owns current wiring and migration gaps.
+- Source Markdown under `plans/`, `activities/`, `coach/`, `health/` and `knowledge/` owns actual records and reusable content.
+- Generated JSON under `docs/` is never authoritative.
 
 ## Source records
 
@@ -29,5 +41,7 @@ This directory is the documentation hub for Training Log. The repository is the 
 - Markdown source files are authoritative; generated JSON is not edited by hand.
 - Public dashboard content must pass through an explicit allowlist.
 - Private health, profile, injury, location and coaching context stays outside public build artefacts.
-- Product decisions belong in [`ROADMAP.md`](../ROADMAP.md); system decisions belong in [`ARCHITECTURE.md`](../ARCHITECTURE.md); implementation details belong in [`IMPLEMENTATION-NOTES.md`](IMPLEMENTATION-NOTES.md).
-- When a feature changes the architecture, update the relevant documentation in the same change.
+- Distinguish current, planned and future behaviour explicitly.
+- Do not claim a documented future capability is already implemented.
+- When a feature changes architecture, behaviour or data contracts, update the relevant documentation in the same change.
+- Keep cross-links relative so they work both on GitHub and in local repository viewers.
