@@ -199,3 +199,37 @@ export function parseFitMessages(messages, { fileName = '' } = {}) {
     sampleCount: normalizedRecords.length
   };
 }
+
+export const ACTIVITY_CHART_SPECS = [
+  { key: 'pace', label: 'Pace', unit: 'min/km', color: '#71e6b3' },
+  { key: 'heartRate', label: 'Heart rate', unit: 'bpm', color: '#ff8b94' },
+  { key: 'cadence', label: 'Cadence', unit: 'spm', color: '#8eb8ff' },
+  { key: 'temperature', label: 'Temperature', unit: '°C', color: '#ffc878' },
+  { key: 'strideLength', label: 'Stride length', unit: 'm', color: '#c49bff' },
+  { key: 'groundContactTime', label: 'Ground contact time', unit: 'ms', color: '#ffae70' },
+  { key: 'groundContactBalance', label: 'Ground contact balance', unit: '%', color: '#82d7d0' },
+  { key: 'verticalOscillation', label: 'Vertical oscillation', unit: 'cm', color: '#e8a6ff' },
+  { key: 'verticalRatio', label: 'Vertical ratio', unit: '%', color: '#b9d77d' }
+];
+
+const chartValue = {
+  pace: record => record.speedKph > 0 ? 60 / record.speedKph : null,
+  heartRate: record => number(record.heartRate),
+  cadence: record => number(record.cadence),
+  temperature: record => number(record.temperatureC),
+  strideLength: record => number(record.strideLengthMetres),
+  groundContactTime: record => number(record.groundContactTimeMs),
+  groundContactBalance: record => number(record.groundContactBalancePct),
+  verticalOscillation: record => number(record.verticalOscillationCm),
+  verticalRatio: record => number(record.verticalRatioPct)
+};
+
+export function buildActivityChartSeries(activity = {}) {
+  const records = Array.isArray(activity.timeSeries) ? activity.timeSeries : [];
+  const labels = records.map((record, index) => record.timestamp?.slice(11, 16) || `#${index + 1}`);
+  return ACTIVITY_CHART_SPECS.map(spec => ({
+    ...spec,
+    labels,
+    data: records.map(record => chartValue[spec.key](record))
+  })).filter(series => series.data.some(value => Number.isFinite(value)));
+}

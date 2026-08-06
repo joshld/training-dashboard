@@ -42,7 +42,8 @@ Current behaviour:
 - FIT imports normalize supported session, lap and non-location record metrics into the browser-local activity object;
 - normalized record data is explicitly allowlisted for later charts and excludes GPS coordinates and unknown FIT fields;
 - activity detail now exposes Overview, Laps and Running Dynamics sections;
-- charts, historical running-dynamics trends and coach analysis remain planned work.
+- activity detail charts render pace, heart rate, cadence, temperature and available running-dynamics series with a Chart.js fallback;
+- elevation charts, historical running-dynamics trends and coach analysis remain planned work.
 
 ## Coach and training-engine boundary
 
@@ -89,11 +90,11 @@ The optional persistence service must keep write credentials on the server side 
 - Generated timestamps remain variable metadata; tests isolate them with an injected timestamp while asserting deterministic meaningful payloads.
 - The browser-local import and suggestion state is not automatically synchronised across devices.
 - FIT field availability varies by device and export; unsupported fields remain null and are not inferred beyond pace and moving-time derivation from reliable records.
-- Activity time-series data is local-only and there is no chart UI yet; the normalized shape is prepared for progressive enhancement.
+- Activity time-series data and charts are local-only; Chart.js remains an optional enhancement with text fallbacks.
 - The design-system primitives exist, but legacy page styles are not fully migrated.
 - The What If logic is page-specific rather than a shared tested training-engine module.
 - Rich FIT-derived activity analysis is implemented for local summary, lap and running-dynamics display, but not public/generated activity data.
-- Time-series charts, historical trends and coach analysis are planned work.
+- Elevation charts, historical trends and coach analysis are planned work.
 - The workout library does not yet model exercise references, supersets, circuits or drop sets as structured data.
 - Nutrition guidance is generated but the current Nutrition tab still uses its legacy payload.
 - There is no formal TypeScript surface; the dashboard is currently vanilla JavaScript.
