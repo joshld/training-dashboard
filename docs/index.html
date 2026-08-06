@@ -6,10 +6,10 @@
   <meta name="description" content="Personal dashboard for training, recovery and performance">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Training Log</title>
-  <link rel="stylesheet" href="styles.css?v=2.3.0">
+  <link rel="stylesheet" href="styles.css?v=2.4.0">
   <link rel="stylesheet" href="report.css?v=1.0.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
-  <script src="app.js?v=2.3.0" defer></script>
+  <script src="app.js?v=2.4.0" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -21,6 +21,7 @@
         <button class="nav-item" data-tab="activities"><span>◉</span>Activities</button>
         <button class="nav-item" data-tab="performance"><span>↗</span>Performance</button>
         <button class="nav-item" data-tab="recovery"><span>♡</span>Recovery</button>
+        <button class="nav-item" data-tab="nutrition"><span>◇</span>Nutrition</button>
         <button class="nav-item" data-tab="coach"><span>✦</span>Coach</button>
       </nav>
       <div class="sidebar-status"><span class="status-dot"></span><div><small>Current status</small><strong id="status">Loading</strong></div></div>
@@ -86,6 +87,7 @@
         </section>
 
         <section class="tab-panel" id="tab-recovery"><article class="panel document" id="recoveryContent"></article></section>
+        <section class="tab-panel" id="tab-nutrition"><article class="panel document" id="nutritionContent"><p class="empty-state">Loading nutrition guidance…</p></article></section>
         <section class="tab-panel" id="tab-coach">
           <article class="panel coach-launch">
             <div class="coach-launch-copy">
