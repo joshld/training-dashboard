@@ -26,11 +26,15 @@ All notable changes to Training Log should be recorded here. This file describes
 - Reclassified `docs/data.json` as a temporary/generated dashboard payload rather than the long-term authoritative training record.
 - Reduced personal detail in the public repository README.
 - Upgraded generated dashboard data to schema version 2 with plan suggestions.
+- Redesigned plan workouts as compact, colour-coded cards with expandable details.
+- Collapsed coach recommendations into concise summaries with detail-on-demand.
+- Reworked What If results into visual comparison cards with stronger hierarchy.
+- Reduced spacing and text density on mobile Plan views.
 
 ### Known limitations
 
 - Imported activities stored in browser localStorage do not sync across devices.
-- Plan-suggestion decisions and saved What If scenarios are browser-local and do not yet update the Markdown plan automatically.
+- Plan-suggestion decisions and saved What If scenarios are browser-local and do not yet update the Markdown plan automatically unless the authenticated persistence service is configured.
 - The first What If engine uses transparent rules and simple natural-language matching rather than a server-side coaching model.
 - FIT compatibility still needs broader testing.
 - The dashboard is still partly maintained through legacy JSON while remaining sections are migrated.
