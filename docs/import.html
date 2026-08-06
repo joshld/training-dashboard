@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Import Garmin activity exports into Training Log">
+  <title>Import · Training Log</title>
+  <link rel="stylesheet" href="styles.css?v=2.4.0">
+  <link rel="stylesheet" href="import.css?v=1.0.0">
+  <script src="import.js?v=1.0.0" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">TL</span><div><strong>Training Log</strong><small>Performance workspace</small></div></div>
+      <nav class="side-nav" aria-label="Dashboard sections">
+        <a class="nav-item nav-link" href="index.html#dashboard"><span>⌂</span>Dashboard</a>
+        <a class="nav-item nav-link" href="index.html#plan"><span>▦</span>Plan</a>
+        <a class="nav-item nav-link" href="index.html#activities"><span>◉</span>Activities</a>
+        <a class="nav-item nav-link" href="index.html#performance"><span>↗</span>Performance</a>
+        <a class="nav-item nav-link" href="index.html#recovery"><span>♡</span>Recovery</a>
+        <a class="nav-item nav-link" href="index.html#nutrition"><span>◇</span>Nutrition</a>
+        <a class="nav-item nav-link active" href="import.html"><span>⇩</span>Import</a>
+        <a class="nav-item nav-link" href="index.html#coach"><span>✦</span>Coach</a>
+      </nav>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div><p class="eyebrow">Training Log</p><h1>Import</h1><p class="subtitle">Review a Garmin activity export locally before adding it to your training record.</p></div>
+        <a class="back-link" href="index.html#activities">Back to Activities</a>
+      </header>
+
+      <main>
+        <section class="panel import-hero">
+          <div>
+            <p class="eyebrow">Garmin export</p>
+            <h2>Choose an activity file</h2>
+            <p>GPX and TCX files are parsed entirely in your browser. The file is not uploaded anywhere by this page.</p>
+          </div>
+          <label class="file-button" for="activityFile">Choose file</label>
+          <input id="activityFile" type="file" accept=".gpx,.tcx,.fit,application/gpx+xml,application/xml,text/xml" hidden>
+        </section>
+
+        <section class="privacy-note">
+          <strong>Privacy</strong>
+          <span>Route coordinates remain in memory only and are excluded from the generated summary.</span>
+        </section>
+
+        <section class="panel" id="importStatus">
+          <p class="empty-state">Select a GPX or TCX export to preview the activity.</p>
+        </section>
+
+        <section class="panel" id="importPreview" hidden>
+          <div class="panel-heading">
+            <div><p class="eyebrow">Activity preview</p><h2 id="activityTitle">Imported activity</h2></div>
+            <span class="pill" id="activityFormat">—</span>
+          </div>
+          <div class="import-metrics" id="importMetrics"></div>
+          <div class="import-actions">
+            <button class="primary-action" id="downloadJson" type="button">Download summary JSON</button>
+            <button class="secondary-action" id="copySummary" type="button">Copy summary</button>
+          </div>
+          <p class="import-help">Send the generated summary or original export in this coaching chat and it can be added to the repository dashboard.</p>
+        </section>
+
+        <section class="panel supported-files">
+          <div class="panel-heading"><div><p class="eyebrow">Supported formats</p><h2>Current importer</h2></div></div>
+          <div class="support-grid">
+            <div><strong>GPX</strong><span>Distance, duration, pace, heart rate, cadence and elevation where present.</span></div>
+            <div><strong>TCX</strong><span>Distance, duration, pace, heart rate, cadence and elevation where present.</span></div>
+            <div><strong>FIT</strong><span>Recognised, but not yet decoded in-browser. Upload the FIT file directly in the coaching chat.</span></div>
+          </div>
+        </section>
+      </main>
+      <footer>Import processing is local to this browser session.</footer>
+    </div>
+  </div>
+</body>
+</html>
