@@ -6,13 +6,12 @@ import process from 'node:process';
 
 const ROOT = process.cwd();
 const PLAN_PATH = path.join(ROOT, 'plans', 'current-plan.md');
+const SUGGESTIONS_PATH = path.join(ROOT, 'plans', 'plan-suggestions.md');
 const ACTIVITY_DIR = path.join(ROOT, 'activities', 'records');
 const OUTPUT_PATH = path.join(ROOT, 'docs', 'generated-data.json');
 
 function parseFrontMatter(markdown, filePath) {
-  if (!markdown.startsWith('---\n')) {
-    throw new Error(`${filePath}: missing YAML-style front matter`);
-  }
+  if (!markdown.startsWith('---\n')) throw new Error(`${filePath}: missing YAML-style front matter`);
   const end = markdown.indexOf('\n---\n', 4);
   if (end < 0) throw new Error(`${filePath}: unterminated front matter`);
   const block = markdown.slice(4, end);
@@ -25,13 +24,9 @@ function parseFrontMatter(markdown, filePath) {
     if (!match) throw new Error(`${filePath}: invalid front matter line: ${rawLine}`);
     const [, key, rawValue] = match;
     let value = rawValue.trim();
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
-    } else if (value === 'true' || value === 'false') {
-      value = value === 'true';
-    } else if (value !== '' && Number.isFinite(Number(value))) {
-      value = Number(value);
-    }
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) value = value.slice(1, -1);
+    else if (value === 'true' || value === 'false') value = value === 'true';
+    else if (value !== '' && Number.isFinite(Number(value))) value = Number(value);
     data[key] = value;
   }
   return { data, body };
@@ -53,14 +48,13 @@ function bulletItems(section) {
   return section.split('\n').map(line => line.trim()).filter(line => /^[-*]\s+/.test(line)).map(line => line.replace(/^[-*]\s+/, '').trim());
 }
 
-function parseWorkoutRows(section, filePath) {
-  const lines = section.split('\n').map(line => line.trim()).filter(Boolean);
-  const rows = lines.filter(line => line.startsWith('|'));
+function parseTable(section, filePath, label) {
+  const rows = section.split('\n').map(line => line.trim()).filter(line => line.startsWith('|'));
   if (rows.length < 3) return [];
   const headers = rows[0].split('|').slice(1, -1).map(item => item.trim().toLowerCase());
   return rows.slice(2).map((line, index) => {
     const values = line.split('|').slice(1, -1).map(item => item.trim());
-    if (values.length !== headers.length) throw new Error(`${filePath}: malformed workout table row ${index + 1}`);
+    if (values.length !== headers.length) throw new Error(`${filePath}: malformed ${label} table row ${index + 1}`);
     return Object.fromEntries(headers.map((header, i) => [header, values[i]]));
   });
 }
@@ -68,10 +62,8 @@ function parseWorkoutRows(section, filePath) {
 async function readPlan() {
   const markdown = await fs.readFile(PLAN_PATH, 'utf8');
   const { data, body } = parseFrontMatter(markdown, PLAN_PATH);
-  for (const required of ['title', 'updated', 'status']) {
-    if (!data[required]) throw new Error(`${PLAN_PATH}: required field '${required}' is missing`);
-  }
-  const workouts = parseWorkoutRows(extractSection(body, 'Workouts'), PLAN_PATH).map(row => ({
+  for (const required of ['title', 'updated', 'status']) if (!data[required]) throw new Error(`${PLAN_PATH}: required field '${required}' is missing`);
+  const workouts = parseTable(extractSection(body, 'Workouts'), PLAN_PATH, 'workout').map(row => ({
     day: row.day,
     title: row.workout,
     distance: row.distance,
@@ -79,38 +71,47 @@ async function readPlan() {
     summary: row.notes || ''
   }));
   return {
-    updated: String(data.updated),
-    status: String(data.status),
-    title: String(data.title),
-    dateRange: String(data.date_range || ''),
-    plannedDistance: String(data.planned_distance || ''),
-    progressDistance: String(data.progress_distance || ''),
-    workouts,
+    updated: String(data.updated), status: String(data.status), title: String(data.title),
+    dateRange: String(data.date_range || ''), plannedDistance: String(data.planned_distance || ''),
+    progressDistance: String(data.progress_distance || ''), workouts,
     guidance: bulletItems(extractSection(body, 'Coach Guidance'))
   };
 }
 
-async function readActivities() {
-  let entries = [];
+async function readSuggestions() {
   try {
-    entries = await fs.readdir(ACTIVITY_DIR, { withFileTypes: true });
+    const markdown = await fs.readFile(SUGGESTIONS_PATH, 'utf8');
+    const { body } = parseFrontMatter(markdown, SUGGESTIONS_PATH);
+    return parseTable(extractSection(body, 'Suggestions'), SUGGESTIONS_PATH, 'suggestions').map(row => ({
+      id: row.id,
+      workoutDay: row['workout day'],
+      workout: row.workout,
+      priority: row.priority || 'Medium',
+      confidence: Number.parseInt(row.confidence, 10) || null,
+      current: row.current,
+      suggested: row.suggested,
+      reason: row.reason,
+      expectedImpact: row['expected impact']
+    })).filter(item => item.id && item.workout && item.suggested);
   } catch (error) {
     if (error.code === 'ENOENT') return [];
     throw error;
   }
+}
+
+async function readActivities() {
+  let entries = [];
+  try { entries = await fs.readdir(ACTIVITY_DIR, { withFileTypes: true }); }
+  catch (error) { if (error.code === 'ENOENT') return []; throw error; }
   const records = [];
   for (const entry of entries.filter(item => item.isFile() && item.name.endsWith('.md')).sort((a, b) => a.name.localeCompare(b.name))) {
     const filePath = path.join(ACTIVITY_DIR, entry.name);
     const markdown = await fs.readFile(filePath, 'utf8');
     const { data, body } = parseFrontMatter(markdown, filePath);
-    for (const required of ['date', 'activity', 'title', 'public']) {
-      if (data[required] === undefined || data[required] === '') throw new Error(`${filePath}: required field '${required}' is missing`);
-    }
+    for (const required of ['date', 'activity', 'title', 'public']) if (data[required] === undefined || data[required] === '') throw new Error(`${filePath}: required field '${required}' is missing`);
     if (data.public !== true) continue;
     records.push({
-      date: String(data.date),
-      activity: String(data.activity),
-      title: String(data.title),
+      date: String(data.date), activity: String(data.activity), title: String(data.title),
       summary: extractSection(body, 'Public Summary') || String(data.summary || ''),
       duration: data.duration ? String(data.duration) : null,
       distanceKm: Number.isFinite(Number(data.distance_km)) ? Number(data.distance_km) : null,
@@ -121,20 +122,16 @@ async function readActivities() {
 }
 
 async function main() {
-  const plan = await readPlan();
-  const activities = await readActivities();
+  const [plan, suggestions, activities] = await Promise.all([readPlan(), readSuggestions(), readActivities()]);
   const output = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: new Date().toISOString(),
     updated: plan.updated,
     status: plan.status,
     plan: {
-      title: plan.title,
-      dateRange: plan.dateRange,
-      plannedDistance: plan.plannedDistance,
-      progressDistance: plan.progressDistance,
-      workouts: plan.workouts,
-      coachGuidance: plan.guidance
+      title: plan.title, dateRange: plan.dateRange, plannedDistance: plan.plannedDistance,
+      progressDistance: plan.progressDistance, workouts: plan.workouts,
+      coachGuidance: plan.guidance, suggestions
     },
     sessions: activities
   };
