@@ -1,0 +1,9 @@
+{
+  "name": "training-log-write-api",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=20"},
+  "scripts": {
+    "build:data": "node scripts/build-dashboard-data.mjs"
+  }
+}

@@ -59,4 +59,10 @@ async function loadPlanSuggestions(){
   }
 }
 
-document.addEventListener('DOMContentLoaded',loadPlanSuggestions);
+function loadPersistenceScripts(){
+  const config=document.createElement('script');config.src='runtime-config.js?v=1.0.0';
+  config.onload=()=>{const auth=document.createElement('script');auth.src='auth-persistence.js?v=1.0.0';document.head.appendChild(auth);};
+  document.head.appendChild(config);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{loadPlanSuggestions();loadPersistenceScripts();});
