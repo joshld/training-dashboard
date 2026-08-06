@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Joshua's training dashboard">
+  <title>Training Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Hybrid athlete training log</p>
+      <h1>Training Dashboard</h1>
+      <p id="updated">Loading latest data…</p>
+    </div>
+    <div class="status-card">
+      <span class="status-dot"></span>
+      <div><small>Current status</small><strong id="status">Loading</strong></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="metrics" id="metrics"></section>
+
+    <section class="grid two">
+      <article class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Weekly distance</h2></div></div>
+        <canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas>
+      </article>
+      <article class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">Strength</p><h2>Recent working sets</h2></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Exercise</th><th>Load</th><th>Work</th></tr></thead><tbody id="strengthRows"></tbody></table></div>
+      </article>
+    </section>
+
+    <section class="grid two">
+      <article class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">Latest session</p><h2 id="latestTitle">—</h2></div><span class="pill" id="latestType">—</span></div>
+        <div id="latestDetails" class="session-details"></div>
+      </article>
+      <article class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">Coach</p><h2>Current focus</h2></div></div>
+        <ul id="coachFocus" class="focus-list"></ul>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><p class="eyebrow">Activity history</p><h2>Recent sessions</h2></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Summary</th><th>RPE</th></tr></thead><tbody id="sessionRows"></tbody></table></div>
+    </section>
+  </main>
+
+  <footer>Data is maintained in this repository and rendered as a static GitHub Pages site.</footer>
+</body>
+</html>
