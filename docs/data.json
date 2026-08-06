@@ -2,9 +2,9 @@
   "updated": "2026-08-06",
   "status": "Training normally; lower back improving",
   "metrics": [
-    {"label":"Week 5 progress","value":"20.20 / 50.40 km","note":"2 of 4 workouts complete"},
+    {"label":"Week 5 progress","value":"20.20 / 50.40 km","note":"2 of 4 running workouts complete"},
     {"label":"Next run","value":"10 km easy","note":"Friday 7 Aug"},
-    {"label":"Strength sessions","value":"3","note":"Current week"},
+    {"label":"Strength sessions","value":"3","note":"Completed; arms planned Thursday"},
     {"label":"Back discomfort","value":"0–1/10","note":"Monitor after loading"}
   ],
   "weeklyDistance": {
@@ -32,6 +32,7 @@
         "workouts":[
           {"day":"Tue","title":"Intervals","distance":"7.4 km","completed":true,"summary":"Completed interval session."},
           {"day":"Wed","title":"Tempo","distance":"7 km planned","completed":true,"summary":"Completed as an 11.18 km over/under session including warm-up and cool-down."},
+          {"day":"Thu","title":"Arms — Biceps & Triceps","distance":"Strength","completed":false,"summary":"Upper-arm session using free weights and resistance bands; keep most sets at 1–2 reps in reserve.","steps":["Barbell or EZ-bar curl — 3 × 6–10","Incline dumbbell curl — 3 × 10–12","Hammer curl — 3 × 10–12","Close-grip bench press — 3 × 6–10","Resistance-band pushdowns — 3 × 10–15","Overhead resistance-band extensions — 3 × 10–15"]},
           {"day":"Fri","title":"Easy Run","distance":"10 km","completed":false,"summary":"Conversational effort; 5:15/km is a maximum pace, not a target.","steps":["10 km at a genuinely easy conversational pace","Estimated duration 50–55 minutes"]},
           {"day":"Sat","title":"Race Practice Long Run","distance":"26 km","completed":false,"summary":"Marathon-specific long run with a 12 km target-pace block.","steps":["6 km conversational","3 km at 5:30/km","12 km at 5:05/km target marathon pace","5 km conversational","Estimated duration 2h10–2h30"]}
         ]
@@ -72,10 +73,10 @@
     {"exercise":"Step-up","load":"Bodyweight","work":"3 × 10 each leg, slow eccentric"}
   ],
   "coachFocus":[
+    "Complete Thursday's arm session without taking every set to failure; keep most work at 1–2 reps in reserve.",
     "Keep Friday's 10 km genuinely easy; 5:15/km is a ceiling rather than the target.",
     "Execute Saturday's 26 km race-practice run without racing the 12 km marathon-pace block.",
     "Prioritise carbohydrates, hydration and sleep before the long run.",
-    "Three strength sessions are already complete this week, so avoid unnecessary extra lower-body fatigue before Saturday.",
     "Week 6 contains two quality sessions plus a 28 km long run, so recovery between sessions matters."
   ],
   "sessions":[
@@ -96,11 +97,11 @@
     },
     "strength": {
       "title":"Strength",
-      "intro":"Three strength sessions completed this week across upper pull, upper push and lower body.",
+      "intro":"Three strength sessions completed this week, with an arm session planned for Thursday.",
       "sections":[
-        {"heading":"This week","items":["Monday: back, shoulders and biceps — approximately 1h20","Tuesday evening: chest, shoulders and triceps — approximately 1h20","Wednesday: lower body covering quads, hamstrings, glutes and calves"]},
-        {"heading":"Latest lower session","items":["Bodyweight squats: 3 × 24","Single-leg extensions: 25 kg","Single-leg hamstring curls: 10 kg","Glute bridges: up to 90 kg × 12","Standing calf raises and slow bodyweight step-ups"]},
-        {"heading":"Current approach","items":["Maintain upper-body strength alongside marathon preparation","Pair demanding lower-body lifting with quality running when recovery permits","Avoid adding more lower-body fatigue before the priority long run"]}
+        {"heading":"This week","items":["Monday: back, shoulders and biceps — approximately 1h20","Tuesday evening: chest, shoulders and triceps — approximately 1h20","Wednesday: lower body covering quads, hamstrings, glutes and calves","Thursday planned: biceps and triceps — 18 working sets using free weights and resistance bands"]},
+        {"heading":"Thursday arm session","items":["Barbell or EZ-bar curl: 3 × 6–10","Incline dumbbell curl: 3 × 10–12","Hammer curl: 3 × 10–12","Close-grip bench press: 3 × 6–10","Resistance-band pushdowns: 3 × 10–15","Overhead resistance-band extensions: 3 × 10–15"]},
+        {"heading":"Current approach","items":["Maintain upper-body strength alongside marathon preparation","Keep most arm sets at 1–2 reps in reserve","Avoid adding more lower-body fatigue before the priority long run"]}
       ]
     },
     "recovery": {
@@ -117,7 +118,7 @@
       "intro":"Current observations and priorities based on recent training.",
       "sections":[
         {"heading":"What is going well","items":["Three balanced strength sessions completed across pull, push and lower body","Strong pacing discipline during quality runs","Tempo work is controlled rather than raced","Good ability to combine running and strength on hard days"]},
-        {"heading":"Immediate priorities","items":["Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Avoid extra lower-body loading before the long run","Recover well before Week 6's consecutive Tuesday and Wednesday quality sessions"]},
+        {"heading":"Immediate priorities","items":["Complete Thursday's arm session without unnecessary failure work","Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Avoid extra lower-body loading before the long run"]},
         {"heading":"Current recommendation","items":["Continue marathon-specific endurance development","Maintain strength without chasing gym limits during peak running load","Keep upper-body work flexible around key run sessions"]}
       ]
     }
