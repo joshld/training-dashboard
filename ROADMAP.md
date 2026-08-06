@@ -4,6 +4,8 @@ _Last updated: 6 August 2026_
 
 This document is the living source of truth for product direction, priorities and implementation status. Every meaningful feature decision should be reflected here as it is proposed, started, completed, deferred or changed.
 
+See the [documentation hub](docs/README.md) for the architecture, design-system, AI-coach, workout-library, nutrition and implementation contracts that support this roadmap.
+
 ## Product vision
 
 Build a privacy-conscious hybrid training platform that combines running, strength, soccer and other activities with planning, activity analysis, nutrition guidance and coaching.
@@ -21,6 +23,10 @@ The user remains in control. The system may recommend changes, explain trade-off
 - **Realistic coaching:** training pace, volume and workout selection must be grounded in current ability, goal, timeframe and available training days.
 
 ## Current release state
+
+### Highest-priority unfinished work
+
+The highest-priority unfinished feature is completing the Markdown-first migration: move the remaining dashboard sections out of legacy `docs/data.json` and `docs/nutrition.json`, add schema/privacy tests, and retire manual editing of those payloads. This remains the foundation for reliable coaching, workout-library and nutrition features.
 
 ### Completed
 

@@ -1,1 +1,1 @@
-Sprint 1 generated-data integration is implemented through generated-overlay.js. The remaining HTML script include is tracked in PR #1 before merge.
+Historical note: generated-data integration is now implemented through `generated-overlay.js`, which is included by `index.html`. The current data flow and remaining legacy fallback are documented in [`IMPLEMENTATION-NOTES.md`](IMPLEMENTATION-NOTES.md) and [`ARCHITECTURE.md`](../ARCHITECTURE.md).

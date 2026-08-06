@@ -2,6 +2,8 @@
 
 This directory is the structured source of truth for reusable training knowledge used by the coach, plan generator, What If simulator and future workout builder.
 
+The format and generated outputs are documented in the [Workout Library](../docs/WORKOUT-LIBRARY.md), [Nutrition Guidance](../docs/NUTRITION-GUIDANCE.md) and [AI Coach](../docs/AI-COACH.md) contracts.
+
 ## Scope
 
 - `running/` — running workout templates and progressions
@@ -26,3 +28,5 @@ Every workout should define:
 - tags for search and plan generation.
 
 The library should provide ranges and decision rules rather than false precision. The coach must still account for the athlete's current fitness, goal, schedule, recovery and injury context.
+
+The generators publish `docs/workout-library.json` and `docs/nutrition-guidance.json`. Those files are build artefacts and must not be edited manually.

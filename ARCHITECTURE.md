@@ -4,9 +4,9 @@ _Last updated: 6 August 2026_
 
 ## Architecture decision
 
-Training Log uses a **Markdown-first source model**.
+Training Log uses a **Markdown-first source model**. The [documentation hub](docs/README.md) links the product, architecture, design, coaching and implementation contracts that support this model.
 
-Human-readable Markdown files are authoritative. JSON and other assets under `docs/` exist to serve the GitHub Pages dashboard and should eventually be generated rather than maintained manually.
+Human-readable Markdown files are authoritative. JSON and other assets under `docs/` exist to serve the GitHub Pages dashboard and should be generated rather than maintained manually. The current runtime still has a deliberate legacy fallback; see [Implementation Notes](docs/IMPLEMENTATION-NOTES.md).
 
 ```text
 Markdown source records
@@ -38,8 +38,11 @@ docs/
   import.html
   *.js
   *.css
-  data.json         Temporary/generated dashboard payload
-  nutrition.json    Temporary/generated public nutrition payload
+  data.json               Legacy dashboard payload
+  nutrition.json          Legacy nutrition payload
+  generated-data.json     Generated plan/activity overlay
+  workout-library.json    Generated reusable workout library
+  nutrition-guidance.json Generated nutrition guidance library
 ```
 
 Anything under `docs/` must be treated as publicly accessible. Hiding an element with CSS or JavaScript does not make its source data private.
@@ -87,11 +90,17 @@ Plans should be human-readable Markdown documents with structured front matter o
 - completion status;
 - plan revisions and rationale.
 
-The public dashboard receives only the fields required to render its calendar and workout cards.
+The public dashboard receives only the fields required to render its calendar and workout cards. The reusable knowledge contracts are documented in [Workout Library](docs/WORKOUT-LIBRARY.md) and [Nutrition Guidance](docs/NUTRITION-GUIDANCE.md).
 
 ## Build pipeline target
 
-A build script should:
+The current build scripts are:
+
+- `scripts/build-dashboard-data.mjs` reads the current plan, plan suggestions and public activity records into `docs/generated-data.json`.
+- `scripts/build-workout-library.mjs` reads the workout knowledge base into `docs/workout-library.json`.
+- `scripts/build-nutrition-guidance.mjs` reads nutrition scenarios into `docs/nutrition-guidance.json`.
+
+The build pipeline should:
 
 1. Read Markdown and front matter from approved source directories.
 2. Validate required fields and reject malformed records.
@@ -161,7 +170,7 @@ Publication must be opt-in at the field level through an allowlist, not achieved
 2. Create roadmap, changelog and architecture documents.
 3. Add individual dated activity records for new sessions.
 4. Define front matter schemas.
-5. Add a generator for `docs/data.json`.
+5. Add generators for the remaining dashboard sections and retire the legacy `docs/data.json` and `docs/nutrition.json` dependencies.
 6. Migrate existing plan and activity content.
 7. Mark generated JSON clearly and stop editing it manually.
 8. Add automated validation in GitHub Actions.
@@ -173,3 +182,9 @@ Publication must be opt-in at the field level through an allowlist, not achieved
 - Treating localStorage as permanent or cross-device storage
 - Publishing private athlete or health data
 - Allowing automatic plan changes without user confirmation
+
+## Related contracts
+
+- [Design system](docs/DESIGN-SYSTEM.md) defines reusable UI tokens and primitives.
+- [AI coach](docs/AI-COACH.md) defines recommendation, simulation and persistence boundaries.
+- [Implementation Notes](docs/IMPLEMENTATION-NOTES.md) records what is currently wired versus planned.
