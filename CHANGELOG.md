@@ -7,22 +7,28 @@ All notable changes to Training Log should be recorded here. This file describes
 ### Added
 
 - Living product roadmap with training-engine, workout-library, pace-engine and adaptive-coaching plans.
-- Markdown-first architecture documentation.
+- Markdown-first architecture documentation and generator pipeline.
 - Planned Thursday arms workout with biceps and triceps prescriptions.
 - Browser-local Garmin activity import and imported activity details.
 - Initial mobile navigation and responsive layout improvements.
+- Markdown-authored plan suggestions generated into the public dashboard payload.
+- Coach Review panel on the Plan page with current-versus-suggested comparisons.
+- Browser-local **Apply**, **Modify**, and **Keep original** decisions for plan suggestions.
+- Confidence, reasoning, and expected-impact fields for each suggestion.
 
 ### Changed
 
 - Established Markdown files as the intended human-readable source of truth.
 - Reclassified `docs/data.json` as a temporary/generated dashboard payload rather than the long-term authoritative training record.
 - Reduced personal detail in the public repository README.
+- Upgraded generated dashboard data to schema version 2 with plan suggestions.
 
 ### Known limitations
 
 - Imported activities stored in browser localStorage do not sync across devices.
+- Plan-suggestion decisions are browser-local and do not yet update the Markdown plan automatically.
 - FIT compatibility still needs broader testing.
-- The dashboard is still partly maintained through manual JSON updates until the generator is implemented.
+- The dashboard is still partly maintained through legacy JSON while remaining sections are migrated.
 - Mobile layout requires further device testing and refinement.
 
 ## Maintenance
