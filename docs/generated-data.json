@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-06T08:35:00.000Z",
+  "updated": "2026-08-06",
+  "status": "Training normally; lower back improving",
+  "plan": {
+    "title": "Week 5",
+    "dateRange": "3 Aug – 9 Aug 2026",
+    "plannedDistance": "50.40 km",
+    "progressDistance": "20.20 km completed",
+    "workouts": [
+      {"day":"Tue","title":"Intervals","distance":"7.4 km","completed":true,"summary":"Completed interval session."},
+      {"day":"Wed","title":"Tempo","distance":"11.18 km","completed":true,"summary":"Over/under session including warm-up and cool-down."},
+      {"day":"Thu","title":"Upper Arms","distance":"Strength","completed":false,"summary":"Biceps and triceps session using dumbbells, barbell or EZ bar, bench and resistance bands."},
+      {"day":"Fri","title":"Easy Run","distance":"10 km","completed":false,"summary":"Conversational effort; 5:15/km is a ceiling rather than a target."},
+      {"day":"Sat","title":"Race Practice Long Run","distance":"26 km","completed":false,"summary":"Marathon-specific long run with a controlled target-pace block."}
+    ],
+    "coachGuidance": [
+      "Keep Friday's 10 km genuinely easy and run by conversational effort.",
+      "Preserve freshness for Saturday's long run after a high strength-training week.",
+      "Complete the Thursday arm session without adding lower-body fatigue.",
+      "Prioritise carbohydrates, hydration and sleep before the long run."
+    ]
+  },
+  "sessions": [
+    {"date":"2026-08-04","activity":"Strength","title":"Upper Push","summary":"Chest, shoulders and triceps session lasting approximately 1 hour 20 minutes.","duration":"1h 20m","distanceKm":null,"rpe":"—"},
+    {"date":"2026-08-03","activity":"Strength","title":"Upper Pull","summary":"Back, shoulders and biceps session lasting approximately 1 hour 20 minutes.","duration":"1h 20m","distanceKm":null,"rpe":"—"}
+  ]
+}
