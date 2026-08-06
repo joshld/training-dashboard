@@ -4,7 +4,7 @@
   "metrics": [
     {"label":"Week 5 progress","value":"20.20 / 50.40 km","note":"2 of 4 workouts complete"},
     {"label":"Next run","value":"10 km easy","note":"Friday 7 Aug"},
-    {"label":"Strength sessions","value":"1","note":"Current week"},
+    {"label":"Strength sessions","value":"3","note":"Current week"},
     {"label":"Back discomfort","value":"0–1/10","note":"Monitor after loading"}
   ],
   "weeklyDistance": {
@@ -75,12 +75,14 @@
     "Keep Friday's 10 km genuinely easy; 5:15/km is a ceiling rather than the target.",
     "Execute Saturday's 26 km race-practice run without racing the 12 km marathon-pace block.",
     "Prioritise carbohydrates, hydration and sleep before the long run.",
-    "Reintroduce loaded squats gradually after the recent lower-back tweak.",
+    "Three strength sessions are already complete this week, so avoid unnecessary extra lower-body fatigue before Saturday.",
     "Week 6 contains two quality sessions plus a 28 km long run, so recovery between sessions matters."
   ],
   "sessions":[
-    {"date":"2026-08-05","activity":"Running","summary":"11.18 km over/under tempo; target execution within roughly 3 seconds per km.","rpe":"7/10"},
-    {"date":"2026-08-05","activity":"Strength","summary":"Back-friendly lower body session; glute bridges to 90 kg and slow bodyweight step-ups.","rpe":"7–8/10"}
+    {"date":"2026-08-05","activity":"Strength","summary":"Lower-body session covering quads, hamstrings, glutes and calves; glute bridges reached 90 kg.","rpe":"7–8/10"},
+    {"date":"2026-08-05","activity":"Running","summary":"11.18 km over/under session; all four quality kilometres finished within three seconds of their target pace.","rpe":"7/10"},
+    {"date":"2026-08-04","activity":"Strength","summary":"Upper push session: chest, shoulders and triceps for approximately 1 hour 20 minutes.","rpe":"—"},
+    {"date":"2026-08-03","activity":"Strength","summary":"Upper pull session: back, shoulders and biceps for approximately 1 hour 20 minutes.","rpe":"—"}
   ],
   "tabs": {
     "running": {
@@ -94,11 +96,11 @@
     },
     "strength": {
       "title":"Strength",
-      "intro":"Strength training maintained alongside marathon preparation.",
+      "intro":"Three strength sessions completed this week across upper pull, upper push and lower body.",
       "sections":[
-        {"heading":"Current approach","items":["Preserve meaningful strength and muscle","Pair lower-body lifting with hard run days when recovery permits","Use back-friendly substitutions during return from lumbar tweak","Progress single-leg control without unnecessary fatigue"]},
+        {"heading":"This week","items":["Monday: back, shoulders and biceps — approximately 1h20","Tuesday evening: chest, shoulders and triceps — approximately 1h20","Wednesday: lower body covering quads, hamstrings, glutes and calves"]},
         {"heading":"Latest lower session","items":["Bodyweight squats: 3 × 24","Single-leg extensions: 25 kg","Single-leg hamstring curls: 10 kg","Glute bridges: up to 90 kg × 12","Standing calf raises and slow bodyweight step-ups"]},
-        {"heading":"Return to squats","items":["Back has tolerated running and heavy bridges","Loaded squats remain temporarily reduced","Reintroduction should be gradual and technique-focused"]}
+        {"heading":"Current approach","items":["Maintain upper-body strength alongside marathon preparation","Pair demanding lower-body lifting with quality running when recovery permits","Avoid adding more lower-body fatigue before the priority long run"]}
       ]
     },
     "recovery": {
@@ -114,9 +116,9 @@
       "title":"Coach Notes",
       "intro":"Current observations and priorities based on recent training.",
       "sections":[
-        {"heading":"What is going well","items":["Strong pacing discipline during quality runs","Tempo work is controlled rather than raced","Back has tolerated progressive loading","Good ability to combine running and strength on hard days"]},
-        {"heading":"Immediate priorities","items":["Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Recover well before Week 6's consecutive Tuesday and Wednesday quality sessions","Protect the 28 km long run by avoiding unnecessary lower-body fatigue late in the week"]},
-        {"heading":"Current recommendation","items":["Continue marathon-specific endurance development","Maintain strength without chasing gym limits during peak running load","Reintroduce squats progressively once symptoms remain consistently quiet"]}
+        {"heading":"What is going well","items":["Three balanced strength sessions completed across pull, push and lower body","Strong pacing discipline during quality runs","Tempo work is controlled rather than raced","Good ability to combine running and strength on hard days"]},
+        {"heading":"Immediate priorities","items":["Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Avoid extra lower-body loading before the long run","Recover well before Week 6's consecutive Tuesday and Wednesday quality sessions"]},
+        {"heading":"Current recommendation","items":["Continue marathon-specific endurance development","Maintain strength without chasing gym limits during peak running load","Keep upper-body work flexible around key run sessions"]}
       ]
     }
   }
