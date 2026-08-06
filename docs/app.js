@@ -19,17 +19,41 @@ function renderDocument(targetId,documentData){
     </div>`;
 }
 
-function setupTabs(){
+function openTab(name){
   const buttons=[...document.querySelectorAll('.tab')];
-  buttons.forEach(button=>button.addEventListener('click',()=>{
-    const name=button.dataset.tab;
-    buttons.forEach(item=>item.classList.toggle('active',item===button));
-    document.querySelectorAll('.tab-panel').forEach(panel=>panel.classList.toggle('active',panel.id===`tab-${name}`));
-    history.replaceState(null,'',name==='dashboard'?'#dashboard':`#${name}`);
-  }));
+  const selected=buttons.find(button=>button.dataset.tab===name)||buttons[0];
+  buttons.forEach(item=>item.classList.toggle('active',item===selected));
+  document.querySelectorAll('.tab-panel').forEach(panel=>panel.classList.toggle('active',panel.id===`tab-${selected.dataset.tab}`));
+  history.replaceState(null,'',selected.dataset.tab==='dashboard'?'#dashboard':`#${selected.dataset.tab}`);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function setupTabs(){
+  document.querySelectorAll('.tab').forEach(button=>button.addEventListener('click',()=>openTab(button.dataset.tab)));
+  document.querySelectorAll('[data-open-tab]').forEach(button=>button.addEventListener('click',()=>openTab(button.dataset.openTab)));
   const requested=location.hash.replace('#','');
-  const initial=buttons.find(button=>button.dataset.tab===requested);
-  if(initial)initial.click();
+  if(requested)openTab(requested);
+}
+
+function renderPlan(plan){
+  const container=document.getElementById('planWeeks');
+  container.innerHTML=plan.weeks.map(week=>{
+    const completed=week.workouts.filter(workout=>workout.completed).length;
+    const percent=Math.round((completed/week.workouts.length)*100);
+    return `<article class="panel plan-week ${week.current?'current-week':''}">
+      <div class="week-card-header">
+        <div><p class="eyebrow">${escapeHtml(week.dateRange)}</p><h2>${escapeHtml(week.name)}</h2></div>
+        <div class="week-total"><strong>${escapeHtml(week.plannedDistance)}</strong><small>planned</small></div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:${percent}%"></div></div>
+      <div class="week-meta"><span>${completed}/${week.workouts.length} workouts complete</span><span>${escapeHtml(week.progressDistance)}</span></div>
+      <div class="workout-list">${week.workouts.map(workout=>`
+        <article class="workout-row ${workout.completed?'complete':''}">
+          <div class="workout-marker">${workout.completed?'✓':escapeHtml(workout.day.slice(0,1))}</div>
+          <div class="workout-main"><div><strong>${escapeHtml(workout.day)} · ${escapeHtml(workout.title)}</strong><span>${escapeHtml(workout.distance)}</span></div>${workout.summary?`<p>${escapeHtml(workout.summary)}</p>`:''}${workout.steps?`<ol>${workout.steps.map(step=>`<li>${escapeHtml(step)}</li>`).join('')}</ol>`:''}</div>
+        </article>`).join('')}</div>
+    </article>`;
+  }).join('');
 }
 
 async function loadDashboard(){
@@ -47,6 +71,20 @@ async function loadDashboard(){
     document.getElementById('strengthRows').innerHTML=data.strength.map(row=>`<tr><td>${escapeHtml(row.exercise)}</td><td>${escapeHtml(row.load)}</td><td>${escapeHtml(row.work)}</td></tr>`).join('');
     document.getElementById('coachFocus').innerHTML=data.coachFocus.map(item=>`<li>${escapeHtml(item)}</li>`).join('');
     document.getElementById('sessionRows').innerHTML=data.sessions.map(row=>`<tr><td>${escapeHtml(row.date)}</td><td>${escapeHtml(row.activity)}</td><td>${escapeHtml(row.summary)}</td><td>${escapeHtml(row.rpe||'—')}</td></tr>`).join('');
+
+    const next=data.plan.nextWorkout;
+    document.getElementById('nextWorkoutTitle').textContent=next.title;
+    document.getElementById('nextWorkoutDate').textContent=next.date;
+    document.getElementById('nextWorkoutDetails').innerHTML=next.details.map(item=>`<div class="detail"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong></div>`).join('');
+
+    const current=data.plan.weeks.find(week=>week.current)||data.plan.weeks[0];
+    const completed=current.workouts.filter(workout=>workout.completed).length;
+    const percent=Math.round((completed/current.workouts.length)*100);
+    document.getElementById('currentWeekTitle').textContent=`${current.name} · ${current.dateRange}`;
+    document.getElementById('currentWeekProgressText').textContent=`${completed}/${current.workouts.length}`;
+    document.getElementById('currentWeekProgress').style.width=`${percent}%`;
+    document.getElementById('currentWeekSummary').innerHTML=`<span>${escapeHtml(current.progressDistance)}</span><span>${escapeHtml(current.plannedDistance)} planned</span>`;
+    renderPlan(data.plan);
 
     renderDocument('runningContent',data.tabs.running);
     renderDocument('strengthContent',data.tabs.strength);
