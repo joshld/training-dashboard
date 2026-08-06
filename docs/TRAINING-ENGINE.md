@@ -32,6 +32,7 @@ The Training Engine should eventually support:
 - Coach Review suggestions;
 - What If comparisons;
 - nutrition-scenario selection;
+- activity-analysis evidence from completed sessions;
 - explicit application of user-approved changes.
 
 It should not own private conversation history, diagnose injury or directly mutate repository files.
@@ -63,14 +64,19 @@ It should not own private conversation history, diagnose injury or directly muta
 - completed running, strength, sport and recovery sessions;
 - planned versus completed differences;
 - duration, distance, pace, heart rate, cadence and elevation when available;
+- lap-level pace, heart-rate and cadence execution;
+- running dynamics such as stride length, ground contact time, ground contact balance, vertical oscillation and vertical ratio when available;
+- temperature and environmental context when available;
 - subjective RPE and session notes;
 - recent long-run and quality-session progression;
-- current week and rolling multi-week load.
+- current week and rolling multi-week load;
+- historical activity-analysis trends from [`ACTIVITY-ANALYSIS.md`](ACTIVITY-ANALYSIS.md).
 
 ### Reusable knowledge
 
 - [`WORKOUT-LIBRARY.md`](WORKOUT-LIBRARY.md);
 - [`NUTRITION-GUIDANCE.md`](NUTRITION-GUIDANCE.md);
+- [`ACTIVITY-ANALYSIS.md`](ACTIVITY-ANALYSIS.md);
 - [`knowledge/rules/session-compatibility.md`](../knowledge/rules/session-compatibility.md);
 - future pace, progression and phase rules.
 
@@ -116,7 +122,12 @@ Track at least:
 - longest run;
 - race-specific volume;
 - high-impact and neuromuscular demand;
-- heat, hills and terrain where available.
+- heat, hills and terrain where available;
+- pace at similar heart rate;
+- heart rate at similar pace;
+- cadence, stride length, ground contact time and vertical-ratio trends where available.
+
+Running-dynamics metrics are supporting evidence. They should be interpreted as trends across comparable activities, not as a reason to overreact to one run.
 
 ### Strength
 
@@ -148,6 +159,8 @@ The first implementation should favour transparent rule-based classifications ov
 - current easy-run response;
 - goal pace;
 - terrain, heat and fatigue;
+- pace/heart-rate trends from similar activities;
+- running-dynamics trends where they support efficiency or fatigue observations;
 - available training volume.
 
 ### Outputs
@@ -236,7 +249,8 @@ Examples:
 - preserve the plan when no change is needed;
 - move lower-body strength away from a race-specific session;
 - adjust pace expectations for heat or terrain;
-- modify the next week after a missed session without compensatory overload.
+- modify the next week after a missed session without compensatory overload;
+- use repeated activity-analysis trends to support a progression, hold or recovery recommendation.
 
 Each suggestion follows the output contract in [`AI-COACH.md`](AI-COACH.md) and offers **Apply**, **Modify** and **Keep original**.
 
@@ -311,6 +325,7 @@ Low confidence should produce conservative guidance, explicit assumptions and fe
 - Do not optimise weight loss through the training engine.
 - Do not apply plan changes without explicit approval.
 - Do not treat a mechanical-risk or recovery signal as an automatic restriction.
+- Do not treat one activity-analysis metric as decisive without repeated or contextual evidence.
 
 ## Implementation milestones
 
@@ -318,10 +333,11 @@ Low confidence should produce conservative guidance, explicit assumptions and fe
 2. Expand workout metadata and compatibility rules.
 3. Implement reusable pace-range calculations with tests.
 4. Move What If rules into shared deterministic helpers.
-5. Generate structured Coach Review proposals.
-6. Add preview-and-apply persistence for allowed actions.
-7. Implement weekly plan generation.
-8. Add adaptation from completed activities and subjective feedback.
-9. Evaluate more advanced modelling only after transparent rules are well tested.
+5. Add richer FIT import and activity-analysis data as described in [`ACTIVITY-ANALYSIS.md`](ACTIVITY-ANALYSIS.md).
+6. Generate structured Coach Review proposals.
+7. Add preview-and-apply persistence for allowed actions.
+8. Implement weekly plan generation.
+9. Add adaptation from completed activities and subjective feedback.
+10. Evaluate more advanced modelling only after transparent rules are well tested.
 
 Delivery status and priorities remain in [`ROADMAP.md`](../ROADMAP.md). Current runtime wiring remains in [`IMPLEMENTATION-NOTES.md`](IMPLEMENTATION-NOTES.md).
