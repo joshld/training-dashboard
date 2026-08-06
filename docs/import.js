@@ -1,3 +1,5 @@
+import { parseFitMessages, formatPace } from './activity-analysis.js';
+
 const fileInput=document.getElementById('activityFile');
 const status=document.getElementById('importStatus');
 const preview=document.getElementById('importPreview');
@@ -6,11 +8,9 @@ let currentSummary=null;
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
 const fmtTime=s=>{if(!Number.isFinite(s))return'—';const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=Math.round(s%60);return h?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${m}:${String(sec).padStart(2,'0')}`};
-const fmtPace=(sec,km)=>Number.isFinite(sec)&&km>0?`${Math.floor(sec/km/60)}:${String(Math.round(sec/km%60)).padStart(2,'0')}/km`:'—';
+const fmtPace=(sec,km)=>formatPace(Number.isFinite(sec)&&km>0?sec/km:null);
 const num=v=>{const n=Number(v);return Number.isFinite(n)?n:null};
 function showError(message){status.innerHTML=`<div class="notice">${esc(message)}</div>`;preview.hidden=true;}
-function first(arr){return Array.isArray(arr)?arr[0]:arr;}
-function pick(obj,...keys){for(const key of keys){if(obj&&obj[key]!=null)return obj[key];}return null;}
 function loadStored(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(value)?value:[];}catch{return[];}}
 function activityId(summary){return [summary.date||'',summary.durationSeconds||'',summary.distanceKm?.toFixed(3)||'',String(summary.activityType||'').toLowerCase()].join('|');}
 function classifyActivity(type=''){const value=String(type).toLowerCase();return value.includes('run')?'Running':value.includes('strength')?'Strength':'Other';}
@@ -20,10 +20,7 @@ async function parseFit(file){
   const {Decoder,Stream}=fitSdk;const bytes=new Uint8Array(await file.arrayBuffer());const decoder=new Decoder(Stream.fromByteArray([...bytes]));
   if(!decoder.isFIT())throw new Error('The selected file is not a valid FIT file.');
   const {messages,errors}=decoder.read();if(errors?.length)console.warn('FIT decode warnings',errors);
-  const session=first(messages.sessionMesgs)||{},laps=messages.lapMesgs||[],records=messages.recordMesgs||[];
-  const distanceM=num(pick(session,'totalDistance','enhancedTotalDistance'))??num(pick(first(laps),'totalDistance'));
-  const durationS=num(pick(session,'totalTimerTime','totalElapsedTime'));const start=pick(session,'startTime','timestamp')||pick(records[0],'timestamp');
-  return{sourceFormat:'FIT',fileName:file.name,date:start?new Date(start).toISOString():null,activityType:String(pick(session,'sport','subSport')||'activity'),distanceKm:distanceM!=null?distanceM/1000:null,durationSeconds:durationS,averagePace:fmtPace(durationS,distanceM!=null?distanceM/1000:null),averageHeartRate:num(pick(session,'avgHeartRate')),maximumHeartRate:num(pick(session,'maxHeartRate')),averageCadence:num(pick(session,'avgRunningCadence','avgCadence')),calories:num(pick(session,'totalCalories')),ascentMetres:num(pick(session,'totalAscent')),descentMetres:num(pick(session,'totalDescent')),trainingEffect:num(pick(session,'totalTrainingEffect','totalAerobicTrainingEffect')),anaerobicTrainingEffect:num(pick(session,'totalAnaerobicTrainingEffect')),averageGroundContactTime:num(pick(session,'avgStanceTime')),averageVerticalOscillation:num(pick(session,'avgVerticalOscillation')),averageStrideLength:num(pick(session,'avgStepLength','avgStrideLength')),laps:laps.map((lap,i)=>{const d=num(pick(lap,'totalDistance')),t=num(pick(lap,'totalTimerTime','totalElapsedTime'));return{index:i+1,distanceKm:d!=null?d/1000:null,durationSeconds:t,pace:fmtPace(t,d!=null?d/1000:null),averageHeartRate:num(pick(lap,'avgHeartRate'))};}),sampleCount:records.length};
+  return parseFitMessages(messages, { fileName: file.name });
 }
 function text(node,name){return node?.getElementsByTagNameNS('*',name)?.[0]?.textContent?.trim()||null;}
 function childText(node,name){const elements=[...node.getElementsByTagNameNS('*',name)];return elements.length?elements[0].textContent?.trim()||null:null;}
