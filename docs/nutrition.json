@@ -1,0 +1,54 @@
+{
+  "title": "Nutrition",
+  "intro": "Training-focused fueling and hydration guidance. Detailed food logs, bodyweight, calorie totals and private health information are intentionally excluded from the public dashboard.",
+  "sections": [
+    {
+      "heading": "Current focus",
+      "items": [
+        "Support the upcoming race-practice long run with adequate carbohydrate intake.",
+        "Keep daily protein intake consistent across running and strength days.",
+        "Prioritise hydration and sleep alongside food intake during higher-volume weeks."
+      ]
+    },
+    {
+      "heading": "Before key sessions",
+      "items": [
+        "Eat a carbohydrate-focused meal in the hours before long or quality sessions.",
+        "Avoid beginning a long run under-fuelled simply because the early kilometres feel easy.",
+        "Use familiar foods before important sessions rather than experimenting on the day."
+      ]
+    },
+    {
+      "heading": "During long runs",
+      "items": [
+        "Begin taking carbohydrates early rather than waiting until fatigue appears.",
+        "Use a consistent gel or carbohydrate schedule throughout the session.",
+        "Take fluids according to conditions and practise the same approach intended for race day."
+      ]
+    },
+    {
+      "heading": "After training",
+      "items": [
+        "Combine protein with carbohydrates after demanding sessions.",
+        "Replace fluids and include sodium when training conditions or sweat losses warrant it.",
+        "Treat recovery nutrition as preparation for the next session, not only a reward for the completed one."
+      ]
+    },
+    {
+      "heading": "Current status",
+      "items": [
+        "Protein intake: adequate.",
+        "Carbohydrate priority: increase around long and quality sessions.",
+        "Hydration priority: arrive at key sessions well hydrated and replace fluids afterward."
+      ]
+    },
+    {
+      "heading": "Privacy boundary",
+      "items": [
+        "No bodyweight, calorie targets or meal-by-meal records are published here.",
+        "Detailed nutrition discussions remain in the private coaching conversation and repository notes.",
+        "Only general training guidance suitable for the public dashboard is displayed."
+      ]
+    }
+  ]
+}
