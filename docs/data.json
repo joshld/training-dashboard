@@ -2,7 +2,7 @@
   "updated": "2026-08-06",
   "status": "Training normally; lower back improving",
   "metrics": [
-    {"label":"Week 5 progress","value":"20.20 / 50.40 km","note":"2 of 4 Runna workouts complete"},
+    {"label":"Week 5 progress","value":"20.20 / 50.40 km","note":"2 of 4 workouts complete"},
     {"label":"Next run","value":"10 km easy","note":"Friday 7 Aug"},
     {"label":"Strength sessions","value":"1","note":"Current week"},
     {"label":"Back discomfort","value":"0–1/10","note":"Monitor after loading"}
@@ -30,7 +30,7 @@
         "plannedDistance":"50.40 km",
         "progressDistance":"20.20 km completed",
         "workouts":[
-          {"day":"Tue","title":"Intervals","distance":"7.4 km","completed":true,"summary":"Completed Runna interval session."},
+          {"day":"Tue","title":"Intervals","distance":"7.4 km","completed":true,"summary":"Completed interval session."},
           {"day":"Wed","title":"Tempo","distance":"7 km planned","completed":true,"summary":"Completed as an 11.18 km over/under session including warm-up and cool-down."},
           {"day":"Fri","title":"Easy Run","distance":"10 km","completed":false,"summary":"Conversational effort; 5:15/km is a maximum pace, not a target.","steps":["10 km at a genuinely easy conversational pace","Estimated duration 50–55 minutes"]},
           {"day":"Sat","title":"Race Practice Long Run","distance":"26 km","completed":false,"summary":"Marathon-specific long run with a 12 km target-pace block.","steps":["6 km conversational","3 km at 5:30/km","12 km at 5:05/km target marathon pace","5 km conversational","Estimated duration 2h10–2h30"]}
@@ -43,18 +43,18 @@
         "plannedDistance":"62.00 km",
         "progressDistance":"0 km completed",
         "workouts":[
-          {"day":"Tue","title":"Intervals","distance":"11 km","completed":false,"summary":"Detailed structure not visible in the supplied screenshot."},
-          {"day":"Wed","title":"Tempo","distance":"11 km","completed":false,"summary":"Detailed structure not visible in the supplied screenshot."},
-          {"day":"Fri","title":"Easy Run","distance":"12 km","completed":false,"summary":"Detailed structure not visible in the supplied screenshot."},
-          {"day":"Sat","title":"Long Run","distance":"28 km","completed":false,"summary":"Detailed structure not visible in the supplied screenshot."}
+          {"day":"Tue","title":"Intervals","distance":"11 km","completed":false,"summary":"Workout structure to be added when available."},
+          {"day":"Wed","title":"Tempo","distance":"11 km","completed":false,"summary":"Workout structure to be added when available."},
+          {"day":"Fri","title":"Easy Run","distance":"12 km","completed":false,"summary":"Workout structure to be added when available."},
+          {"day":"Sat","title":"Long Run","distance":"28 km","completed":false,"summary":"Workout structure to be added when available."}
         ]
       }
     ]
   },
   "latestSession": {
-    "title": "Over/under tempo + lower body strength",
-    "type": "Combined hard day",
-    "details": [
+    "title":"Over/under tempo + lower body strength",
+    "type":"Combined hard day",
+    "details":[
       {"label":"Run distance","value":"11.18 km"},
       {"label":"Quality block","value":"4 km"},
       {"label":"Tempo splits","value":"4:35 / 4:18 / 4:33 / 4:18"},
@@ -63,7 +63,7 @@
       {"label":"Back response","value":"No pain reported"}
     ]
   },
-  "strength": [
+  "strength":[
     {"exercise":"Bodyweight squat","load":"Bodyweight","work":"3 × 24"},
     {"exercise":"Single-leg leg extension","load":"25 kg","work":"Up to 3 sets; stopped for pad pressure"},
     {"exercise":"Single-leg hamstring curl","load":"10 kg","work":"3 sets"},
@@ -71,14 +71,14 @@
     {"exercise":"Standing calf raise","load":"Bodyweight","work":"3 × 20–25"},
     {"exercise":"Step-up","load":"Bodyweight","work":"3 × 10 each leg, slow eccentric"}
   ],
-  "coachFocus": [
+  "coachFocus":[
     "Keep Friday's 10 km genuinely easy; 5:15/km is a ceiling rather than the target.",
     "Execute Saturday's 26 km race-practice run without racing the 12 km marathon-pace block.",
     "Prioritise carbohydrates, hydration and sleep before the long run.",
     "Reintroduce loaded squats gradually after the recent lower-back tweak.",
     "Use the Week 6 increase to 62 km only if recovery remains acceptable after Week 5."
   ],
-  "sessions": [
+  "sessions":[
     {"date":"2026-08-05","activity":"Running","summary":"11.18 km over/under tempo; target execution within roughly 3 seconds per km.","rpe":"7/10"},
     {"date":"2026-08-05","activity":"Strength","summary":"Back-friendly lower body session; glute bridges to 90 kg and slow bodyweight step-ups.","rpe":"7–8/10"}
   ],
@@ -87,11 +87,10 @@
       "title":"Running",
       "intro":"Current running status, key workouts and marathon-specific priorities.",
       "sections":[
-        {"heading":"Current Runna block","items":["Week 5: 50.40 km planned with 20.20 km complete","Friday: 10 km easy run","Saturday: 26 km race-practice long run","Week 6: 62 km planned across four workouts"]},
+        {"heading":"Current training block","items":["Week 5: 50.40 km planned with 20.20 km complete","Friday: 10 km easy run","Saturday: 26 km race-practice long run","Week 6: 62 km planned across four workouts"]},
         {"heading":"Current indicators","items":["Recent 800 m repetitions around 4:00/km","Over/under tempo completed at 4:35 / 4:18 / 4:33 / 4:18","Latest quality run felt comfortably hard with another gear available","Running mechanics remained balanced after the recent back tweak"]},
         {"heading":"Marathon-specific priority","items":["Practise controlled marathon pace within long runs","Build fueling and musculoskeletal durability","Avoid turning prescribed easy runs into moderate sessions"]}
-      ],
-      "source":"activities/running.md"
+      ]
     },
     "strength": {
       "title":"Strength",
@@ -100,8 +99,7 @@
         {"heading":"Current approach","items":["Preserve meaningful strength and muscle","Pair lower-body lifting with hard run days when recovery permits","Use back-friendly substitutions during return from lumbar tweak","Progress single-leg control without unnecessary fatigue"]},
         {"heading":"Latest lower session","items":["Bodyweight squats: 3 × 24","Single-leg extensions: 25 kg","Single-leg hamstring curls: 10 kg","Glute bridges: up to 90 kg × 12","Standing calf raises and slow bodyweight step-ups"]},
         {"heading":"Return to squats","items":["Back has tolerated running and heavy bridges","Loaded squats remain temporarily reduced","Reintroduction should be gradual and technique-focused"]}
-      ],
-      "source":"activities/strength.md"
+      ]
     },
     "recovery": {
       "title":"Recovery",
@@ -110,18 +108,16 @@
         {"heading":"Current status","items":["Lower back mostly recovered","No pain during latest tempo run or modified leg workout","Monitor next-morning stiffness after heavier loading","Quad fatigue from step-ups was bilateral and pain-free"]},
         {"heading":"Nutrition","items":["Daily protein intake was comfortably sufficient","Carbohydrates and hydration are the greater recovery priority before and after the 26 km long run","Practise long-run fueling rather than relying only on post-run nutrition"]},
         {"heading":"Check-in metrics","items":["Back discomfort","Quad and calf soreness","Sleep quality","Energy and general fatigue"]}
-      ],
-      "source":"health/recovery.md"
+      ]
     },
     "coach": {
       "title":"Coach Notes",
       "intro":"Current observations and priorities based on recent training.",
       "sections":[
         {"heading":"What is going well","items":["Strong pacing discipline during quality runs","Tempo work is controlled rather than raced","Back has tolerated progressive loading","Good ability to combine running and strength on hard days"]},
-        {"heading":"Immediate priorities","items":["Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Assess back and leg recovery before beginning the 62 km Week 6","Do not infer later Runna weeks until their details are provided"]},
+        {"heading":"Immediate priorities","items":["Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Assess back and leg recovery before beginning the 62 km Week 6","Add later training weeks only when their details are known"]},
         {"heading":"Current recommendation","items":["Continue marathon-specific endurance development","Maintain strength without chasing gym limits during peak running load","Reintroduce squats progressively once symptoms remain consistently quiet"]}
-      ],
-      "source":"coach/observations.md"
+      ]
     }
   }
 }
