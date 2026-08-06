@@ -54,9 +54,13 @@ function metric(label, value) {
   return `<div class="activity-detail-metric"><span>${escapeActivityHtml(label)}</span><strong>${escapeActivityHtml(value)}</strong></div>`;
 }
 
+function numberMetric(value, unit = '') {
+  return value == null ? null : `${Number(value).toFixed(Number.isInteger(Number(value)) ? 0 : 2)}${unit}`;
+}
+
 function renderLapRows(laps = []) {
   if (!Array.isArray(laps) || !laps.length) {
-    return '<tr><td colspan="5">No lap or interval records were available in this export.</td></tr>';
+    return '<tr><td colspan="11">No lap or interval records were available in this export.</td></tr>';
   }
 
   return laps.map((lap, index) => `
@@ -66,6 +70,12 @@ function renderLapRows(laps = []) {
       <td>${lap.distanceKm != null ? `${Number(lap.distanceKm).toFixed(2)} km` : '—'}</td>
       <td>${escapeActivityHtml(lap.pace || '—')}</td>
       <td>${lap.averageHeartRate != null ? escapeActivityHtml(`${lap.averageHeartRate} bpm`) : '—'}</td>
+      <td>${lap.averageCadence != null ? escapeActivityHtml(`${lap.averageCadence} spm`) : '—'}</td>
+      <td>${lap.averageStrideLength != null ? escapeActivityHtml(`${Number(lap.averageStrideLength).toFixed(2)} m`) : '—'}</td>
+      <td>${lap.averageGroundContactTime != null ? escapeActivityHtml(`${lap.averageGroundContactTime} ms`) : '—'}</td>
+      <td>${lap.averageGroundContactBalance != null ? escapeActivityHtml(`${lap.averageGroundContactBalance}%`) : '—'}</td>
+      <td>${lap.averageVerticalOscillation != null ? escapeActivityHtml(`${lap.averageVerticalOscillation} cm`) : '—'}</td>
+      <td>${lap.averageVerticalRatio != null ? escapeActivityHtml(`${lap.averageVerticalRatio}%`) : '—'}</td>
     </tr>`).join('');
 }
 
@@ -100,22 +110,32 @@ function openActivityDetails(activity) {
     ? activity.activityType
     : (activity.activity || 'Imported activity');
 
-  const metrics = [
+  const overviewMetrics = [
     metric('Distance', activity.distanceKm != null ? `${Number(activity.distanceKm).toFixed(2)} km` : null),
     metric('Duration', formatActivityDuration(activity.durationSeconds)),
+    metric('Elapsed time', formatActivityDuration(activity.elapsedTimeSeconds)),
+    metric('Moving time', formatActivityDuration(activity.movingTimeSeconds)),
     metric('Average pace', activity.averagePace),
+    metric('Average speed', numberMetric(activity.averageSpeedKph, ' km/h')),
     metric('Average heart rate', activity.averageHeartRate != null ? `${activity.averageHeartRate} bpm` : null),
     metric('Maximum heart rate', activity.maximumHeartRate != null ? `${activity.maximumHeartRate} bpm` : null),
-    metric('Average cadence', activity.averageCadence != null ? `${activity.averageCadence} spm` : null),
     metric('Calories', activity.calories),
     metric('Ascent', activity.ascentMetres != null ? `${activity.ascentMetres} m` : null),
     metric('Descent', activity.descentMetres != null ? `${activity.descentMetres} m` : null),
     metric('Aerobic training effect', activity.trainingEffect),
     metric('Anaerobic training effect', activity.anaerobicTrainingEffect),
-    metric('Ground contact time', activity.averageGroundContactTime != null ? `${activity.averageGroundContactTime} ms` : null),
-    metric('Vertical oscillation', activity.averageVerticalOscillation != null ? `${activity.averageVerticalOscillation} cm` : null),
-    metric('Stride length', activity.averageStrideLength != null ? `${activity.averageStrideLength} m` : null),
+    metric('Temperature', numberMetric(activity.averageTemperatureC, '°C')),
     metric('Recorded samples', activity.sampleCount)
+  ].filter(Boolean).join('');
+
+  const dynamicsMetrics = [
+    metric('Average cadence', activity.averageCadence != null ? `${activity.averageCadence} spm` : null),
+    metric('Maximum cadence', activity.maximumCadence != null ? `${activity.maximumCadence} spm` : null),
+    metric('Average stride length', numberMetric(activity.averageStrideLength, ' m')),
+    metric('Ground contact time', activity.averageGroundContactTime != null ? `${activity.averageGroundContactTime} ms` : null),
+    metric('Ground contact balance', numberMetric(activity.averageGroundContactBalance, '%')),
+    metric('Vertical oscillation', numberMetric(activity.averageVerticalOscillation, ' cm')),
+    metric('Vertical ratio', numberMetric(activity.averageVerticalRatio, '%'))
   ].filter(Boolean).join('');
 
   content.innerHTML = `
@@ -127,15 +147,23 @@ function openActivityDetails(activity) {
       </div>
       <span class="pill">${escapeActivityHtml(activity.sourceFormat || 'Import')}</span>
     </header>
-    <section class="activity-detail-metrics">${metrics || '<p>No summary metrics were available.</p>'}</section>
+    <section class="activity-detail-section" aria-labelledby="activityOverviewHeading">
+      <div class="panel-heading"><div><p class="eyebrow">Summary</p><h3 id="activityOverviewHeading">Overview</h3></div></div>
+      <div class="activity-detail-metrics">${overviewMetrics || '<p>No summary metrics were available.</p>'}</div>
+    </section>
     <section class="activity-detail-section">
-      <div class="panel-heading"><div><p class="eyebrow">Workout structure</p><h3>Laps and intervals</h3></div></div>
+      <div class="panel-heading"><div><p class="eyebrow">Workout structure</p><h3>Laps</h3></div></div>
       <div class="table-wrap">
-        <table>
-          <thead><tr><th>#</th><th>Time</th><th>Distance</th><th>Pace</th><th>Avg HR</th></tr></thead>
+        <table class="activity-lap-table">
+          <thead><tr><th>#</th><th>Time</th><th>Distance</th><th>Pace</th><th>Avg HR</th><th>Cadence</th><th>Stride</th><th>GCT</th><th>GCT balance</th><th>Vertical osc.</th><th>Vertical ratio</th></tr></thead>
           <tbody>${renderLapRows(activity.laps)}</tbody>
         </table>
       </div>
+    </section>
+    <section class="activity-detail-section" aria-labelledby="runningDynamicsHeading">
+      <div class="panel-heading"><div><p class="eyebrow">Form metrics</p><h3 id="runningDynamicsHeading">Running Dynamics</h3></div></div>
+      <div class="activity-detail-metrics">${dynamicsMetrics || '<p>No running-dynamics metrics were available in this export.</p>'}</div>
+      <p class="activity-detail-note">Running-dynamics fields are shown only when the FIT device records them. No route coordinates are stored in this activity summary.</p>
     </section>
     <footer class="activity-detail-footer">
       <span>Source: ${escapeActivityHtml(activity.fileName || activity.sourceFormat || 'Imported file')}</span>

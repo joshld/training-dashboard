@@ -35,7 +35,7 @@
           <label class="file-button" for="activityFile">Choose file</label>
           <input id="activityFile" type="file" accept=".gpx,.tcx,.fit,application/gpx+xml,application/xml,text/xml,application/octet-stream" hidden>
         </section>
-        <section class="privacy-note"><strong>Privacy</strong><span>Route coordinates stay in memory and are excluded from the generated summary JSON.</span></section>
+        <section class="privacy-note"><strong>Privacy</strong><span>Route coordinates and unknown FIT fields are excluded from the normalized activity summary. Supported non-location time-series data stays in this browser.</span></section>
         <section class="panel" id="importStatus"><p class="empty-state">Select a FIT, TCX or GPX export to preview the activity.</p></section>
         <section class="panel" id="importPreview" hidden>
           <div class="panel-heading"><div><p class="eyebrow">Activity preview</p><h2 id="activityTitle">Imported activity</h2></div><span class="pill" id="activityFormat">—</span></div>

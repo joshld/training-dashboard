@@ -12,11 +12,13 @@ Current foundations include:
 
 - browser-local FIT, TCX and GPX import preview foundations;
 - imported activity detail view;
+- normalized FIT session, lap and non-location record metrics stored locally;
+- Overview, Laps and Running Dynamics sections in imported activity details;
 - public activity summaries generated from Markdown records;
 - current dashboard activity cards;
 - training-engine and coach documentation that can consume activity evidence later.
 
-The next implementation step is to extract and preserve richer FIT-derived activity data while maintaining the public/private boundary.
+The first extraction milestone is complete. Charts, historical comparisons, Coach Analysis and public/private persistence remain future work.
 
 ## Product goal
 
@@ -279,11 +281,11 @@ Activity detail pages should follow [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md):
 
 ## Implementation milestones
 
-1. Confirm what metrics the current FIT parser can decode.
-2. Preserve richer imported activity data in a private or local structure.
+1. **Complete** — Confirm and normalize supported FIT summary, lap and running-dynamics metrics.
+2. **Complete** — Preserve richer non-location imported activity data in a local structure.
 3. Define public activity-summary allowlists and privacy tests.
-4. Add activity-detail sections for Overview, Laps, Charts, Running Dynamics and Coach Analysis.
-5. Add lap-level running-dynamics display.
+4. **Partial** — Add activity-detail sections for Overview, Laps and Running Dynamics; Charts and Coach Analysis remain.
+5. **Complete** — Add lap-level running-dynamics display where supplied by the export.
 6. Add time-series charts for pace, heart rate, cadence and elevation.
 7. Add running-dynamics charts and historical comparisons.
 8. Feed validated activity-analysis features into Coach Review and the Training Engine.

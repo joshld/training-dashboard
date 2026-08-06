@@ -63,12 +63,13 @@ The highest-priority unfinished feature is completing the Markdown-first migrati
 - [x] Activity preview
 - [x] Browser-local save
 - [x] Activity details
-- [ ] Confirm all useful FIT metrics decoded by current parser
-- [ ] Preserve richer imported FIT activity data for analysis
+- [x] Confirm and normalize supported FIT summary, lap and running-dynamics metrics
+- [x] Preserve richer non-location FIT time-series data locally for analysis
 - [ ] Improve FIT compatibility and error reporting
 - [ ] Add pace, heart-rate and cadence charts
-- [ ] Add lap-level running dynamics
-- [ ] Add running-dynamics summary and trends
+- [x] Add lap-level running-dynamics display
+- [x] Add running-dynamics summary display
+- [ ] Add running-dynamics historical trends
 - [ ] Add richer interval detection
 - [ ] Export an activity Markdown record
 - [ ] Persist imports to the repository or a private backend
