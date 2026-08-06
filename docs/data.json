@@ -43,10 +43,10 @@
         "plannedDistance":"62.00 km",
         "progressDistance":"0 km completed",
         "workouts":[
-          {"day":"Tue","title":"Intervals","distance":"11 km","completed":false,"summary":"Workout structure to be added when available."},
-          {"day":"Wed","title":"Tempo","distance":"11 km","completed":false,"summary":"Workout structure to be added when available."},
-          {"day":"Fri","title":"Easy Run","distance":"12 km","completed":false,"summary":"Workout structure to be added when available."},
-          {"day":"Sat","title":"Long Run","distance":"28 km","completed":false,"summary":"Workout structure to be added when available."}
+          {"day":"Tue","title":"1 km Repeats","distance":"11 km","completed":false,"summary":"Six controlled 1 km repetitions with walking recoveries.","steps":["2.5 km conversational warm-up; no faster than 5:10/km","90 seconds walking rest","6 × 1 km at 4:05/km; acceptable range 3:55–4:15/km","90 seconds walking recovery after each repetition","2.5 km conversational cool-down"]},
+          {"day":"Wed","title":"Tempo 5 km","distance":"11 km","completed":false,"summary":"Five-kilometre continuous tempo between an easy warm-up and cool-down.","steps":["3 km conversational warm-up; no faster than 5:10/km","5 km at 4:20/km; acceptable range 4:10–4:30/km","150 seconds walking rest","3 km conversational cool-down"]},
+          {"day":"Fri","title":"Easy Run","distance":"12 km","completed":false,"summary":"A genuinely easy check-in run before the long session.","steps":["12 km at conversational effort","No faster than 5:10/km; this is a limit, not a target","Estimated duration 1h00–1h10"]},
+          {"day":"Sat","title":"Race Practice Long Run","distance":"28 km","completed":false,"summary":"Marathon-specific long run with 13.5 km at target marathon pace.","steps":["7.5 km conversational","13.5 km at 5:05/km target marathon pace","7 km conversational","Estimated duration 2h20–2h40"]}
         ]
       }
     ]
@@ -76,7 +76,7 @@
     "Execute Saturday's 26 km race-practice run without racing the 12 km marathon-pace block.",
     "Prioritise carbohydrates, hydration and sleep before the long run.",
     "Reintroduce loaded squats gradually after the recent lower-back tweak.",
-    "Use the Week 6 increase to 62 km only if recovery remains acceptable after Week 5."
+    "Week 6 contains two quality sessions plus a 28 km long run, so recovery between sessions matters."
   ],
   "sessions":[
     {"date":"2026-08-05","activity":"Running","summary":"11.18 km over/under tempo; target execution within roughly 3 seconds per km.","rpe":"7/10"},
@@ -87,8 +87,8 @@
       "title":"Running",
       "intro":"Current running status, key workouts and marathon-specific priorities.",
       "sections":[
-        {"heading":"Current training block","items":["Week 5: 50.40 km planned with 20.20 km complete","Friday: 10 km easy run","Saturday: 26 km race-practice long run","Week 6: 62 km planned across four workouts"]},
-        {"heading":"Current indicators","items":["Recent 800 m repetitions around 4:00/km","Over/under tempo completed at 4:35 / 4:18 / 4:33 / 4:18","Latest quality run felt comfortably hard with another gear available","Running mechanics remained balanced after the recent back tweak"]},
+        {"heading":"Current training block","items":["Week 5: 50.40 km planned with 20.20 km complete","Friday: 10 km easy run","Saturday: 26 km race-practice long run","Week 6: 62 km across 1 km repeats, tempo, easy running and a 28 km race-practice long run"]},
+        {"heading":"Week 6 quality sessions","items":["Tuesday: 6 × 1 km at 4:05/km with 90-second walking recoveries","Wednesday: 5 km tempo at 4:20/km","Friday: 12 km easy, no faster than 5:10/km","Saturday: 13.5 km at 5:05/km inside a 28 km long run"]},
         {"heading":"Marathon-specific priority","items":["Practise controlled marathon pace within long runs","Build fueling and musculoskeletal durability","Avoid turning prescribed easy runs into moderate sessions"]}
       ]
     },
@@ -106,8 +106,8 @@
       "intro":"Current recovery, nutrition and injury-monitoring notes.",
       "sections":[
         {"heading":"Current status","items":["Lower back mostly recovered","No pain during latest tempo run or modified leg workout","Monitor next-morning stiffness after heavier loading","Quad fatigue from step-ups was bilateral and pain-free"]},
-        {"heading":"Nutrition","items":["Daily protein intake was comfortably sufficient","Carbohydrates and hydration are the greater recovery priority before and after the 26 km long run","Practise long-run fueling rather than relying only on post-run nutrition"]},
-        {"heading":"Check-in metrics","items":["Back discomfort","Quad and calf soreness","Sleep quality","Energy and general fatigue"]}
+        {"heading":"Nutrition","items":["Daily protein intake was comfortably sufficient","Carbohydrates and hydration are the greater recovery priority before and after long runs","Practise long-run fueling rather than relying only on post-run nutrition"]},
+        {"heading":"Week 6 watch points","items":["Recovery after Tuesday's repetitions","Residual fatigue before Wednesday's tempo","Keep Friday easy enough to protect Saturday's 28 km session","Monitor back, calves and quads as volume rises"]}
       ]
     },
     "coach": {
@@ -115,7 +115,7 @@
       "intro":"Current observations and priorities based on recent training.",
       "sections":[
         {"heading":"What is going well","items":["Strong pacing discipline during quality runs","Tempo work is controlled rather than raced","Back has tolerated progressive loading","Good ability to combine running and strength on hard days"]},
-        {"heading":"Immediate priorities","items":["Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Assess back and leg recovery before beginning the 62 km Week 6","Add later training weeks only when their details are known"]},
+        {"heading":"Immediate priorities","items":["Keep Friday's easy run easy","Fuel and pace Saturday's 26 km session conservatively","Recover well before Week 6's consecutive Tuesday and Wednesday quality sessions","Protect the 28 km long run by avoiding unnecessary lower-body fatigue late in the week"]},
         {"heading":"Current recommendation","items":["Continue marathon-specific endurance development","Maintain strength without chasing gym limits during peak running load","Reintroduce squats progressively once symptoms remain consistently quiet"]}
       ]
     }
