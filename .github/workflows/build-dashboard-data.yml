@@ -5,14 +5,20 @@ on:
     paths:
       - 'activities/**/*.md'
       - 'plans/**/*.md'
+      - 'knowledge/**/*.md'
       - 'scripts/build-dashboard-data.mjs'
+      - 'scripts/build-workout-library.mjs'
+      - 'scripts/build-nutrition-guidance.mjs'
       - '.github/workflows/build-dashboard-data.yml'
   push:
     branches: [main]
     paths:
       - 'activities/**/*.md'
       - 'plans/**/*.md'
+      - 'knowledge/**/*.md'
       - 'scripts/build-dashboard-data.mjs'
+      - 'scripts/build-workout-library.mjs'
+      - 'scripts/build-nutrition-guidance.mjs'
       - '.github/workflows/build-dashboard-data.yml'
   workflow_dispatch:
 
@@ -36,18 +42,27 @@ jobs:
       - name: Generate sanitised dashboard data
         run: node scripts/build-dashboard-data.mjs
 
+      - name: Generate workout library
+        run: node scripts/build-workout-library.mjs
+
+      - name: Generate nutrition guidance
+        run: node scripts/build-nutrition-guidance.mjs
+
       - name: Validate generated JSON
-        run: node -e "JSON.parse(require('node:fs').readFileSync('docs/generated-data.json','utf8')); console.log('generated-data.json is valid')"
+        run: |
+          node -e "JSON.parse(require('node:fs').readFileSync('docs/generated-data.json','utf8')); console.log('generated-data.json is valid')"
+          node -e "JSON.parse(require('node:fs').readFileSync('docs/workout-library.json','utf8')); console.log('workout-library.json is valid')"
+          node -e "JSON.parse(require('node:fs').readFileSync('docs/nutrition-guidance.json','utf8')); console.log('nutrition-guidance.json is valid')"
 
       - name: Commit generated data
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
-          if git diff --quiet -- docs/generated-data.json; then
-            echo 'Generated dashboard data is already current.'
+          if git diff --quiet -- docs/generated-data.json docs/workout-library.json docs/nutrition-guidance.json; then
+            echo 'Generated data is already current.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/generated-data.json
-          git commit -m 'Generate dashboard data from Markdown'
+          git add docs/generated-data.json docs/workout-library.json docs/nutrition-guidance.json
+          git commit -m 'Generate dashboard, workout and nutrition data'
           git push
