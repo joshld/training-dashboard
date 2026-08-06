@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-08-06T08:57:09.992Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-06T08:57:46.688Z",
   "updated": "2026-08-06",
   "status": "Training normally; lower back improving",
   "plan": {
@@ -50,6 +50,30 @@
       "Preserve freshness for Saturday's long run after a high strength-training week.",
       "Complete the Thursday arm session without adding lower-body fatigue.",
       "Prioritise carbohydrates, hydration and sleep before the long run."
+    ],
+    "suggestions": [
+      {
+        "id": "friday-easy-effort",
+        "workoutDay": "Fri",
+        "workout": "Easy Run",
+        "priority": "Medium",
+        "confidence": 92,
+        "current": "10 km with a 5:15/km ceiling",
+        "suggested": "Keep 10 km, but run entirely by conversational effort rather than chasing pace",
+        "reason": "The week already includes multiple strength sessions and two completed quality runs",
+        "expectedImpact": "Preserves freshness for Saturday while retaining the aerobic volume"
+      },
+      {
+        "id": "saturday-mp-contingency",
+        "workoutDay": "Sat",
+        "workout": "Race Practice Long Run",
+        "priority": "Medium",
+        "confidence": 78,
+        "current": "26 km with the full planned marathon-pace block",
+        "suggested": "Keep the original workout if recovery is normal; shorten the marathon-pace block if Friday feels unusually heavy or sleep is poor",
+        "reason": "The long run is the priority session, but forcing the full quality block under elevated fatigue would reduce execution quality",
+        "expectedImpact": "Protects the marathon-specific stimulus while avoiding an unnecessarily costly session"
+      }
     ]
   },
   "sessions": [
