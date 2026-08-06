@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Personal dashboard for training, recovery and performance">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Training Log</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2.1.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="app.js?v=2.1.0" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -32,6 +33,7 @@
 
       <main>
         <section class="tab-panel active" id="tab-dashboard">
+          <div class="notice" id="dashboardNotice" hidden></div>
           <section class="metrics" id="metrics"></section>
           <section class="grid two">
             <article class="panel next-workout">
@@ -46,7 +48,7 @@
             </article>
           </section>
           <section class="grid two">
-            <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">Performance</p><h2>Weekly distance</h2></div></div><canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas></article>
+            <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">Performance</p><h2>Weekly distance</h2></div></div><div id="distanceChartFallback" class="chart-fallback" hidden>Chart unavailable</div><canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas></article>
             <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Coach</p><h2>Current focus</h2></div></div><ul id="coachFocus" class="focus-list"></ul></article>
           </section>
           <section class="panel"><div class="panel-heading"><div><p class="eyebrow">Recent activity</p><h2>Latest sessions</h2></div></div><div class="activity-cards" id="dashboardActivities"></div></section>
@@ -69,7 +71,7 @@
         <section class="tab-panel" id="tab-performance">
           <div class="section-heading"><div><p class="eyebrow">Trends</p><h2>Performance</h2><p>Training volume and progression indicators.</p></div></div>
           <section class="grid two">
-            <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Distance trend</h2></div></div><canvas id="performanceDistanceChart"></canvas></article>
+            <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Distance trend</h2></div></div><div id="performanceDistanceChartFallback" class="chart-fallback" hidden>Chart unavailable</div><canvas id="performanceDistanceChart"></canvas></article>
             <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Strength</p><h2>Recent working sets</h2></div></div><div class="table-wrap"><table><thead><tr><th>Exercise</th><th>Load</th><th>Work</th></tr></thead><tbody id="strengthRows"></tbody></table></div></article>
           </section>
           <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Latest session</p><h2 id="latestTitle">—</h2></div><span class="pill" id="latestType">—</span></div><div id="latestDetails" class="session-details"></div></article>
