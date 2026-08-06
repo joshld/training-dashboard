@@ -11,6 +11,7 @@ This directory is the documentation hub for Training Log. The repository is the 
 | Design system | [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) | Tokens, reusable UI patterns, dashboard hierarchy and responsive rules |
 | AI coach | [`AI-COACH.md`](AI-COACH.md) | Coaching behaviour, context, recommendation and persistence boundaries |
 | Training engine | [`TRAINING-ENGINE.md`](TRAINING-ENGINE.md) | Pace, planning, progression, hybrid load and What If contracts |
+| Activity analysis | [`ACTIVITY-ANALYSIS.md`](ACTIVITY-ANALYSIS.md) | FIT import metrics, activity detail views, laps, charts and running dynamics |
 | Workout library | [`WORKOUT-LIBRARY.md`](WORKOUT-LIBRARY.md) | Workout knowledge format, structured sessions, progression and substitutions |
 | Nutrition guidance | [`NUTRITION-GUIDANCE.md`](NUTRITION-GUIDANCE.md) | Macro emphasis, scenario selection, practical examples and limitations |
 | Implementation notes | [`IMPLEMENTATION-NOTES.md`](IMPLEMENTATION-NOTES.md) | Current runtime, generated artefacts, known gaps and verification |
