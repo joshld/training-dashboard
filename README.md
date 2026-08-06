@@ -15,6 +15,7 @@ The GitHub Pages dashboard is published from the `docs/` folder:
 - Training plan and weekly schedule
 - Running and strength activity history
 - Performance charts and workout reports
+- Activity analysis for FIT imports, laps, charts and running dynamics
 - Recovery and nutrition guidance
 - Garmin export preview for FIT, TCX and GPX files
 - Coaching notes and current training priorities
@@ -37,6 +38,7 @@ The repository also contains `knowledge/` for reusable training guidance and `sc
 - [Design system](docs/DESIGN-SYSTEM.md)
 - [AI coach](docs/AI-COACH.md)
 - [Training engine](docs/TRAINING-ENGINE.md)
+- [Activity analysis](docs/ACTIVITY-ANALYSIS.md)
 - [Workout library](docs/WORKOUT-LIBRARY.md)
 - [Nutrition guidance](docs/NUTRITION-GUIDANCE.md)
 - [Implementation notes](docs/IMPLEMENTATION-NOTES.md)
