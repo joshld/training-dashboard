@@ -10,85 +10,76 @@
   <script src="app.js" defer></script>
 </head>
 <body>
-  <header class="hero">
-    <div>
-      <p class="eyebrow">Training Log</p>
-      <h1>Training Dashboard</h1>
-      <p class="subtitle">Personal dashboard for training, recovery and performance.</p>
-      <p id="updated">Loading latest data…</p>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">TL</span><div><strong>Training Log</strong><small>Performance workspace</small></div></div>
+      <nav class="side-nav" aria-label="Dashboard sections">
+        <button class="nav-item active" data-tab="dashboard"><span>⌂</span>Dashboard</button>
+        <button class="nav-item" data-tab="plan"><span>▦</span>Plan</button>
+        <button class="nav-item" data-tab="activities"><span>◉</span>Activities</button>
+        <button class="nav-item" data-tab="performance"><span>↗</span>Performance</button>
+        <button class="nav-item" data-tab="recovery"><span>♡</span>Recovery</button>
+        <button class="nav-item" data-tab="coach"><span>✦</span>Coach</button>
+      </nav>
+      <div class="sidebar-status"><span class="status-dot"></span><div><small>Current status</small><strong id="status">Loading</strong></div></div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div><p class="eyebrow">Training Log</p><h1 id="pageTitle">Dashboard</h1><p class="subtitle" id="pageSubtitle">Your current training, recovery and upcoming work.</p></div>
+        <p id="updated">Loading latest data…</p>
+      </header>
+
+      <main>
+        <section class="tab-panel active" id="tab-dashboard">
+          <section class="metrics" id="metrics"></section>
+          <section class="grid two">
+            <article class="panel next-workout">
+              <div class="panel-heading"><div><p class="eyebrow">Up next</p><h2 id="nextWorkoutTitle">—</h2></div><span class="pill" id="nextWorkoutDate">—</span></div>
+              <div id="nextWorkoutDetails" class="session-details"></div>
+              <button class="text-button" data-open-tab="plan">Open training plan →</button>
+            </article>
+            <article class="panel week-progress-panel">
+              <div class="panel-heading"><div><p class="eyebrow">Current week</p><h2 id="currentWeekTitle">—</h2></div><strong id="currentWeekProgressText">—</strong></div>
+              <div class="progress-track"><div class="progress-fill" id="currentWeekProgress"></div></div>
+              <div id="currentWeekSummary" class="week-summary"></div>
+            </article>
+          </section>
+          <section class="grid two">
+            <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">Performance</p><h2>Weekly distance</h2></div></div><canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Coach</p><h2>Current focus</h2></div></div><ul id="coachFocus" class="focus-list"></ul></article>
+          </section>
+          <section class="panel"><div class="panel-heading"><div><p class="eyebrow">Recent activity</p><h2>Latest sessions</h2></div></div><div class="activity-cards" id="dashboardActivities"></div></section>
+        </section>
+
+        <section class="tab-panel" id="tab-plan">
+          <div class="section-heading"><div><p class="eyebrow">Schedule</p><h2>Training Plan</h2><p>Completed sessions and upcoming workouts in one calendar view.</p></div></div>
+          <div id="calendarWeeks" class="calendar-weeks"></div>
+          <div id="planWeeks" class="plan-weeks"></div>
+        </section>
+
+        <section class="tab-panel" id="tab-activities">
+          <div class="section-heading"><div><p class="eyebrow">History</p><h2>Activities</h2><p>Running, strength and other completed training sessions.</p></div></div>
+          <div class="filter-row"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="Running">Running</button><button class="filter" data-filter="Strength">Strength</button></div>
+          <div class="activity-cards" id="activityCards"></div>
+          <article class="panel document" id="runningContent"></article>
+          <article class="panel document" id="strengthContent"></article>
+        </section>
+
+        <section class="tab-panel" id="tab-performance">
+          <div class="section-heading"><div><p class="eyebrow">Trends</p><h2>Performance</h2><p>Training volume and progression indicators.</p></div></div>
+          <section class="grid two">
+            <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Distance trend</h2></div></div><canvas id="performanceDistanceChart"></canvas></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Strength</p><h2>Recent working sets</h2></div></div><div class="table-wrap"><table><thead><tr><th>Exercise</th><th>Load</th><th>Work</th></tr></thead><tbody id="strengthRows"></tbody></table></div></article>
+          </section>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Latest session</p><h2 id="latestTitle">—</h2></div><span class="pill" id="latestType">—</span></div><div id="latestDetails" class="session-details"></div></article>
+        </section>
+
+        <section class="tab-panel" id="tab-recovery"><article class="panel document" id="recoveryContent"></article></section>
+        <section class="tab-panel" id="tab-coach"><article class="panel document" id="coachContent"></article></section>
+      </main>
+      <footer>Training data and coaching notes are maintained in the private repository.</footer>
     </div>
-    <div class="status-card">
-      <span class="status-dot"></span>
-      <div><small>Current status</small><strong id="status">Loading</strong></div>
-    </div>
-  </header>
-
-  <nav class="tabs" aria-label="Dashboard sections">
-    <button class="tab active" data-tab="dashboard">Dashboard</button>
-    <button class="tab" data-tab="plan">Plan</button>
-    <button class="tab" data-tab="running">Running</button>
-    <button class="tab" data-tab="strength">Strength</button>
-    <button class="tab" data-tab="recovery">Recovery</button>
-    <button class="tab" data-tab="coach">Coach Notes</button>
-  </nav>
-
-  <main>
-    <section class="tab-panel active" id="tab-dashboard">
-      <section class="metrics" id="metrics"></section>
-
-      <section class="grid two">
-        <article class="panel next-workout">
-          <div class="panel-heading"><div><p class="eyebrow">Up next</p><h2 id="nextWorkoutTitle">—</h2></div><span class="pill" id="nextWorkoutDate">—</span></div>
-          <div id="nextWorkoutDetails" class="session-details"></div>
-          <button class="text-button" data-open-tab="plan">View full plan →</button>
-        </article>
-        <article class="panel week-progress-panel">
-          <div class="panel-heading"><div><p class="eyebrow">Current week</p><h2 id="currentWeekTitle">—</h2></div><strong id="currentWeekProgressText">—</strong></div>
-          <div class="progress-track"><div class="progress-fill" id="currentWeekProgress"></div></div>
-          <div id="currentWeekSummary" class="week-summary"></div>
-        </article>
-      </section>
-
-      <section class="grid two">
-        <article class="panel">
-          <div class="panel-heading"><div><p class="eyebrow">Running</p><h2>Weekly distance</h2></div></div>
-          <canvas id="distanceChart" aria-label="Weekly running distance chart"></canvas>
-        </article>
-        <article class="panel">
-          <div class="panel-heading"><div><p class="eyebrow">Strength</p><h2>Recent working sets</h2></div></div>
-          <div class="table-wrap"><table><thead><tr><th>Exercise</th><th>Load</th><th>Work</th></tr></thead><tbody id="strengthRows"></tbody></table></div>
-        </article>
-      </section>
-      <section class="grid two">
-        <article class="panel">
-          <div class="panel-heading"><div><p class="eyebrow">Latest session</p><h2 id="latestTitle">—</h2></div><span class="pill" id="latestType">—</span></div>
-          <div id="latestDetails" class="session-details"></div>
-        </article>
-        <article class="panel">
-          <div class="panel-heading"><div><p class="eyebrow">Coach</p><h2>Current focus</h2></div></div>
-          <ul id="coachFocus" class="focus-list"></ul>
-        </article>
-      </section>
-      <section class="panel">
-        <div class="panel-heading"><div><p class="eyebrow">Activity history</p><h2>Recent sessions</h2></div></div>
-        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Summary</th><th>RPE</th></tr></thead><tbody id="sessionRows"></tbody></table></div>
-      </section>
-    </section>
-
-    <section class="tab-panel" id="tab-plan">
-      <div class="plan-header panel">
-        <div><p class="eyebrow">Runna schedule</p><h2>Upcoming Plan</h2><p>Completed and upcoming running sessions transcribed from the supplied Runna screenshots.</p></div>
-        <a class="source-link" href="https://github.com/joshld/training-dashboard/blob/main/plans/runna-schedule.md" target="_blank" rel="noreferrer">View Markdown</a>
-      </div>
-      <div id="planWeeks" class="plan-weeks"></div>
-    </section>
-
-    <section class="tab-panel" id="tab-running"><article class="panel document" id="runningContent"></article></section>
-    <section class="tab-panel" id="tab-strength"><article class="panel document" id="strengthContent"></article></section>
-    <section class="tab-panel" id="tab-recovery"><article class="panel document" id="recoveryContent"></article></section>
-    <section class="tab-panel" id="tab-coach"><article class="panel document" id="coachContent"></article></section>
-  </main>
-
-  <footer>Training data and coaching notes are maintained in the private GitHub repository.</footer>
+  </div>
 </body>
 </html>
