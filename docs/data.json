@@ -2,7 +2,7 @@
   "updated": "2026-08-06",
   "status": "Training normally; lower back improving",
   "metrics": [
-    {"label":"Weekly running","value":"—","note":"Add completed sessions"},
+    {"label":"Weekly running","value":"11.18 km","note":"Logged so far"},
     {"label":"Strength sessions","value":"1","note":"Current week"},
     {"label":"Bodyweight","value":"92 kg","note":"Approximate current"},
     {"label":"Back discomfort","value":"0–1/10","note":"Monitor after loading"}
@@ -41,5 +41,58 @@
   "sessions": [
     {"date":"2026-08-05","activity":"Running","summary":"11.18 km over/under tempo; target execution within roughly 3 seconds per km.","rpe":"7/10"},
     {"date":"2026-08-05","activity":"Strength","summary":"Back-friendly lower body session; glute bridges to 90 kg and slow bodyweight step-ups.","rpe":"7–8/10"}
-  ]
+  ],
+  "tabs": {
+    "running": {
+      "title":"Running",
+      "intro":"Current running status, key workouts and marathon-specific priorities.",
+      "sections":[
+        {"heading":"Current focus","items":["Melbourne Marathon preparation","Extend endurance at approximately 4:35–4:40/km","Maintain speed while improving late-run durability","Practise fueling during long runs"]},
+        {"heading":"Current indicators","items":["Recent 800 m repetitions around 4:00/km","Over/under tempo completed at 4:35 / 4:18 / 4:33 / 4:18","Latest quality run felt comfortably hard with another gear available","Running mechanics remained balanced after the recent back tweak"]},
+        {"heading":"Latest key run","items":["11.18 km total","4 km over/under quality block","Average heart rate 142 bpm","No back pain reported"]}
+      ],
+      "source":"activities/running.md"
+    },
+    "strength": {
+      "title":"Strength",
+      "intro":"Strength training maintained alongside marathon preparation.",
+      "sections":[
+        {"heading":"Current approach","items":["Preserve meaningful strength and muscle","Pair lower-body lifting with hard run days when recovery permits","Use back-friendly substitutions during return from lumbar tweak","Progress single-leg control without unnecessary fatigue"]},
+        {"heading":"Latest lower session","items":["Bodyweight squats: 3 × 24","Single-leg extensions: 25 kg","Single-leg hamstring curls: 10 kg","Glute bridges: up to 90 kg × 12","Standing calf raises and slow bodyweight step-ups"]},
+        {"heading":"Return to squats","items":["Back has tolerated running and heavy bridges","Loaded squats remain temporarily reduced","Reintroduction should be gradual and technique-focused"]}
+      ],
+      "source":"activities/strength.md"
+    },
+    "recovery": {
+      "title":"Recovery",
+      "intro":"Current recovery, nutrition and injury-monitoring notes.",
+      "sections":[
+        {"heading":"Current status","items":["Lower back mostly recovered","No pain during latest tempo run or modified leg workout","Monitor next-morning stiffness after heavier loading","Quad fatigue from step-ups was bilateral and pain-free"]},
+        {"heading":"Nutrition","items":["Daily protein intake was comfortably sufficient","Estimated protein intake exceeded the normal target range","Carbohydrates and hydration are the greater recovery priority after double-session days"]},
+        {"heading":"Check-in metrics","items":["Back discomfort","Quad and calf soreness","Sleep quality","Energy and general fatigue"]}
+      ],
+      "source":"health/recovery.md"
+    },
+    "athlete": {
+      "title":"Athlete Profile",
+      "intro":"Background and coaching context used to interpret training.",
+      "sections":[
+        {"heading":"Overview","items":["Joshua, age 37","Brisbane, Queensland","Approximately 92 kg with a muscular strength-trained build","Primary goal: Melbourne Marathon while maintaining strength and muscle"]},
+        {"heading":"Activities","items":["Running and marathon training","Upper- and lower-body strength training","Indoor soccer / futsal","Cycling and other future activities"]},
+        {"heading":"Training profile","items":["Runs around three times per week","Gym around four times per week","Sunday futsal when available","Reported squat best around 160 kg"]},
+        {"heading":"Coaching preferences","items":["Evidence-based and direct","Explain the reasoning behind changes","Preserve user control","Track long-term trends","Avoid overconfident predictions"]}
+      ],
+      "source":"coach/athlete-profile.md"
+    },
+    "coach": {
+      "title":"Coach Notes",
+      "intro":"Current observations and priorities based on recent training.",
+      "sections":[
+        {"heading":"What is going well","items":["Strong pacing discipline during quality runs","Tempo work is controlled rather than raced","Back has tolerated progressive loading","Good ability to combine running and strength on hard days"]},
+        {"heading":"Things to monitor","items":["Morning-after back response","Accumulated quad fatigue from unilateral work","Long-run fueling and carbohydrate intake","Whether loaded squat technique contributes to lumbar stress"]},
+        {"heading":"Current recommendation","items":["Continue marathon-specific endurance development","Keep easy days genuinely easy","Maintain strength without chasing gym limits during peak running load","Reintroduce squats progressively once symptoms remain consistently quiet"]}
+      ],
+      "source":"coach/observations.md"
+    }
+  }
 }
