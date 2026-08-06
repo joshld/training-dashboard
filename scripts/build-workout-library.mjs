@@ -15,27 +15,62 @@ function clean(value = '') {
   return value.trim().replace(/^`|`$/g, '');
 }
 
+function formatValidationError(file, name, problems) {
+  return [
+    'Workout knowledge validation failed',
+    `File: ${file}`,
+    `Entry: ${name || '(unnamed)'}`,
+    ...problems.map(problem => `- ${problem}`),
+    '',
+    'Expected at minimum:',
+    '**ID:** `unique-entry-id`',
+    '**Purpose:** A concise description of why the entry exists.'
+  ].join('\n');
+}
+
 function parseEntries(markdown, category, file) {
   const chunks = markdown.split(/^## /m).slice(1);
-  return chunks.map(chunk => {
+  const entries = [];
+  const errors = [];
+
+  for (const chunk of chunks) {
     const lines = chunk.split('\n');
     const name = clean(lines.shift());
     const fields = {};
     let current = null;
+    let metadataLines = 0;
+
     for (const raw of lines) {
       const line = raw.trim();
       if (!line || line === '---') continue;
       const match = line.match(/^\*\*([^*]+):\*\*\s*(.*)$/);
       if (match) {
+        metadataLines += 1;
         current = match[1].trim().toLowerCase().replace(/\s+/g, '_');
         fields[current] = clean(match[2]);
       } else if (current) {
         fields[current] = `${fields[current]} ${clean(line)}`.trim();
       }
     }
-    if (!fields.id) throw new Error(`${file}: '${name}' is missing an ID`);
+
+    // Headings containing only prose or bullet-list guidance are reference sections,
+    // not workout records. This keeps author notes such as exercise substitution
+    // principles out of the generated workout collection.
+    if (metadataLines === 0) continue;
+
+    const problems = [];
+    if (!fields.id) problems.push('Missing required field: ID');
+    if (!fields.purpose) problems.push('Missing required field: Purpose');
+    if (fields.id && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fields.id)) {
+      problems.push(`ID must use lowercase kebab-case, received: ${fields.id}`);
+    }
+    if (problems.length) {
+      errors.push(formatValidationError(file, name, problems));
+      continue;
+    }
+
     const tags = String(fields.tags || '').split(',').map(tag => clean(tag)).filter(Boolean);
-    return {
+    entries.push({
       id: fields.id,
       name,
       category,
@@ -51,8 +86,11 @@ function parseEntries(markdown, category, file) {
       planningGuidance: fields.planning_guidance || '',
       tags,
       source: file
-    };
-  });
+    });
+  }
+
+  if (errors.length) throw new Error(errors.join('\n\n'));
+  return entries;
 }
 
 const workouts = [];
@@ -62,14 +100,19 @@ for (const [category, relative] of sourceFiles) {
   workouts.push(...parseEntries(markdown, category, relative));
 }
 
-const ids = new Set();
+const idSources = new Map();
+const duplicateErrors = [];
 for (const workout of workouts) {
-  if (ids.has(workout.id)) throw new Error(`Duplicate workout ID: ${workout.id}`);
-  ids.add(workout.id);
+  if (idSources.has(workout.id)) {
+    duplicateErrors.push(`Duplicate workout ID '${workout.id}' in ${workout.source}; first used in ${idSources.get(workout.id)}`);
+  } else {
+    idSources.set(workout.id, workout.source);
+  }
 }
+if (duplicateErrors.length) throw new Error(`Workout knowledge validation failed\n${duplicateErrors.map(item => `- ${item}`).join('\n')}`);
 
 const output = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   generatedAt: new Date().toISOString(),
   counts: workouts.reduce((acc, workout) => {
     acc.total += 1;
