@@ -1,7 +1,7 @@
 ---
 title: "Week 5"
 updated: "2026-08-06"
-status: "Training normally; lower back improving"
+status: "Training normally"
 date_range: "3 Aug – 9 Aug 2026"
 planned_distance: "50.40 km"
 progress_distance: "20.20 km completed"

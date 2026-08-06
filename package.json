@@ -4,6 +4,7 @@
   "type": "module",
   "engines": {"node": ">=20"},
   "scripts": {
-    "build:data": "node scripts/build-dashboard-data.mjs"
+    "build:data": "node scripts/build-dashboard-data.mjs",
+    "test": "node --test"
   }
 }

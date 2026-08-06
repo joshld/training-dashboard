@@ -56,11 +56,13 @@ The next visual migration should rebuild the home dashboard first, preserve curr
 The repository currently provides:
 
 - `npm run build:data` for the primary dashboard generator when Node/npm are available;
+- `npm test` / `node --test test/pipeline.test.mjs` for Markdown schema and privacy validation;
 - direct Node execution of all three generators;
 - JSON parsing validation for the three generated outputs in CI;
+- Node built-in test coverage for Markdown schemas, public projections, privacy leakage and deterministic meaningful output;
 - JavaScript syntax checks via `node --check` as a lightweight local check.
 
-There is no dedicated lint script or automated browser test suite at present. Adding schema tests, leakage tests and broader UI validation is unfinished work, not an undocumented guarantee.
+There is no dedicated lint script or automated browser test suite at present. The pipeline tests inject a fixed `generatedAt` value so meaningful output can be compared deterministically; production generation still records the current timestamp as metadata.
 
 ## Deployment and privacy
 
@@ -71,8 +73,7 @@ The optional persistence service must keep write credentials on the server side 
 ## Known gaps
 
 - Remaining dashboard sections still depend on legacy JSON.
-- Generated timestamps make artefacts non-deterministic; the architecture goal is deterministic output.
-- Schema tests for malformed Markdown and private-field leakage are not yet present.
+- Generated timestamps remain variable metadata; tests isolate them with an injected timestamp while asserting deterministic meaningful payloads.
 - The browser-local import and suggestion state is not automatically synchronised across devices.
 - The design-system primitives exist, but legacy page styles are not fully migrated.
 - The What If logic is page-specific rather than a shared tested training-engine module.
