@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-06T10:27:54.429Z",
+  "count": 15,
+  "guidance": [
+    {
+      "id": "nutrition-easy-run-day",
+      "name": "Easy or Aerobic Run Day",
+      "purpose": "Support normal aerobic training while maintaining recovery and appetite control.",
+      "macros": {
+        "protein": "1.6–2.0 g/kg/day",
+        "carbohydrates": "3–5 g/kg/day",
+        "fat": "0.7–1.0 g/kg/day"
+      },
+      "hydration": "Normal daily hydration plus fluids lost during training.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Eggs and toast",
+        "yoghurt with fruit and oats",
+        "chicken and rice",
+        "salmon with potatoes",
+        "banana and protein yoghurt."
+      ],
+      "coachFocus": "Keep protein consistent and place some carbohydrate before and after the run.",
+      "tags": [
+        "nutrition",
+        "easy-run",
+        "aerobic",
+        "balanced"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-recovery-day",
+      "name": "Recovery or Rest Day",
+      "purpose": "Maintain muscle repair and general recovery when training demand is low.",
+      "macros": {
+        "protein": "1.8–2.2 g/kg/day",
+        "carbohydrates": "2.5–4 g/kg/day",
+        "fat": "0.8–1.0 g/kg/day"
+      },
+      "hydration": "Maintain normal hydration; replace any remaining losses from the previous day.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Omelette with toast",
+        "Greek yoghurt and fruit",
+        "lean meat with vegetables and rice",
+        "fish with potatoes",
+        "cottage cheese or protein yoghurt."
+      ],
+      "coachFocus": "Keep protein high, reduce carbohydrate only modestly, and prioritise fruit and vegetables.",
+      "tags": [
+        "nutrition",
+        "recovery",
+        "rest-day",
+        "protein"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-interval-day",
+      "name": "Interval or VO2 Session Day",
+      "purpose": "Fuel a demanding quality session and replenish carbohydrate afterwards.",
+      "macros": {
+        "protein": "1.6–2.0 g/kg/day",
+        "carbohydrates": "4–6 g/kg/day",
+        "fat": "0.6–0.9 g/kg/day"
+      },
+      "hydration": "Begin well hydrated and replace sweat losses after training.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Oats, banana and yoghurt",
+        "toast with eggs",
+        "rice bowl with chicken",
+        "burrito with extra rice and lean protein",
+        "pasta with lean beef",
+        "fruit and protein yoghurt."
+      ],
+      "coachFocus": "Include an easy-to-digest carbohydrate meal or snack before training and a carbohydrate-plus-protein meal afterwards.",
+      "tags": [
+        "nutrition",
+        "intervals",
+        "quality-session",
+        "high-carbohydrate"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-tempo-day",
+      "name": "Tempo or Threshold Day",
+      "purpose": "Support sustained quality running without excessive gastrointestinal load.",
+      "macros": {
+        "protein": "1.6–2.0 g/kg/day",
+        "carbohydrates": "4–6 g/kg/day",
+        "fat": "0.6–0.9 g/kg/day"
+      },
+      "hydration": "Normal daily hydration plus replacement of session losses.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Toast with eggs and fruit",
+        "oats and yoghurt",
+        "chicken and rice",
+        "tuna pasta",
+        "salmon with rice",
+        "banana before training and yoghurt afterwards."
+      ],
+      "coachFocus": "Spread carbohydrate across the day and avoid a very high-fat meal immediately before the session.",
+      "tags": [
+        "nutrition",
+        "tempo",
+        "threshold",
+        "quality-session"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-long-run-day",
+      "name": "Long Run Day",
+      "purpose": "Provide sufficient carbohydrate before, during and after a long endurance session.",
+      "macros": {
+        "protein": "1.6–2.0 g/kg/day",
+        "carbohydrates": "5–7 g/kg/day",
+        "fat": "0.6–0.9 g/kg/day"
+      },
+      "hydration": "Start hydrated, drink according to conditions and duration, and replace fluid and sodium afterwards.",
+      "duringTraining": "For longer runs, practise the same carbohydrate and hydration strategy intended for race day.",
+      "simpleExamples": [
+        "Toast, oats and banana before running",
+        "sports drink or gels during longer sessions",
+        "chicken and rice, pasta with lean meat, salmon and potatoes, fruit and yoghurt afterwards."
+      ],
+      "coachFocus": "Prioritise carbohydrate availability and practise race-compatible foods rather than experimenting on key days.",
+      "tags": [
+        "nutrition",
+        "long-run",
+        "endurance",
+        "high-carbohydrate",
+        "race-practice"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-pre-long-run-day",
+      "name": "Day Before a Long Run",
+      "purpose": "Top up glycogen and hydration without requiring an extreme carb load.",
+      "macros": {
+        "protein": "1.6–2.0 g/kg/day",
+        "carbohydrates": "5–7 g/kg/day",
+        "fat": "0.6–0.8 g/kg/day"
+      },
+      "hydration": "Drink regularly through the day and include normal dietary sodium.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Oats and fruit",
+        "rice with chicken",
+        "pasta with lean beef",
+        "bread or wraps",
+        "potatoes with fish",
+        "yoghurt, bananas and cereal as snacks."
+      ],
+      "coachFocus": "Increase carbohydrate portions, keep meals familiar, and avoid turning dinner into an unusually large or greasy meal.",
+      "tags": [
+        "nutrition",
+        "pre-long-run",
+        "carbohydrate",
+        "preparation"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-upper-strength-day",
+      "name": "Upper-Body Strength Day",
+      "purpose": "Support strength performance and muscle repair with moderate carbohydrate demand.",
+      "macros": {
+        "protein": "1.8–2.2 g/kg/day",
+        "carbohydrates": "3–5 g/kg/day",
+        "fat": "0.7–1.0 g/kg/day"
+      },
+      "hydration": "Normal daily hydration plus training losses.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Eggs and protein toast",
+        "yoghurt with oats",
+        "chicken burrito",
+        "beef and rice",
+        "salmon and potatoes",
+        "protein yoghurt or milk-based shake."
+      ],
+      "coachFocus": "Distribute protein across three to five meals and include carbohydrate around training.",
+      "tags": [
+        "nutrition",
+        "strength",
+        "upper-body",
+        "protein"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-lower-strength-day",
+      "name": "Lower-Body Strength Day",
+      "purpose": "Support a more demanding strength session and recovery of the legs.",
+      "macros": {
+        "protein": "1.8–2.2 g/kg/day",
+        "carbohydrates": "4–6 g/kg/day",
+        "fat": "0.7–0.9 g/kg/day"
+      },
+      "hydration": "Normal daily hydration plus training losses.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Oats with yoghurt and banana",
+        "chicken and rice",
+        "beef burrito",
+        "pasta with lean mince",
+        "salmon with potatoes",
+        "fruit and protein yoghurt."
+      ],
+      "coachFocus": "Treat a hard lower-body session more like a quality running day than a rest day.",
+      "tags": [
+        "nutrition",
+        "strength",
+        "lower-body",
+        "recovery"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-soccer-day",
+      "name": "Soccer or Futsal Day",
+      "purpose": "Fuel repeated high-intensity efforts and replace carbohydrate and fluid afterwards.",
+      "macros": {
+        "protein": "1.6–2.0 g/kg/day",
+        "carbohydrates": "4–6 g/kg/day",
+        "fat": "0.6–0.9 g/kg/day"
+      },
+      "hydration": "Begin hydrated and replace sweat and sodium after play, especially in warm indoor venues.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Toast and fruit",
+        "rice bowl",
+        "chicken wrap",
+        "banana before play",
+        "sports drink when appropriate",
+        "pasta or rice with protein afterwards."
+      ],
+      "coachFocus": "Avoid treating soccer as a low-load social session; fuel it like a quality workout.",
+      "tags": [
+        "nutrition",
+        "soccer",
+        "futsal",
+        "high-intensity"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-double-session-day",
+      "name": "Double-Session Day",
+      "purpose": "Support two training sessions while maintaining recovery between them.",
+      "macros": {
+        "protein": "1.8–2.2 g/kg/day",
+        "carbohydrates": "5–7 g/kg/day",
+        "fat": "0.6–0.9 g/kg/day"
+      },
+      "hydration": "Replace fluid and sodium after the first session before beginning the second.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Oats, toast and fruit",
+        "rice with chicken after session one",
+        "yoghurt and banana between sessions",
+        "pasta, potatoes or rice with lean protein at dinner."
+      ],
+      "coachFocus": "Eat between sessions rather than trying to make up the entire day at dinner.",
+      "tags": [
+        "nutrition",
+        "double-session",
+        "high-load",
+        "recovery"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-race-week",
+      "name": "Race Week",
+      "purpose": "Maintain normal nutrition early in the week and gradually increase carbohydrate as race day approaches.",
+      "macros": {
+        "protein": "1.6–2.0 g/kg/day",
+        "carbohydrates": "4–7 g/kg/day, increasing toward the upper end near the event.",
+        "fat": "Moderate early in the week and slightly lower as carbohydrate portions rise."
+      },
+      "hydration": "Maintain steady hydration rather than trying to correct everything the night before.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Familiar rice, pasta, bread, oats, fruit, potatoes, lean meat, fish and yoghurt-based meals."
+      ],
+      "coachFocus": "Keep foods familiar, reduce unnecessary experimentation, and avoid overeating simply because training volume has dropped.",
+      "tags": [
+        "nutrition",
+        "race-week",
+        "carbohydrate",
+        "taper"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-carb-loading-day",
+      "name": "Marathon Carb-Loading Day",
+      "purpose": "Maximise carbohydrate availability before a marathon or similarly long race.",
+      "macros": {
+        "protein": "1.4–1.8 g/kg/day",
+        "carbohydrates": "7–10 g/kg/day when a deliberate carb load is appropriate.",
+        "fat": "Lower than normal to make room for carbohydrate without excessive total food volume."
+      },
+      "hydration": "Drink normally and include sodium with meals; avoid forcing excessive plain water.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "White rice, pasta, bread, cereal, oats, bananas, juice, low-fat yoghurt, lean chicken, simple sandwiches and familiar carbohydrate snacks."
+      ],
+      "coachFocus": "Use lower-fibre, familiar carbohydrate foods and spread intake across the day.",
+      "tags": [
+        "nutrition",
+        "carb-load",
+        "marathon",
+        "race-preparation"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-race-morning",
+      "name": "Race Morning",
+      "purpose": "Provide familiar, digestible carbohydrate before racing.",
+      "macros": {
+        "protein": "Small to moderate amount if normally tolerated.",
+        "carbohydrates": "A carbohydrate-focused meal several hours before the start, scaled to body size and tolerance.",
+        "fat": "Low."
+      },
+      "hydration": "Arrive hydrated without excessive last-minute drinking.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Toast with jam or honey",
+        "oats with banana",
+        "cereal with low-fat milk",
+        "sports drink",
+        "a familiar small coffee when normally used."
+      ],
+      "coachFocus": "Nothing new on race morning. Use the exact foods and timing already tested in long runs.",
+      "tags": [
+        "nutrition",
+        "race-morning",
+        "pre-race",
+        "carbohydrate"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-post-race-recovery",
+      "name": "Post-Race or Very Long Session",
+      "purpose": "Begin carbohydrate replenishment, muscle repair and rehydration after a major endurance effort.",
+      "macros": {
+        "protein": "1.8–2.2 g/kg/day",
+        "carbohydrates": "5–8 g/kg/day depending on the event and how soon normal training resumes.",
+        "fat": "Normal moderate intake once appetite and digestion settle."
+      },
+      "hydration": "Replace fluid and sodium progressively rather than all at once.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Recovery drink and banana",
+        "chicken and rice",
+        "burrito",
+        "pasta with lean meat",
+        "salmon and potatoes",
+        "yoghurt, fruit and cereal."
+      ],
+      "coachFocus": "Start with easy-to-eat food, then return to normal balanced meals rather than relying only on snacks.",
+      "tags": [
+        "nutrition",
+        "post-race",
+        "recovery",
+        "carbohydrate",
+        "protein"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    },
+    {
+      "id": "nutrition-hot-weather-day",
+      "name": "Hot-Weather Training Day",
+      "purpose": "Support training when fluid and electrolyte losses are likely to be elevated.",
+      "macros": {
+        "protein": "Use the range appropriate to the training session.",
+        "carbohydrates": "Use the range appropriate to the training session.",
+        "fat": "Use the range appropriate to the training session."
+      },
+      "hydration": "Begin hydrated, drink to a practical plan during longer sessions, and replace fluid and sodium afterwards.",
+      "duringTraining": "",
+      "simpleExamples": [
+        "Water with meals",
+        "electrolyte drink around training",
+        "fruit, yoghurt, rice bowls, sandwiches and salty recovery meals."
+      ],
+      "coachFocus": "Adjust fluid and sodium more than macros unless heat materially changes session duration or intensity.",
+      "tags": [
+        "nutrition",
+        "heat",
+        "hydration",
+        "electrolytes"
+      ],
+      "source": "knowledge/nutrition/guidance.md"
+    }
+  ]
+}
