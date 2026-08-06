@@ -4,7 +4,21 @@
 
 Maintain meaningful upper- and lower-body strength during marathon preparation without allowing gym fatigue to compromise key running sessions.
 
-## Lower-Body Session — 5 August 2026
+## Week of 3–9 August 2026
+
+### Monday — Upper Pull
+
+- Back, shoulders and biceps
+- Duration: approximately 1 hour 20 minutes
+- Status: completed
+
+### Tuesday Evening — Upper Push
+
+- Chest, shoulders and triceps
+- Duration: approximately 1 hour 20 minutes
+- Status: completed
+
+### Wednesday — Lower Body
 
 Completed after an 11.18 km over/under tempo run.
 
@@ -16,6 +30,38 @@ Completed after an 11.18 km over/under tempo run.
 | Glute bridge | 70–90 kg | Final set 90 kg × 12 | No back pain reported |
 | Standing calf raise | Bodyweight | 3 × 20–25 | Controlled repetitions |
 | Step-up | Bodyweight | 3 × 10 each leg | Slow eccentric; strong bilateral quad fatigue near the knee without pain |
+
+Status: completed.
+
+### Thursday — Arms
+
+Status: planned.
+
+Focus: biceps and triceps without adding lower-body fatigue before the weekend running sessions.
+
+#### Biceps
+
+| Exercise | Sets | Repetitions |
+|---|---:|---:|
+| Barbell or EZ-bar curl | 3 | 6–10 |
+| Incline dumbbell curl | 3 | 10–12 |
+| Hammer curl | 3 | 10–12 |
+
+#### Triceps
+
+| Exercise | Sets | Repetitions |
+|---|---:|---:|
+| Close-grip bench press | 3 | 6–10 |
+| Resistance-band pushdown | 3 | 10–15 |
+| Overhead resistance-band extension | 3 | 10–15 |
+
+Programming notes:
+
+- 18 working sets total.
+- Keep most sets at approximately 1–2 repetitions in reserve.
+- Rest 2–3 minutes for close-grip bench press and 60–90 seconds for isolation work.
+- Increase band resistance by stepping farther from the anchor or use a slower eccentric when needed.
+- Move this session into the completed activity history after the actual exercises, duration and effort are confirmed.
 
 ## Current Lower-Body Guidance
 
