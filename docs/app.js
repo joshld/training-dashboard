@@ -1,4 +1,4 @@
-const pageMeta={dashboard:['Dashboard','Your current training, recovery and upcoming work.'],plan:['Training Plan','Your schedule across the next training weeks.'],activities:['Activities','Completed running, strength and other sessions.'],performance:['Performance','Training volume and progression indicators.'],recovery:['Recovery','Current recovery, nutrition and injury-monitoring notes.'],coach:['Coach','Current observations, priorities and recommendations.']};
+const pageMeta={dashboard:['Dashboard','Your current training, recovery and upcoming work.'],plan:['Training Plan','Your schedule across the next training weeks.'],activities:['Activities','Completed running, strength and other sessions.'],performance:['Performance','Training volume and progression indicators.'],recovery:['Recovery','Current recovery and training-readiness notes.'],nutrition:['Nutrition','Fueling, hydration and recovery priorities for current training.'],coach:['Coach','Current observations, priorities and recommendations.']};
 let dashboardData=null;
 let charts=[];
 
@@ -67,6 +67,13 @@ function createDistanceChart(id,data){
   }catch(error){console.error(`Chart ${id} failed`,error);ctx.hidden=true;if(fallback)fallback.hidden=false;}
 }
 
+async function loadNutrition(){
+  try{
+    const response=await fetch(`nutrition.json?v=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    renderDocument('nutritionContent',await response.json());
+  }catch(error){console.error('Nutrition load failed',error);setHtml('nutritionContent','<div class="notice">Nutrition guidance could not be loaded. Please refresh after deployment completes.</div>');}
+}
+
 function renderCore(data){
   setText('updated',`Last updated ${data.updated}`);setText('status',data.status);
   setHtml('metrics',data.metrics.map(item=>`<article class="metric"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong><small>${escapeHtml(item.note||'')}</small></article>`).join(''));
@@ -89,4 +96,4 @@ async function loadDashboard(){
   }
 }
 
-document.addEventListener('DOMContentLoaded',()=>{setupNavigation();setupFilters();loadDashboard();});
+document.addEventListener('DOMContentLoaded',()=>{setupNavigation();setupFilters();loadDashboard();loadNutrition();});
