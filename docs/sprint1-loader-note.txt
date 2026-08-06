@@ -1,0 +1,1 @@
+Sprint 1 generated-data integration is implemented through generated-overlay.js. The remaining HTML script include is tracked in PR #1 before merge.
