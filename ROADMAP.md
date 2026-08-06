@@ -52,7 +52,7 @@ The highest-priority unfinished feature is completing the Markdown-first migrati
 - [x] Add GitHub Actions validation and generation workflow
 - [x] Load generated plan and activity data into the dashboard with a legacy fallback
 - [ ] Migrate remaining dashboard sections out of `docs/data.json`
-- [ ] Add schema tests for malformed Markdown and private-field leakage
+- [x] Add schema tests for malformed Markdown and private-field leakage
 - [ ] Stop manually editing legacy JSON once all dashboard sections are generated
 
 #### Garmin import — High priority

@@ -6,6 +6,8 @@ All notable changes to Training Log should be recorded here. This file describes
 
 ### Added
 
+- Node built-in schema, privacy-leakage and deterministic-generation tests for the Markdown-first data pipeline.
+- Sanitised the current public plan status so lower-back context remains private.
 - Living product roadmap with training-engine, workout-library, pace-engine and adaptive-coaching plans.
 - Markdown-first architecture documentation and generator pipeline.
 - Planned Thursday arms workout with biceps and triceps prescriptions.

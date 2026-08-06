@@ -175,6 +175,8 @@ Publication must be opt-in at the field level through an allowlist, not achieved
 7. Mark generated JSON clearly and stop editing it manually.
 8. Add automated validation in GitHub Actions.
 
+The pipeline test suite uses Node's built-in test runner. It exercises valid and invalid Markdown fixtures, schema rules, duplicate/ID/list validation, public-field projections, privacy leakage and deterministic output with an injected generation timestamp.
+
 ## Non-goals for the current static release
 
 - Storing Garmin credentials in browser code

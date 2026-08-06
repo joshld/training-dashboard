@@ -66,6 +66,7 @@ Run the checks relevant to the files changed:
 
 ```powershell
 npm run build:data
+node --test test/pipeline.test.mjs
 node scripts/build-workout-library.mjs
 node scripts/build-nutrition-guidance.mjs
 ```
