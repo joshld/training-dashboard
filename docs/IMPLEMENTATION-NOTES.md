@@ -31,6 +31,17 @@ docs/data.json + docs/nutrition.json remain legacy dashboard payloads.
 
 The current dashboard loads `data.json` and `nutrition.json` first. `generated-overlay.js` overlays the generated plan/activity payload, while the Nutrition tab still reads the legacy `nutrition.json`. This is intentional transitional behaviour and is tracked in the roadmap.
 
+## Import and activity-analysis boundary
+
+The current import flow supports previewing FIT, TCX and GPX data and saving imported activities in browser-local state. The richer activity-analysis experience described in [`ACTIVITY-ANALYSIS.md`](ACTIVITY-ANALYSIS.md) is not fully implemented.
+
+Current behaviour:
+
+- imports are browser-local rather than a durable repository-backed activity source;
+- public activity records are still Markdown summaries, not full FIT-derived analysis records;
+- route and detailed time-series privacy boundaries still need stronger implementation tests around richer imports;
+- activity detail exists, but lap-level running dynamics, historical running-dynamics trends and coach analysis are planned work.
+
 ## Coach and training-engine boundary
 
 The current Coach Review and What If features are not a general adaptive training engine.
@@ -43,7 +54,7 @@ Current behaviour:
 - the optional authenticated API can persist supported suggestion decisions;
 - no server-side model continuously rewrites the plan.
 
-Planned behaviour is defined in [`AI-COACH.md`](AI-COACH.md) and [`TRAINING-ENGINE.md`](TRAINING-ENGINE.md). Those documents are contracts, not evidence that the future engine is already implemented.
+Planned behaviour is defined in [`AI-COACH.md`](AI-COACH.md), [`TRAINING-ENGINE.md`](TRAINING-ENGINE.md) and [`ACTIVITY-ANALYSIS.md`](ACTIVITY-ANALYSIS.md). Those documents are contracts, not evidence that the future engine is already implemented.
 
 ## Design-system status
 
@@ -77,6 +88,8 @@ The optional persistence service must keep write credentials on the server side 
 - The browser-local import and suggestion state is not automatically synchronised across devices.
 - The design-system primitives exist, but legacy page styles are not fully migrated.
 - The What If logic is page-specific rather than a shared tested training-engine module.
+- Rich FIT-derived activity analysis is not yet implemented beyond the current import/detail foundations.
+- Lap-level running dynamics, time-series charts, historical trends and coach analysis are planned work.
 - The workout library does not yet model exercise references, supersets, circuits or drop sets as structured data.
 - Nutrition guidance is generated but the current Nutrition tab still uses its legacy payload.
 - There is no formal TypeScript surface; the dashboard is currently vanilla JavaScript.
