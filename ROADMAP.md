@@ -66,7 +66,8 @@ The highest-priority unfinished feature is completing the Markdown-first migrati
 - [x] Confirm and normalize supported FIT summary, lap and running-dynamics metrics
 - [x] Preserve richer non-location FIT time-series data locally for analysis
 - [ ] Improve FIT compatibility and error reporting
-- [ ] Add pace, heart-rate and cadence charts
+- [x] Add pace, heart-rate and cadence charts
+- [x] Add temperature and running-dynamics charts
 - [x] Add lap-level running-dynamics display
 - [x] Add running-dynamics summary display
 - [ ] Add running-dynamics historical trends

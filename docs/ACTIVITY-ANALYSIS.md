@@ -284,10 +284,10 @@ Activity detail pages should follow [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md):
 1. **Complete** — Confirm and normalize supported FIT summary, lap and running-dynamics metrics.
 2. **Complete** — Preserve richer non-location imported activity data in a local structure.
 3. Define public activity-summary allowlists and privacy tests.
-4. **Partial** — Add activity-detail sections for Overview, Laps and Running Dynamics; Charts and Coach Analysis remain.
+4. **Partial** — Add activity-detail sections for Overview, Laps, Charts and Running Dynamics; Coach Analysis remains.
 5. **Complete** — Add lap-level running-dynamics display where supplied by the export.
-6. Add time-series charts for pace, heart rate, cadence and elevation.
-7. Add running-dynamics charts and historical comparisons.
+6. **Partial** — Add time-series charts for pace, heart rate, cadence, temperature and available running dynamics; elevation remains.
+7. **Partial** — Add running-dynamics charts; historical comparisons remain.
 8. Feed validated activity-analysis features into Coach Review and the Training Engine.
 
 Delivery priority belongs in [`ROADMAP.md`](../ROADMAP.md). Current wiring belongs in [`IMPLEMENTATION-NOTES.md`](IMPLEMENTATION-NOTES.md).

@@ -1,4 +1,7 @@
+import { buildActivityChartSeries } from './activity-analysis.js';
+
 const IMPORTED_ACTIVITY_KEY = 'trainingLogImportedActivities';
+let activityCharts = [];
 
 function escapeActivityHtml(value = '') {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -79,6 +82,87 @@ function renderLapRows(laps = []) {
     </tr>`).join('');
 }
 
+function formatChartValue(value, unit) {
+  if (!Number.isFinite(value)) return '—';
+  if (unit === 'min/km') {
+    const rounded = Math.round(value * 60);
+    return `${Math.floor(rounded / 60)}:${String(rounded % 60).padStart(2, '0')}/km`;
+  }
+  return `${Number(value).toFixed(Number.isInteger(value) ? 0 : 1)} ${unit}`;
+}
+
+function destroyActivityCharts() {
+  activityCharts.forEach(chart => chart.destroy());
+  activityCharts = [];
+}
+
+function renderActivityCharts(activity) {
+  const series = buildActivityChartSeries(activity);
+  if (!series.length) {
+    return '<p class="activity-chart-fallback">No chartable time-series metrics were available in this export.</p>';
+  }
+
+  return series.map((item, index) => `
+    <article class="activity-chart-card">
+      <div class="activity-chart-heading"><div><p class="eyebrow">Time series</p><h4>${escapeActivityHtml(item.label)}</h4></div><span>${escapeActivityHtml(item.unit)}</span></div>
+      <div class="activity-chart-wrap"><canvas id="activityChart${index}" aria-label="${escapeActivityHtml(item.label)} over activity time"></canvas><p class="activity-chart-fallback" id="activityChart${index}Fallback" hidden>Chart unavailable. The activity metrics remain available in Overview and Running Dynamics.</p></div>
+    </article>`).join('');
+}
+
+function drawActivityCharts(activity) {
+  const series = buildActivityChartSeries(activity);
+  series.forEach((item, index) => {
+    const canvas = document.getElementById(`activityChart${index}`);
+    const fallback = document.getElementById(`activityChart${index}Fallback`);
+    if (!canvas || typeof Chart === 'undefined') {
+      if (canvas) canvas.hidden = true;
+      if (fallback) fallback.hidden = false;
+      return;
+    }
+    try {
+      const chart = new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels: item.labels,
+          datasets: [{
+            label: `${item.label} (${item.unit})`,
+            data: item.data,
+            borderColor: item.color,
+            backgroundColor: `${item.color}22`,
+            fill: true,
+            tension: 0.28,
+            spanGaps: true,
+            pointRadius: item.data.length > 80 ? 0 : 2,
+            pointHoverRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: context => formatChartValue(context.parsed.y, item.unit) } }
+          },
+          scales: {
+            x: { ticks: { color: '#8e9ab0', maxTicksLimit: 7 }, grid: { color: 'rgba(43,54,80,.35)' } },
+            y: {
+              reverse: item.key === 'pace',
+              ticks: { color: '#8e9ab0', callback: value => formatChartValue(Number(value), item.unit) },
+              grid: { color: 'rgba(43,54,80,.45)' }
+            }
+          }
+        }
+      });
+      activityCharts.push(chart);
+    } catch (error) {
+      console.error(`Activity chart ${item.key} failed`, error);
+      canvas.hidden = true;
+      if (fallback) fallback.hidden = false;
+    }
+  });
+}
+
 function ensureActivityDialog() {
   let dialog = document.getElementById('activityDetailDialog');
   if (dialog) return dialog;
@@ -106,6 +190,7 @@ function ensureActivityDialog() {
 function openActivityDetails(activity) {
   const dialog = ensureActivityDialog();
   const content = dialog.querySelector('#activityDetailContent');
+  destroyActivityCharts();
   const title = activity.activityType && activity.activityType !== 'activity'
     ? activity.activityType
     : (activity.activity || 'Imported activity');
@@ -160,6 +245,10 @@ function openActivityDetails(activity) {
         </table>
       </div>
     </section>
+    <section class="activity-detail-section" aria-labelledby="activityChartsHeading">
+      <div class="panel-heading"><div><p class="eyebrow">Progressive charts</p><h3 id="activityChartsHeading">Charts</h3></div></div>
+      <div class="activity-chart-grid">${renderActivityCharts(activity)}</div>
+    </section>
     <section class="activity-detail-section" aria-labelledby="runningDynamicsHeading">
       <div class="panel-heading"><div><p class="eyebrow">Form metrics</p><h3 id="runningDynamicsHeading">Running Dynamics</h3></div></div>
       <div class="activity-detail-metrics">${dynamicsMetrics || '<p>No running-dynamics metrics were available in this export.</p>'}</div>
@@ -172,6 +261,7 @@ function openActivityDetails(activity) {
 
   if (typeof dialog.showModal === 'function') dialog.showModal();
   else dialog.setAttribute('open', '');
+  drawActivityCharts(activity);
 }
 
 function decorateImportedCards() {

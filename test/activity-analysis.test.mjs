@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { normalizeFitRecords, parseFitMessages } from '../docs/activity-analysis.js';
+import { buildActivityChartSeries, normalizeFitRecords, parseFitMessages } from '../docs/activity-analysis.js';
 
 const session = {
   sport: 'running',
@@ -127,4 +127,24 @@ test('moving time is derived from active record intervals when FIT omits it', ()
     ]
   });
   assert.equal(activity.movingTimeSeconds, 5);
+});
+
+test('chart series use normalized non-location records and omit unavailable metrics', () => {
+  const series = buildActivityChartSeries({ timeSeries: normalizeFitRecords(records) });
+  const byKey = Object.fromEntries(series.map(item => [item.key, item]));
+
+  assert.deepEqual(byKey.pace.labels, ['07:00', '07:00']);
+  assert.equal(byKey.pace.data[1], 60 / 10.08);
+  assert.deepEqual(byKey.heartRate.data, [140, 142]);
+  assert.deepEqual(byKey.cadence.data, [166, 168]);
+  assert.deepEqual(byKey.temperature.data, [18, 18]);
+  assert.deepEqual(byKey.groundContactTime.data, [255, 250]);
+  assert.equal(byKey.groundContactBalance.data[1], 50.2);
+  assert.equal(byKey.verticalOscillation.data[0], 8.8);
+  assert.equal(byKey.verticalRatio.data[1], 8.6);
+  assert.equal(Object.hasOwn(byKey, 'gps'), false);
+  assert.doesNotMatch(JSON.stringify(series), /positionLat|positionLong|privateNote/);
+
+  const noMetrics = buildActivityChartSeries({ timeSeries: [{ timestamp: '2026-08-07T07:00:00Z' }] });
+  assert.deepEqual(noMetrics, []);
 });
