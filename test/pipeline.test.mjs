@@ -67,8 +67,9 @@ test('activity records validate dates, categories, numbers and public summaries'
 test('weekly progress derives eligible public running distance within the plan range', async () => {
   const plan = parsePlan(await fixture('valid', 'current-plan.md'), 'fixture/current-plan.md');
   assert.deepEqual(parsePlanDateRange(plan.dateRange), { start: '2026-08-03', end: '2026-08-09' });
+  const activityOnlyPlan = { ...plan, workouts: plan.workouts.map(workout => ({ ...workout, completed: false })) };
   const fixtureActivity = parseActivity(await fixture('valid', 'activity.md'), 'fixture/activity.md');
-  const progress = deriveWeeklyRunningProgress(plan, [
+  const progress = deriveWeeklyRunningProgress(activityOnlyPlan, [
     fixtureActivity,
     { date: '2026-08-06', activity: 'Running', status: 'completed', distanceKm: 2 },
     { date: '2026-08-07', activity: 'Running', status: 'imported', distanceKm: 3 },
@@ -79,12 +80,30 @@ test('weekly progress derives eligible public running distance within the plan r
   assert.equal(progress, 13);
 });
 
+test('completed plan running rows contribute when no matching activity exists', async () => {
+  const plan = parsePlan(await fixture('valid', 'current-plan.md'), 'fixture/current-plan.md');
+  assert.equal(deriveWeeklyRunningProgress(plan, []), 8);
+});
+
+test('matching activity and completed plan row are counted once', async () => {
+  const plan = parsePlan(await fixture('valid', 'current-plan.md'), 'fixture/current-plan.md');
+  const matchingActivity = { date: '2026-08-04', activity: 'Running', title: 'Easy Run', status: 'completed', distanceKm: 8 };
+  assert.equal(deriveWeeklyRunningProgress(plan, [matchingActivity]), 8);
+});
+
+test('planned and incomplete plan rows are excluded from running progress', async () => {
+  const plan = parsePlan(await fixture('valid', 'current-plan.md'), 'fixture/current-plan.md');
+  const incompletePlan = { ...plan, workouts: plan.workouts.map(workout => ({ ...workout, completed: false })) };
+  assert.equal(deriveWeeklyRunningProgress(incompletePlan, []), null);
+});
+
 test('private running records do not contribute and manual progress is the fallback', async () => {
   const plan = parsePlan(await fixture('valid', 'current-plan.md'), 'fixture/current-plan.md');
+  const fallbackPlan = { ...plan, workouts: plan.workouts.map(workout => ({ ...workout, completed: false })) };
   const privateRecord = parseActivity(`---\ndate: "2026-08-05"\nactivity: "Running"\ntitle: "Private Run"\ndistance_km: 12\npublic: false\n---\n\n## Private Notes\nRoute coordinates and pain details.`, 'fixture/private-running.md');
   assert.equal(privateRecord, null);
-  assert.equal(deriveWeeklyRunningProgress(plan, [privateRecord]), null);
-  assert.deepEqual(resolveWeeklyProgress(plan, [privateRecord]), {
+  assert.equal(deriveWeeklyRunningProgress(fallbackPlan, [privateRecord]), null);
+  assert.deepEqual(resolveWeeklyProgress(fallbackPlan, [privateRecord]), {
     progressDistance: '8 km completed',
     manualProgressDistance: '8 km completed',
     derivedCompletedRunningDistance: null,
@@ -150,9 +169,9 @@ test('all three generated outputs are valid JSON and meaningful output is determ
   const firstDashboard = await buildDashboardData({ root, timestamp: fixedTimestamp });
   const secondDashboard = await buildDashboardData({ root, timestamp: fixedTimestamp });
   assert.deepEqual(firstDashboard, secondDashboard);
-  assert.equal(firstDashboard.plan.progressDistance, '10.04 km completed');
+  assert.equal(firstDashboard.plan.progressDistance, '28.62 km completed');
   assert.equal(firstDashboard.plan.manualProgressDistance, '20.20 km completed');
-  assert.equal(firstDashboard.plan.derivedCompletedRunningDistance, 10.04);
+  assert.equal(firstDashboard.plan.derivedCompletedRunningDistance, 28.62);
   assert.equal(firstDashboard.plan.progressSource, 'derived');
   const committedDashboard = JSON.parse(await fs.readFile(path.join(root, 'docs', 'generated-data.json'), 'utf8'));
   const committedWorkout = JSON.parse(await fs.readFile(path.join(root, 'docs', 'workout-library.json'), 'utf8'));

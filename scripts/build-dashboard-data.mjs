@@ -13,6 +13,7 @@ export const SUGGESTION_FRONT_MATTER_FIELDS = new Set(['updated']);
 export const ACTIVITY_FRONT_MATTER_FIELDS = new Set(['id', 'date', 'status', 'activity', 'workout_type', 'title', 'duration', 'duration_seconds', 'distance_km', 'source', 'rpe', 'public']);
 export const ACTIVITY_TYPES = new Set(['Running', 'Strength', 'Soccer', 'Futsal', 'Cycling', 'Walking', 'Mobility', 'Recovery', 'Other']);
 export const ACTIVITY_STATUSES = new Set(['completed', 'planned', 'skipped', 'imported']);
+const DAY_INDEX = new Map([['sun', 0], ['mon', 1], ['tue', 2], ['wed', 3], ['thu', 4], ['fri', 5], ['sat', 6]]);
 
 const PLAN_HEADERS = ['day', 'workout', 'distance', 'status', 'notes'];
 const SUGGESTION_HEADERS = ['id', 'workout day', 'workout', 'priority', 'confidence', 'current', 'suggested', 'reason', 'expected impact'];
@@ -104,23 +105,63 @@ export function parseActivity(markdown, filePath = 'activities/record.md') {
   return {
     date: String(data.date), activity: String(data.activity), title: String(data.title),
     status: data.status === undefined ? null : String(data.status).toLowerCase(),
+    workoutType: data.workout_type ? String(data.workout_type) : null,
     summary: publicSummary, duration: data.duration ? String(data.duration) : null,
     distanceKm: data.distance_km === undefined ? null : Number(data.distance_km),
     rpe: data.rpe ? String(data.rpe) : 'â€”'
   };
 }
 
+function planWorkoutDate(planStart, day, filePath = 'plans/current-plan.md') {
+  const dayIndex = DAY_INDEX.get(String(day || '').slice(0, 3).toLowerCase());
+  if (dayIndex === undefined) throw new Error(`${filePath}.workouts: invalid day '${day}'`);
+  const startDate = new Date(`${planStart}T00:00:00Z`);
+  const offset = (dayIndex - startDate.getUTCDay() + 7) % 7;
+  startDate.setUTCDate(startDate.getUTCDate() + offset);
+  return startDate.toISOString().slice(0, 10);
+}
+
+function normalizeWorkoutLabel(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function activityMatchesPlanWorkout(activity, workout) {
+  const plannedLabel = normalizeWorkoutLabel(workout.title);
+  return [activity.title, activity.workoutType]
+    .map(normalizeWorkoutLabel)
+    .filter(Boolean)
+    .some(label => label === plannedLabel || label.includes(plannedLabel) || plannedLabel.includes(label));
+}
+
+function planDistanceKm(value) {
+  const match = String(value || '').match(/^(\d+(?:\.\d+)?)\s*km$/i);
+  return match ? Number(match[1]) : null;
+}
+
 export function deriveWeeklyRunningProgress(plan, activities = []) {
   if (!plan.dateRange) return null;
   const range = parsePlanDateRange(plan.dateRange);
+  const eligibleActivities = activities.filter(activity => activity
+    && activity.activity === 'Running'
+    && (!activity.status || ['completed', 'imported'].includes(activity.status))
+    && activity.date >= range.start
+    && activity.date <= range.end
+    && activity.distanceKm != null);
   let total = 0;
   let count = 0;
-  for (const activity of activities) {
-    if (!activity || activity.activity !== 'Running') continue;
-    if (activity.status && !['completed', 'imported'].includes(activity.status)) continue;
-    if (activity.date < range.start || activity.date > range.end || activity.distanceKm == null) continue;
+  for (const activity of eligibleActivities) {
     total += Number(activity.distanceKm);
     count += 1;
+  }
+  for (const workout of plan.workouts || []) {
+    const distanceKm = planDistanceKm(workout.distance);
+    if (!workout.completed || distanceKm == null) continue;
+    const workoutDate = planWorkoutDate(range.start, workout.day);
+    const matchingActivity = eligibleActivities.some(activity => activity.date === workoutDate && activityMatchesPlanWorkout(activity, workout));
+    if (!matchingActivity) {
+      total += distanceKm;
+      count += 1;
+    }
   }
   return count ? Number(total.toFixed(2)) : null;
 }
