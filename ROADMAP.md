@@ -49,6 +49,7 @@ The highest-priority unfinished feature is completing the Markdown-first migrati
 - [x] Add a zero-dependency Markdown-to-JSON generator
 - [x] Add an allowlisted public plan source in `plans/current-plan.md`
 - [x] Add dated Markdown activity records
+- [x] Derive current-week running progress from eligible public activity records
 - [x] Add GitHub Actions validation and generation workflow
 - [x] Load generated plan and activity data into the dashboard with a legacy fallback
 - [ ] Migrate remaining dashboard sections out of `docs/data.json`
