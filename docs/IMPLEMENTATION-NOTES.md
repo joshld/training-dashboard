@@ -31,7 +31,7 @@ docs/data.json + docs/nutrition.json remain legacy dashboard payloads.
 
 The current dashboard loads `data.json` and `nutrition.json` first. `generated-overlay.js` overlays the generated plan/activity payload, while the Nutrition tab still reads the legacy `nutrition.json`. This is intentional transitional behaviour and is tracked in the roadmap.
 
-The dashboard generator derives the current plan's `progressDistance` from eligible public running records in `activities/records/` whose dates fall within the parsed plan date range. It also publishes `manualProgressDistance`, `derivedCompletedRunningDistance`, `progressSource`, `dateRangeStart` and `dateRangeEnd`; the manual plan value remains the fallback when no eligible distance is available.
+The dashboard generator derives the current plan's `progressDistance` from eligible public running records in `activities/records/` whose dates fall within the parsed plan date range, then reconciles completed distance-based running rows from the plan when no matching activity exists for that date and workout. It also publishes `manualProgressDistance`, `derivedCompletedRunningDistance`, `progressSource`, `dateRangeStart` and `dateRangeEnd`; the manual plan value remains the fallback when no eligible activity or completed plan row is available.
 
 ## Import and activity-analysis boundary
 
