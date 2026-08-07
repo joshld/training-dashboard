@@ -29,7 +29,7 @@ Markdown source
 docs/data.json + docs/nutrition.json remain legacy dashboard payloads.
 ```
 
-The current dashboard loads `data.json` and `nutrition.json` first. `generated-overlay.js` overlays the generated plan/activity payload, while the Nutrition tab still reads the legacy `nutrition.json`. This is intentional transitional behaviour and is tracked in the roadmap.
+The current dashboard loads `data.json` and `nutrition.json` first. `generated-overlay.js` overlays the generated plan/activity payload, while the Nutrition tab still reads the legacy `nutrition.json`. The overlay waits for explicit dashboard-ready/error events rather than a fixed timeout, merges generated sessions into both Activities surfaces, and fetches `generated-data.json` with a unique query string plus `cache: 'no-store'`. This is intentional transitional behaviour and is tracked in the roadmap.
 
 The dashboard generator derives the current plan's `progressDistance` from eligible public running records in `activities/records/` whose dates fall within the parsed plan date range, then reconciles completed distance-based running rows from the plan when no matching activity exists for that date and workout. It also publishes `manualProgressDistance`, `derivedCompletedRunningDistance`, `progressSource`, `dateRangeStart` and `dateRangeEnd`; the manual plan value remains the fallback when no eligible activity or completed plan row is available.
 
@@ -92,6 +92,7 @@ The optional persistence service must keep write credentials on the server side 
 - Generated timestamps remain variable metadata; tests isolate them with an injected timestamp while asserting deterministic meaningful payloads.
 - The browser-local import and suggestion state is not automatically synchronised across devices.
 - Weekly running progress is derived only from repository Markdown activity records; browser-local imported activities do not affect generated dashboard progress until a public activity record exists.
+- Generated activity overlay failures leave the legacy dashboard intact; if the legacy payload fails, generated sessions still render into the Activities surfaces as a safe fallback.
 - FIT field availability varies by device and export; unsupported fields remain null and are not inferred beyond pace and moving-time derivation from reliable records.
 - Activity time-series data and charts are local-only; Chart.js remains an optional enhancement with text fallbacks.
 - The design-system primitives exist, but legacy page styles are not fully migrated.

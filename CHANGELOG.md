@@ -25,6 +25,7 @@ All notable changes to Training Log should be recorded here. This file describes
 
 ### Changed
 
+- Made generated activity overlays event-driven and cache-safe so Markdown activity records reliably appear in Activities after GitHub Pages updates, including a generated-session fallback when the legacy payload fails.
 - Current plan weekly running progress now derives from completed public running records within the plan date range and reconciles unmatched completed running plan rows, with manual progress retained as a fallback and source metadata exposed.
 - Established Markdown files as the intended human-readable source of truth.
 - Reclassified `docs/data.json` as a temporary/generated dashboard payload rather than the long-term authoritative training record.
