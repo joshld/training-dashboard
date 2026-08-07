@@ -24,18 +24,23 @@ function mergeGeneratedSessions(existing=[],generated=[]){
   return [...keyed.values()].sort((a,b)=>Date.parse(b.date||0)-Date.parse(a.date||0));
 }
 
+function renderGeneratedActivityFallback(generated){
+  if(Array.isArray(generated?.sessions))renderActivities(generated.sessions.map(generatedActivityToSession));
+}
+
 function applyGeneratedPlan(generated){
-  if(!dashboardData||!generated?.plan)return;
+  if(!generated)return;
+  if(!dashboardData){renderGeneratedActivityFallback(generated);return;}
   dashboardData.sessions=mergeGeneratedSessions(dashboardData.sessions||[],generated.sessions||[]);
   const current=dashboardData.plan?.weeks?.find(week=>week.current);
-  if(current){
+  if(current&&generated.plan){
     current.name=generated.plan.title||current.name;
     current.dateRange=generated.plan.dateRange||current.dateRange;
     current.plannedDistance=generated.plan.plannedDistance||current.plannedDistance;
     current.progressDistance=generated.plan.progressDistance||current.progressDistance;
     if(Array.isArray(generated.plan.workouts)&&generated.plan.workouts.length)current.workouts=generated.plan.workouts;
   }
-  if(Array.isArray(generated.plan.coachGuidance)&&generated.plan.coachGuidance.length){
+  if(Array.isArray(generated.plan?.coachGuidance)&&generated.plan.coachGuidance.length){
     dashboardData.coachFocus=generated.plan.coachGuidance;
   }
   if(generated.updated)setText('updated',`Last updated ${generated.updated}`);
@@ -53,12 +58,17 @@ async function loadGeneratedMarkdownData(){
       return;
     }
     const generated=await response.json();
-    let attempts=0;
-    const timer=setInterval(()=>{
-      attempts+=1;
-      if(dashboardData){clearInterval(timer);applyGeneratedPlan(generated);}
-      else if(attempts>100){clearInterval(timer);console.warn('Dashboard did not initialise before generated data timeout.');}
-    },50);
+    let settled=false;
+    const cleanup=()=>{
+      document.removeEventListener('training-dashboard-ready',onReady);
+      document.removeEventListener('training-dashboard-error',onError);
+    };
+    const onReady=()=>{if(settled)return;settled=true;cleanup();applyGeneratedPlan(generated);};
+    const onError=()=>{if(settled)return;settled=true;cleanup();renderGeneratedActivityFallback(generated);};
+    document.addEventListener('training-dashboard-ready',onReady);
+    document.addEventListener('training-dashboard-error',onError);
+    if(dashboardData)onReady();
+    else if(dashboardLoadFailed)onError();
   }catch(error){console.warn('Generated Markdown data is unavailable; using legacy dashboard data.',error);}
 }
 
