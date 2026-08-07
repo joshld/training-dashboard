@@ -25,6 +25,7 @@ All notable changes to Training Log should be recorded here. This file describes
 
 ### Changed
 
+- Current plan weekly running progress now derives from completed public running records within the plan date range, with manual progress retained as a fallback and source metadata exposed.
 - Established Markdown files as the intended human-readable source of truth.
 - Reclassified `docs/data.json` as a temporary/generated dashboard payload rather than the long-term authoritative training record.
 - Reduced personal detail in the public repository README.

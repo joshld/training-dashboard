@@ -4,7 +4,8 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import {
-  buildDashboardData, parseActivity, parsePlan, parseSuggestions
+  buildDashboardData, deriveWeeklyRunningProgress, parseActivity, parsePlan, parsePlanDateRange,
+  parseSuggestions, resolveWeeklyProgress
 } from '../scripts/build-dashboard-data.mjs';
 import { buildWorkoutLibrary, parseWorkoutEntries } from '../scripts/build-workout-library.mjs';
 import { buildNutritionGuidance, parseNutritionGuidance } from '../scripts/build-nutrition-guidance.mjs';
@@ -61,6 +62,34 @@ test('activity records validate dates, categories, numbers and public summaries'
   const unknownActivity = await fixture('invalid', 'activity-unknown-field.md');
   assert.throws(() => parseActivity(invalidActivity, 'fixture/activity-invalid.md'), /invalid date|invalid category|invalid numeric/);
   assert.throws(() => parseActivity(unknownActivity, 'fixture/activity-unknown-field.md'), /unknown front matter field/);
+});
+
+test('weekly progress derives eligible public running distance within the plan range', async () => {
+  const plan = parsePlan(await fixture('valid', 'current-plan.md'), 'fixture/current-plan.md');
+  assert.deepEqual(parsePlanDateRange(plan.dateRange), { start: '2026-08-03', end: '2026-08-09' });
+  const fixtureActivity = parseActivity(await fixture('valid', 'activity.md'), 'fixture/activity.md');
+  const progress = deriveWeeklyRunningProgress(plan, [
+    fixtureActivity,
+    { date: '2026-08-06', activity: 'Running', status: 'completed', distanceKm: 2 },
+    { date: '2026-08-07', activity: 'Running', status: 'imported', distanceKm: 3 },
+    { date: '2026-08-06', activity: 'Strength', status: 'completed', distanceKm: 20 },
+    { date: '2026-08-10', activity: 'Running', status: 'completed', distanceKm: 30 },
+    null
+  ]);
+  assert.equal(progress, 13);
+});
+
+test('private running records do not contribute and manual progress is the fallback', async () => {
+  const plan = parsePlan(await fixture('valid', 'current-plan.md'), 'fixture/current-plan.md');
+  const privateRecord = parseActivity(`---\ndate: "2026-08-05"\nactivity: "Running"\ntitle: "Private Run"\ndistance_km: 12\npublic: false\n---\n\n## Private Notes\nRoute coordinates and pain details.`, 'fixture/private-running.md');
+  assert.equal(privateRecord, null);
+  assert.equal(deriveWeeklyRunningProgress(plan, [privateRecord]), null);
+  assert.deepEqual(resolveWeeklyProgress(plan, [privateRecord]), {
+    progressDistance: '8 km completed',
+    manualProgressDistance: '8 km completed',
+    derivedCompletedRunningDistance: null,
+    progressSource: 'manual'
+  });
 });
 
 test('workout fixtures validate metadata, IDs, tags and reference-section exclusion', async () => {
@@ -121,6 +150,10 @@ test('all three generated outputs are valid JSON and meaningful output is determ
   const firstDashboard = await buildDashboardData({ root, timestamp: fixedTimestamp });
   const secondDashboard = await buildDashboardData({ root, timestamp: fixedTimestamp });
   assert.deepEqual(firstDashboard, secondDashboard);
+  assert.equal(firstDashboard.plan.progressDistance, '10.04 km completed');
+  assert.equal(firstDashboard.plan.manualProgressDistance, '20.20 km completed');
+  assert.equal(firstDashboard.plan.derivedCompletedRunningDistance, 10.04);
+  assert.equal(firstDashboard.plan.progressSource, 'derived');
   const committedDashboard = JSON.parse(await fs.readFile(path.join(root, 'docs', 'generated-data.json'), 'utf8'));
   const committedWorkout = JSON.parse(await fs.readFile(path.join(root, 'docs', 'workout-library.json'), 'utf8'));
   const committedNutrition = JSON.parse(await fs.readFile(path.join(root, 'docs', 'nutrition-guidance.json'), 'utf8'));

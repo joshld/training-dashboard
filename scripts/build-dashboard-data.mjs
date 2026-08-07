@@ -26,12 +26,29 @@ function validatePlanDistance(value, label) {
   return text;
 }
 
+function parsePlanDate(value, label) {
+  const timestamp = Date.parse(`${value} UTC`);
+  if (!Number.isFinite(timestamp)) throw new Error(`${label}: invalid date '${value}'`);
+  return new Date(timestamp).toISOString().slice(0, 10);
+}
+
+export function parsePlanDateRange(value, filePath = 'plans/current-plan.md') {
+  const normalized = String(value || '').replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
+  const match = normalized.match(/^(\d{1,2})\s+([A-Za-z]+)(?:\s+(\d{4}))?\s*-\s*(\d{1,2})\s+([A-Za-z]+)(?:\s+(\d{4}))?$/);
+  if (!match) throw new Error(`${filePath}.date_range: invalid value '${value}'`);
+  const year = match[3] || match[6];
+  const start = parsePlanDate(`${match[1]} ${match[2]} ${match[3] || year}`, `${filePath}.date_range.start`);
+  const end = parsePlanDate(`${match[4]} ${match[5]} ${match[6] || year}`, `${filePath}.date_range.end`);
+  if (start > end) throw new Error(`${filePath}.date_range: start must not be after end`);
+  return { start, end };
+}
+
 export function parsePlan(markdown, filePath = 'plans/current-plan.md') {
   const { data, body } = parseFrontMatter(markdown, filePath, { allowedKeys: PLAN_FRONT_MATTER_FIELDS });
   requireFields(data, ['title', 'updated', 'status'], filePath);
   validateDate(data.updated, `${filePath}.updated`, { dateOnly: true });
   if (typeof data.status !== 'string' || !data.status.trim()) throw new Error(`${filePath}.status: invalid status`);
-  if (data.date_range !== undefined && typeof data.date_range !== 'string') throw new Error(`${filePath}.date_range: invalid value`);
+  if (data.date_range !== undefined) parsePlanDateRange(data.date_range, filePath);
   if (data.planned_distance !== undefined) validatePlanDistance(data.planned_distance, `${filePath}.planned_distance`);
   if (data.progress_distance !== undefined && !/^\d+(?:\.\d+)?\s*km\s+completed$/i.test(String(data.progress_distance))) throw new Error(`${filePath}.progress_distance: invalid value`);
 
@@ -86,9 +103,38 @@ export function parseActivity(markdown, filePath = 'activities/record.md') {
   if (!data.public) return null;
   return {
     date: String(data.date), activity: String(data.activity), title: String(data.title),
+    status: data.status === undefined ? null : String(data.status).toLowerCase(),
     summary: publicSummary, duration: data.duration ? String(data.duration) : null,
     distanceKm: data.distance_km === undefined ? null : Number(data.distance_km),
     rpe: data.rpe ? String(data.rpe) : 'â€”'
+  };
+}
+
+export function deriveWeeklyRunningProgress(plan, activities = []) {
+  if (!plan.dateRange) return null;
+  const range = parsePlanDateRange(plan.dateRange);
+  let total = 0;
+  let count = 0;
+  for (const activity of activities) {
+    if (!activity || activity.activity !== 'Running') continue;
+    if (activity.status && !['completed', 'imported'].includes(activity.status)) continue;
+    if (activity.date < range.start || activity.date > range.end || activity.distanceKm == null) continue;
+    total += Number(activity.distanceKm);
+    count += 1;
+  }
+  return count ? Number(total.toFixed(2)) : null;
+}
+
+export function resolveWeeklyProgress(plan, activities = []) {
+  const derivedCompletedRunningDistance = deriveWeeklyRunningProgress(plan, activities);
+  const progressDistance = derivedCompletedRunningDistance == null
+    ? plan.progressDistance
+    : `${derivedCompletedRunningDistance.toFixed(2)} km completed`;
+  return {
+    progressDistance,
+    manualProgressDistance: plan.progressDistance,
+    derivedCompletedRunningDistance,
+    progressSource: derivedCompletedRunningDistance == null ? 'manual' : 'derived'
   };
 }
 
@@ -106,9 +152,14 @@ export async function buildDashboardData({ root = process.cwd(), timestamp } = {
     if (record) sessions.push(record);
   }
   sessions.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  const progress = resolveWeeklyProgress(plan, sessions);
+  const dateRange = plan.dateRange ? parsePlanDateRange(plan.dateRange, relativeSource(root, planPath)) : { start: null, end: null };
   return {
     schemaVersion: 2, generatedAt: resolveTimestamp(timestamp), updated: plan.updated, status: plan.status,
-    plan: { title: plan.title, dateRange: plan.dateRange, plannedDistance: plan.plannedDistance, progressDistance: plan.progressDistance, workouts: plan.workouts, coachGuidance: plan.guidance, suggestions },
+    plan: {
+      title: plan.title, dateRange: plan.dateRange, dateRangeStart: dateRange.start, dateRangeEnd: dateRange.end,
+      plannedDistance: plan.plannedDistance, ...progress, workouts: plan.workouts, coachGuidance: plan.guidance, suggestions
+    },
     sessions
   };
 }
